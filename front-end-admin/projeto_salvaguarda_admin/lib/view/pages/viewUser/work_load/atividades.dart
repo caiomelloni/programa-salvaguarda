@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
+import 'package:projeto_salvaguarda_admin/model/activity.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/components/page_padding_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/components/safe_area_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/carga_horaria.dart';
 
-List<Carga> arrCarga = [Carga("14/11/2022"), Carga("12/11/2021")];
+// List<Carga> arrCarga = [Carga("14/11/2022"), Carga("12/11/2021")];
 
 class ViewActivities extends StatelessWidget {
-  const ViewActivities({super.key});
+  final List<Activity> listActivities;
+
+  const ViewActivities({
+    Key? key,
+    required this.listActivities,
+  }) : super(key: key);
+  // const ViewActivities({super.key});
   //vai receber uma lista de atividades
   static const pageName = "/viewActivities";
 
@@ -44,14 +52,16 @@ class ViewActivities extends StatelessWidget {
                       child: SizedBox(
                         height: 350.0,
                         child: ListView.builder(
-                          itemCount: arrCarga.length,
+                          itemCount: listActivities.length,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => WorkLoadPage()),
+                                      builder: (context) => WorkLoadPage(
+                                            atividade: listActivities[index],
+                                          )),
                                 );
                               },
                               child: Padding(
@@ -86,7 +96,11 @@ class ViewActivities extends StatelessWidget {
                                                         Radius.circular(10.0)),
                                               ),
                                               child: Text(
-                                                arrCarga[index].data,
+                                                DateFormat('dd/MM/yyyy')
+                                                    .format(
+                                                        listActivities[index]
+                                                            .date)
+                                                    .toString(),
                                                 textAlign: TextAlign.center,
                                                 style: const TextStyle(
                                                     color: Color.fromARGB(
@@ -119,7 +133,7 @@ class ViewActivities extends StatelessWidget {
   }
 }
 
-class Carga {
-  String data;
-  Carga(this.data);
-}
+// class Carga {
+//   String data;
+//   Carga(this.data);
+// }

@@ -12,6 +12,7 @@ import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_enable_certi
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/widget/ban_usuario_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/widget/disable_usuario_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/widget/enable_certificate_tutor_dialog.dart';
+import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/atividades.dart';
 
 BanUserController _bancontroller = BanUserController();
 DisableUserController _disablecontroller = DisableUserController();
@@ -85,7 +86,14 @@ class VisualizarDadosTutor extends StatelessWidget {
                 ButtonDataUser(
                   icone: Icons.volunteer_activism,
                   texto: "visualizar atividades",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ViewActivities(
+                                  listActivities: user.listActivities,
+                                )));
+                  },
                 ),
                 const SizedBox(
                   height: 20,

@@ -76,7 +76,9 @@ class VisualizarDadosMoniCorret extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ViewActivities()));
+                            builder: (context) => ViewActivities(
+                                  listActivities: user.listActivities,
+                                )));
                   },
                 ),
                 const SizedBox(
