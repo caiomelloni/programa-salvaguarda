@@ -93,7 +93,7 @@ class ListaPendenciasMes extends StatelessWidget {
   List<Widget> _buildButtonsWithNames() {
     for (int i = 0; i < users.length; i++) {
       buttonsList.add(ButtonUser(
-        cargo: users[i].cargo,
+        cargo: users[i].role,
         nome: users[i].name,
         onPressed: () {},
       ));

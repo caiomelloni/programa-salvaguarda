@@ -19,7 +19,8 @@ EnableCertificateController _enableCertificateController =
     EnableCertificateController();
 
 class VisualizarDadosTutor extends StatelessWidget {
-  final SalvaGuardaVolunteers user;
+  // final SalvaGuardaVolunteers user;
+  final User user; //mock para testes da parte visual
 
   const VisualizarDadosTutor({
     Key? key,

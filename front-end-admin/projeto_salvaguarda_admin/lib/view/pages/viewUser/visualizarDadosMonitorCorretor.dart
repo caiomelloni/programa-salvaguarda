@@ -19,7 +19,8 @@ BanUserController _bancontroller = BanUserController();
 DisableUserController _disablecontroller = DisableUserController();
 
 class VisualizarDadosMoniCorret extends StatelessWidget {
-  final SalvaGuardaVolunteers user;
+  // final SalvaGuardaVolunteers user;
+  final User user;
 
   const VisualizarDadosMoniCorret({
     Key? key,
