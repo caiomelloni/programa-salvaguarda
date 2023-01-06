@@ -1,43 +1,43 @@
 class User {
   final String name;
-  final String cargo;
-  final DateTime ultimaAtualizacao;
+  final String role;
+  final DateTime dtUpdated;
   final String email;
-  final String telefone;
-  final String curso;
-  final int horasCumpridas;
-  final String universidade;
+  final String cellphone;
+  final String course;
+  final int hoursWorked;
+  final String university;
 
   User({
     required this.name,
-    required this.cargo,
-    required this.ultimaAtualizacao,
+    required this.role,
+    required this.dtUpdated,
     required this.email,
-    required this.telefone,
-    required this.curso,
-    required this.horasCumpridas,
-    required this.universidade,
+    required this.cellphone,
+    required this.course,
+    required this.hoursWorked,
+    required this.university,
   });
 
   User copy({
     String? name,
-    String? cargo,
-    DateTime? ultimaAtualizacao,
+    String? role,
+    DateTime? dtUpdated,
     String? email,
-    String? telefone,
-    String? curso,
-    int? horasCumpridas,
-    String? universidade,
+    String? cellphone,
+    String? course,
+    int? hoursWorked,
+    String? university,
   }) =>
       User(
         name: name ?? this.name,
-        cargo: cargo ?? this.cargo,
-        ultimaAtualizacao: ultimaAtualizacao ?? this.ultimaAtualizacao,
+        role: role ?? this.role,
+        dtUpdated: dtUpdated ?? this.dtUpdated,
         email: email ?? this.email,
-        telefone: telefone ?? this.telefone,
-        curso: curso ?? this.curso,
-        horasCumpridas: horasCumpridas ?? this.horasCumpridas,
-        universidade: universidade ?? this.universidade,
+        cellphone: cellphone ?? this.cellphone,
+        course: course ?? this.course,
+        hoursWorked: hoursWorked ?? this.hoursWorked,
+        university: university ?? this.university,
       );
 
   @override
@@ -46,22 +46,22 @@ class User {
       other is User &&
           runtimeType == other.runtimeType &&
           name == other.name &&
-          cargo == other.cargo &&
-          ultimaAtualizacao == other.ultimaAtualizacao &&
+          role == other.role &&
+          dtUpdated == other.dtUpdated &&
           email == other.email &&
-          telefone == other.telefone &&
-          curso == other.curso &&
-          horasCumpridas == other.horasCumpridas &&
-          universidade == other.universidade;
+          cellphone == other.cellphone &&
+          course == other.course &&
+          hoursWorked == other.hoursWorked &&
+          university == other.university;
 
   @override
   int get hashCode =>
       name.hashCode ^
-      cargo.hashCode ^
-      ultimaAtualizacao.hashCode ^
+      role.hashCode ^
+      dtUpdated.hashCode ^
       email.hashCode ^
-      telefone.hashCode ^
-      curso.hashCode ^
-      horasCumpridas.hashCode ^
-      universidade.hashCode;
+      cellphone.hashCode ^
+      course.hashCode ^
+      hoursWorked.hashCode ^
+      university.hashCode;
 }

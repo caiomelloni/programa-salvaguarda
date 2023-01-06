@@ -18,21 +18,24 @@ class _SortablePageState extends State<SortablePage> {
   bool isAscending = false;
   TextEditingController controller = TextEditingController();
   String _searchResult = '';
-  List<SalvaGuardaVolunteers> usersFiltered = [];
-  List<SalvaGuardaVolunteers> _allUser = [];
+  // List<SalvaGuardaVolunteers> usersFiltered = [];
+  // List<SalvaGuardaVolunteers> _allUser = [];
+  List<User> usersFiltered = []; //mock para testes locais da parte visual
+  List<User> _allUser = []; //mock para testes locais da parte visual
 
   @override
   void initState() {
     super.initState();
 
-    // usersFiltered = List.of(allUsers);
-    fetchSalvaGuardaVolunteers().then(
-      (value) {
-        _allUser = value;
-        usersFiltered = value;
-        setState(() {});
-      },
-    );
+    usersFiltered = List.of(allUsers); //mock para testes locais da parte visual
+    _allUser = List.of(allUsers); //mock para testes locais da parte visual
+    // fetchSalvaGuardaVolunteers().then(
+    //   (value) {
+    //     _allUser = value;
+    //     usersFiltered = value;
+    //     setState(() {});
+    //   },
+    // );
   }
 
   @override
@@ -60,7 +63,9 @@ class _SortablePageState extends State<SortablePage> {
                     setState(() {
                       _searchResult = value;
                       usersFiltered = _allUser
-                          .where((user) => user.name.contains(_searchResult))
+                          .where((user) => user.name
+                              .toLowerCase()
+                              .contains(_searchResult.toLowerCase()))
                           .toList();
                     });
                   }),
@@ -83,7 +88,7 @@ class _SortablePageState extends State<SortablePage> {
             height: 380,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(5)),
             ),
             child: ScrollableWidget(
               child: DataTable(
@@ -116,8 +121,12 @@ class _SortablePageState extends State<SortablePage> {
           ))
       .toList();
 
-  List<DataRow> getRows(List<SalvaGuardaVolunteers> users) =>
-      users.map((SalvaGuardaVolunteers user) {
+  // List<DataRow> getRows(List<SalvaGuardaVolunteers> users) =>
+  List<DataRow> getRows(
+          List<User> users) => //mock para testes locais da parte visual
+      // users.map((SalvaGuardaVolunteers user) {
+      users.map((User user) {
+        //mock para testes locais da parte visual
         final cells = [user.name, user.role, user.dtUpdated];
         return DataRow(
           cells: getCells(cells),
