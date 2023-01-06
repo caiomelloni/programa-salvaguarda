@@ -1,3 +1,5 @@
+import 'package:projeto_salvaguarda_admin/model/activity.dart';
+
 class User {
   final String name;
   final String role;
@@ -7,6 +9,7 @@ class User {
   final String course;
   final int hoursWorked;
   final String university;
+  final List<Activity> listActivities;
 
   User({
     required this.name,
@@ -17,6 +20,7 @@ class User {
     required this.course,
     required this.hoursWorked,
     required this.university,
+    required this.listActivities,
   });
 
   User copy({
@@ -28,6 +32,7 @@ class User {
     String? course,
     int? hoursWorked,
     String? university,
+    List<Activity>? listActivities,
   }) =>
       User(
         name: name ?? this.name,
@@ -38,6 +43,7 @@ class User {
         course: course ?? this.course,
         hoursWorked: hoursWorked ?? this.hoursWorked,
         university: university ?? this.university,
+        listActivities: listActivities ?? this.listActivities,
       );
 
   @override
@@ -52,7 +58,8 @@ class User {
           cellphone == other.cellphone &&
           course == other.course &&
           hoursWorked == other.hoursWorked &&
-          university == other.university;
+          university == other.university &&
+          listActivities == other.listActivities;
 
   @override
   int get hashCode =>
@@ -63,5 +70,6 @@ class User {
       cellphone.hashCode ^
       course.hashCode ^
       hoursWorked.hashCode ^
-      university.hashCode;
+      university.hashCode ^
+      listActivities.hashCode;
 }

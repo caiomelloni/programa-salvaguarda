@@ -14,7 +14,8 @@ class TabBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => DefaultTabController(
-        length: 3,
+        // length: 3,
+        length: 1,
         child: SafeArea(
           child: Scaffold(
             // appBar: const AppBarTab(
