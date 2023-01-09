@@ -10,6 +10,7 @@ class User {
   final int hoursWorked;
   final String university;
   final List<Activity> listActivities;
+  final List<DateTime> pendencies;
 
   User({
     required this.name,
@@ -21,19 +22,20 @@ class User {
     required this.hoursWorked,
     required this.university,
     required this.listActivities,
+    required this.pendencies,
   });
 
-  User copy({
-    String? name,
-    String? role,
-    DateTime? dtUpdated,
-    String? email,
-    String? cellphone,
-    String? course,
-    int? hoursWorked,
-    String? university,
-    List<Activity>? listActivities,
-  }) =>
+  User copy(
+          {String? name,
+          String? role,
+          DateTime? dtUpdated,
+          String? email,
+          String? cellphone,
+          String? course,
+          int? hoursWorked,
+          String? university,
+          List<Activity>? listActivities,
+          List<DateTime>? pendencies}) =>
       User(
         name: name ?? this.name,
         role: role ?? this.role,
@@ -44,6 +46,7 @@ class User {
         hoursWorked: hoursWorked ?? this.hoursWorked,
         university: university ?? this.university,
         listActivities: listActivities ?? this.listActivities,
+        pendencies: pendencies ?? this.pendencies,
       );
 
   @override
@@ -59,7 +62,8 @@ class User {
           course == other.course &&
           hoursWorked == other.hoursWorked &&
           university == other.university &&
-          listActivities == other.listActivities;
+          listActivities == other.listActivities &&
+          pendencies == other.pendencies;
 
   @override
   int get hashCode =>
@@ -71,5 +75,6 @@ class User {
       course.hashCode ^
       hoursWorked.hashCode ^
       university.hashCode ^
-      listActivities.hashCode;
+      listActivities.hashCode ^
+      pendencies.hashCode;
 }

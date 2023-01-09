@@ -5,12 +5,13 @@ import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/login/login_page.dart';
 
 class ListaPendenciasMes extends StatelessWidget {
+  late List<ButtonUser> buttonsList;
+  final List<User> users;
+
   ListaPendenciasMes({
     super.key,
     required this.users,
   });
-  late List<ButtonUser> buttonsList;
-  final List<User> users;
 
   @override
   Widget build(BuildContext context) {

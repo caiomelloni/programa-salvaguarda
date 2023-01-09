@@ -16,14 +16,15 @@ class TabelaPendenciasMeses extends StatefulWidget {
 class _TabelaPendenciasMesesState extends State<TabelaPendenciasMeses> {
   List<String> listYears = getYears();
   String dropdownValue = '';
-  List<User> usersFiltered = [];
+  List<User> usersFiltered = []; //mock para testes locais da parte visual
+  List<User> _allUser = []; //mock para testes locais da parte visual
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    this.dropdownValue = DateTime.now().year.toString();
-    this.usersFiltered = List.of(allUsers);
+    dropdownValue = DateTime.now().year.toString();
+    usersFiltered = List.of(allUsers); //mock para testes locais da parte visual
+    _allUser = List.of(allUsers); //mock para testes locais da parte visual
   }
 
   @override
@@ -119,7 +120,9 @@ class _TabelaPendenciasMesesState extends State<TabelaPendenciasMeses> {
                   children: [
                     ButtonMonth(
                       texto: "Janeiro",
-                      onPressed: () {},
+                      onPressed: () {
+                        //List<Var> pendenciesList = ;
+                      },
                     ),
                     const SizedBox(width: 25),
                     ButtonMonth(
