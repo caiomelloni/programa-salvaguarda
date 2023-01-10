@@ -20,18 +20,21 @@ class DataUser extends StatelessWidget {
       ),
       height: 40,
       width: 370,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            info,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 20,
-                color: AppColors.lightPurple,
-                fontWeight: FontWeight.normal),
-          )
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              info,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontSize: 20,
+                  color: AppColors.lightPurple,
+                  fontWeight: FontWeight.normal),
+            )
+          ],
+        ),
       ),
     );
   }

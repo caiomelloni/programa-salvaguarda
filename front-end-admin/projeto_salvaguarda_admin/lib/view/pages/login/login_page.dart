@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   TextFormFieldWidget(
-                    labelText: "Usuário",
+                    labelText: "Email",
                     controller: controller.emailController,
                   ),
                   const SizedBox(

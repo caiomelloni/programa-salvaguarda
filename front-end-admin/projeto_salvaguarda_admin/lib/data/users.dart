@@ -25,6 +25,11 @@ final allUsers = <User>[
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
     ],
+    pendencies: [
+      DateTime.utc(2020, 7, 20),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2023, 1, 6),
+    ],
   ),
   User(
     name: 'Max',
@@ -46,6 +51,11 @@ final allUsers = <User>[
           description: "fvfdvdfv",
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
+    ],
+    pendencies: [
+      DateTime.utc(2019, 7, 20),
+      DateTime.utc(2021, 8, 29),
+      DateTime.utc(2023, 1, 6),
     ],
   ),
   User(
@@ -69,6 +79,11 @@ final allUsers = <User>[
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
     ],
+    pendencies: [
+      DateTime.utc(2022, 7, 20),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2021, 1, 6),
+    ],
   ),
   User(
     name: 'James',
@@ -90,6 +105,11 @@ final allUsers = <User>[
           description: "fvfdvdfv",
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
+    ],
+    pendencies: [
+      DateTime.utc(2021, 7, 20),
+      DateTime.utc(2020, 8, 29),
+      DateTime.utc(2019, 1, 6),
     ],
   ),
   User(
@@ -113,6 +133,11 @@ final allUsers = <User>[
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
     ],
+    pendencies: [
+      DateTime.utc(2022, 7, 20),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2022, 1, 6),
+    ],
   ),
   User(
     name: 'Anton',
@@ -134,6 +159,11 @@ final allUsers = <User>[
           description: "fvfdvdfv",
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
+    ],
+    pendencies: [
+      DateTime.utc(2023, 7, 20),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2023, 1, 6),
     ],
   ),
   User(
@@ -157,6 +187,11 @@ final allUsers = <User>[
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
     ],
+    pendencies: [
+      DateTime.utc(2023, 1, 8),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2023, 1, 6),
+    ],
   ),
   User(
     name: 'Sunday',
@@ -178,6 +213,11 @@ final allUsers = <User>[
           description: "fvfdvdfv",
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
+    ],
+    pendencies: [
+      DateTime.utc(2020, 7, 20),
+      DateTime.utc(2020, 8, 29),
+      DateTime.utc(2020, 1, 6),
     ],
   ),
   User(
@@ -201,6 +241,11 @@ final allUsers = <User>[
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
     ],
+    pendencies: [
+      DateTime.utc(2019, 7, 20),
+      DateTime.utc(2019, 8, 29),
+      DateTime.utc(2019, 1, 6),
+    ],
   ),
   User(
     name: 'Jonah',
@@ -222,6 +267,11 @@ final allUsers = <User>[
           description: "fvfdvdfv",
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
+    ],
+    pendencies: [
+      DateTime.utc(2021, 7, 20),
+      DateTime.utc(2021, 8, 29),
+      DateTime.utc(2021, 1, 6),
     ],
   ),
   User(
@@ -245,6 +295,11 @@ final allUsers = <User>[
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
     ],
+    pendencies: [
+      DateTime.utc(2022, 7, 20),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2022, 1, 6),
+    ],
   ),
   User(
     name: 'Waldo',
@@ -266,6 +321,11 @@ final allUsers = <User>[
           description: "fvfdvdfv",
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
+    ],
+    pendencies: [
+      DateTime.utc(2021, 7, 20),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2023, 1, 6),
     ],
   ),
   User(
@@ -289,6 +349,11 @@ final allUsers = <User>[
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
     ],
+    pendencies: [
+      DateTime.utc(2020, 7, 20),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2023, 1, 6),
+    ],
   ),
   User(
     name: 'Margaret',
@@ -310,6 +375,11 @@ final allUsers = <User>[
           description: "fvfdvdfv",
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
+    ],
+    pendencies: [
+      DateTime.utc(2020, 7, 20),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2023, 1, 6),
     ],
   ),
   User(
@@ -333,6 +403,11 @@ final allUsers = <User>[
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
     ],
+    pendencies: [
+      DateTime.utc(2020, 7, 20),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2023, 1, 6),
+    ],
   ),
   User(
     name: 'Samuel',
@@ -354,6 +429,11 @@ final allUsers = <User>[
           description: "fvfdvdfv",
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
+    ],
+    pendencies: [
+      DateTime.utc(2020, 7, 20),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2023, 1, 6),
     ],
   ),
   User(
@@ -377,6 +457,11 @@ final allUsers = <User>[
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
     ],
+    pendencies: [
+      DateTime.utc(2020, 7, 20),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2023, 1, 6),
+    ],
   ),
   User(
     name: 'Alise',
@@ -398,6 +483,11 @@ final allUsers = <User>[
           description: "fvfdvdfv",
           feedback: "dvdfvdfderv",
           date: DateTime.utc(2022, 12, 01)),
+    ],
+    pendencies: [
+      DateTime.utc(2020, 7, 20),
+      DateTime.utc(2022, 8, 29),
+      DateTime.utc(2023, 1, 6),
     ],
   ),
 ];

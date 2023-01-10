@@ -1,6 +1,7 @@
 import 'package:projeto_salvaguarda_admin/data/users.dart';
 import 'package:projeto_salvaguarda_admin/model/user.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
+import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/login/login_page.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/pendencias/listaPendenciasMes.dart';
 import 'package:flutter/material.dart';
@@ -16,58 +17,22 @@ class TabelaPendenciasMeses extends StatefulWidget {
 class _TabelaPendenciasMesesState extends State<TabelaPendenciasMeses> {
   List<String> listYears = getYears();
   String dropdownValue = '';
-  List<User> usersFiltered = [];
+  List<User> usersFiltered = []; //mock para testes locais da parte visual
+  List<User> _allUsers = []; //mock para testes locais da parte visual
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    this.dropdownValue = DateTime.now().year.toString();
-    this.usersFiltered = List.of(allUsers);
+    dropdownValue = DateTime.now().year.toString();
+    usersFiltered = List.of(allUsers); //mock para testes locais da parte visual
+    _allUsers = List.of(allUsers); //mock para testes locais da parte visual
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            color: const Color.fromRGBO(255, 214, 0, 100),
-          ),
-          backgroundColor: AppColors.lightPurple,
-          title: const Text(
-            "Selecione um Mês",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Color.fromRGBO(255, 214, 0, 100),
-              fontSize: 25,
-              fontWeight: FontWeight.normal,
-            ),
-          ),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {},
-              color: const Color.fromRGBO(255, 214, 0, 100),
-            ),
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () {
-                AuthService.service.signOut();
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (_) => const LoginPage()),
-                  (route) => false,
-                );
-              },
-              color: const Color.fromRGBO(255, 214, 0, 100),
-            ),
-          ],
-        ),
+        appBar: getAppBarWidget(context, canPop: true, showActions: true),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -117,64 +82,88 @@ class _TabelaPendenciasMesesState extends State<TabelaPendenciasMeses> {
                 const SizedBox(height: 20),
                 Column(
                   children: [
-                    ButtonMonth(
+                    _ButtonMonth(
                       texto: "Janeiro",
-                      onPressed: () {},
+                      month: 1,
+                      usersFiltered: usersFiltered,
+                      dropdownValue: dropdownValue,
                     ),
                     const SizedBox(width: 25),
-                    ButtonMonth(
+                    _ButtonMonth(
                       texto: "Fevereiro",
-                      onPressed: () {},
+                      month: 2,
+                      usersFiltered: usersFiltered,
+                      dropdownValue: dropdownValue,
                     ),
                     const SizedBox(width: 25),
-                    ButtonMonth(
+                    _ButtonMonth(
                       texto: "Março",
-                      onPressed: () {},
+                      month: 3,
+                      usersFiltered: usersFiltered,
+                      dropdownValue: dropdownValue,
                     ),
                     const SizedBox(width: 25),
-                    ButtonMonth(
+                    _ButtonMonth(
                       texto: "Abril",
-                      onPressed: () {},
+                      month: 4,
+                      usersFiltered: usersFiltered,
+                      dropdownValue: dropdownValue,
                     ),
                     const SizedBox(width: 25),
-                    ButtonMonth(
+                    _ButtonMonth(
                       texto: "Maio",
-                      onPressed: () {},
+                      month: 5,
+                      usersFiltered: usersFiltered,
+                      dropdownValue: dropdownValue,
                     ),
                     const SizedBox(width: 25),
-                    ButtonMonth(
+                    _ButtonMonth(
                       texto: "Junho",
-                      onPressed: () {},
+                      month: 6,
+                      usersFiltered: usersFiltered,
+                      dropdownValue: dropdownValue,
                     ),
                     const SizedBox(width: 25),
-                    ButtonMonth(
+                    _ButtonMonth(
                       texto: "Julho",
-                      onPressed: () {},
+                      month: 7,
+                      usersFiltered: usersFiltered,
+                      dropdownValue: dropdownValue,
                     ),
                     const SizedBox(width: 25),
-                    ButtonMonth(
+                    _ButtonMonth(
                       texto: "Agosto",
-                      onPressed: () {},
+                      month: 8,
+                      usersFiltered: usersFiltered,
+                      dropdownValue: dropdownValue,
                     ),
                     const SizedBox(width: 25),
-                    ButtonMonth(
+                    _ButtonMonth(
                       texto: "Setembro",
-                      onPressed: () {},
+                      month: 9,
+                      usersFiltered: usersFiltered,
+                      dropdownValue: dropdownValue,
                     ),
                     const SizedBox(width: 25),
-                    ButtonMonth(
+                    _ButtonMonth(
                       texto: "Outubro",
-                      onPressed: () {},
+                      month: 10,
+                      usersFiltered: usersFiltered,
+                      dropdownValue: dropdownValue,
                     ),
                     const SizedBox(width: 25),
-                    ButtonMonth(
+                    _ButtonMonth(
                       texto: "Novembro",
-                      onPressed: () {},
+                      month: 11,
+                      usersFiltered: usersFiltered,
+                      dropdownValue: dropdownValue,
                     ),
                     const SizedBox(width: 25),
-                    ButtonMonth(
+                    _ButtonMonth(
                       texto: "Dezembro",
-                      onPressed: () {},
+                      month: 12,
+                      usersFiltered: usersFiltered,
+                      dropdownValue: dropdownValue,
                     ),
                   ],
                 )
@@ -187,12 +176,17 @@ class _TabelaPendenciasMesesState extends State<TabelaPendenciasMeses> {
   }
 }
 
-class ButtonMonth extends StatelessWidget {
+class _ButtonMonth extends StatelessWidget {
   final String texto;
-  final VoidCallback onPressed;
-  const ButtonMonth({
+  final int month;
+  final List<User> usersFiltered;
+  final String dropdownValue;
+
+  const _ButtonMonth({
     required this.texto,
-    required this.onPressed,
+    required this.month,
+    required this.usersFiltered,
+    required this.dropdownValue,
     Key? key,
   }) : super(key: key);
 
@@ -207,6 +201,20 @@ class ButtonMonth extends StatelessWidget {
         shadowColor: Colors.black38,
         elevation: 5,
       ),
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ListaPendenciasMes(
+                    users: usersFiltered
+                        .where((user) => user.pendencies
+                            .where((element) =>
+                                element.year == int.parse(dropdownValue) &&
+                                element.month == month)
+                            .toList()
+                            .isNotEmpty)
+                        .toList())));
+      },
       child: SizedBox(
         height: 35,
         width: 380,
@@ -226,20 +234,19 @@ class ButtonMonth extends StatelessWidget {
           ],
         ),
       ),
-      onPressed: () {},
     );
   }
 }
 
 List<String> getYears() {
   int currentYear = DateTime.now().year;
+  int numberYears = 4;
 
   List<String> yearsTilPresent = [];
-  int year = 2020;
 
-  while (year <= currentYear) {
-    yearsTilPresent.add(year.toString());
-    year++;
+  while (numberYears >= 0) {
+    yearsTilPresent.add((currentYear - numberYears).toString());
+    numberYears -= 1;
   }
 
   return yearsTilPresent;
