@@ -8,7 +8,7 @@ Future<void> showAlertDialog(
     required Icon icone2,
     required Widget body,
     bool twoicons = false,
-    VoidCallback? onPressed1,
+    required VoidCallback? onPressed1,
     VoidCallback? onPressed2}) async {
   return showDialog<void>(
     context: context,
