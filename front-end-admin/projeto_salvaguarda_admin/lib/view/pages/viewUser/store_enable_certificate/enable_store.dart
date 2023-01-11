@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:projeto_salvaguarda_admin/services/enable_certificate_tutor/errors/enable_errors.dart';
+import 'package:projeto_salvaguarda_admin/services/enable_certificate_tutor/errors/enable_certiificate_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/enable_certificate_tutor/service/enable_user_service.dart';
 
 part 'enable_store.g.dart';

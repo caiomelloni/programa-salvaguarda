@@ -206,14 +206,16 @@ class _ButtonMonth extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => ListaPendenciasMes(
-                    users: usersFiltered
-                        .where((user) => user.pendencies
-                            .where((element) =>
-                                element.year == int.parse(dropdownValue) &&
-                                element.month == month)
-                            .toList()
-                            .isNotEmpty)
-                        .toList())));
+                      users: usersFiltered
+                          .where((user) => user.pendencies
+                              .where((element) =>
+                                  element.year == int.parse(dropdownValue) &&
+                                  element.month == month)
+                              .toList()
+                              .isNotEmpty)
+                          .toList(),
+                      ano: dropdownValue,
+                    )));
       },
       child: SizedBox(
         height: 35,

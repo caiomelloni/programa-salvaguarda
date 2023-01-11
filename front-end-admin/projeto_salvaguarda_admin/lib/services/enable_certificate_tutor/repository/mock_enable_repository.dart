@@ -1,4 +1,4 @@
-import 'package:projeto_salvaguarda_admin/services/enable_certificate_tutor/errors/enable_errors.dart';
+import 'package:projeto_salvaguarda_admin/services/enable_certificate_tutor/errors/enable_certiificate_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/enable_certificate_tutor/repository/enable_repository.dart';
 
 class MockEnableCertificateRepository implements EnableCertificateRepository {

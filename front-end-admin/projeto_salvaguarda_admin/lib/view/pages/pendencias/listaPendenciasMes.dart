@@ -11,10 +11,12 @@ import 'package:projeto_salvaguarda_admin/view/pages/login/login_page.dart';
 class ListaPendenciasMes extends StatelessWidget {
   // late List<ButtonUser> buttonsList;
   final List<User> users;
+  final String ano;
 
   const ListaPendenciasMes({
     super.key,
     required this.users,
+    required this.ano,
   });
 
   @override
@@ -42,16 +44,21 @@ class ListaPendenciasMes extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () {
-                                showAlertDialog(
+                                if (int.parse(ano) == DateTime.now().year) {
+                                  showAlertDialog(
                                     context: context,
-                                    title: "bla",
-                                    icone1: const Icon(Icons.check),
+                                    title: "Mês pendente",
+                                    icone1: const Icon(Icons.close),
                                     icone2: const Icon(Icons.check),
-                                    body: Text(
-                                        users[index].pendencies.toString()),
-                                    onPressed1: () {
-                                      Navigator.pop(context);
-                                    });
+                                    body: const Text(
+                                      "O usuário não preencheu a carga horária deste mês. Deseja dar um prazo de mais 3 dias para o preenchimento desse mês a partir de hoje?",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    twoicons: true,
+                                    onPressed1: () => Navigator.pop(context),
+                                    onPressed2: () => {},
+                                  ); // Falta aqui *************************************************
+                                }
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -73,13 +80,13 @@ class ListaPendenciasMes extends StatelessWidget {
                                             top: 5.0),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Text(
                                               users[index].name,
                                               style: const TextStyle(
                                                   color: Color.fromARGB(
-                                                      156, 239, 82, 14),
+                                                      255, 255, 17, 0),
                                                   fontSize: 20),
                                               maxLines: 1,
                                             ),
@@ -87,7 +94,7 @@ class ListaPendenciasMes extends StatelessWidget {
                                               users[index].role,
                                               style: const TextStyle(
                                                   color: Color.fromARGB(
-                                                      156, 239, 82, 14),
+                                                      255, 255, 17, 0),
                                                   fontSize: 20),
                                               maxLines: 1,
                                             ),
