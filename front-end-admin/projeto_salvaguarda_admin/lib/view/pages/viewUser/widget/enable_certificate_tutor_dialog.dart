@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_salvaguarda_admin/services/enable_certificate_tutor/errors/enable_errors.dart';
+import 'package:projeto_salvaguarda_admin/services/enable_certificate_tutor/errors/enable_certiificate_errors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/pop-up/alert_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/home/home_page.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_enable_certificate/enable_store.dart';

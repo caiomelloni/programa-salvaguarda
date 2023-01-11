@@ -99,6 +99,10 @@ class VisualizarDadosTutor extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => ViewActivities(
                                   listActivities: user.listActivities,
+                                  listPendencies: user.pendencies
+                                      .where((element) =>
+                                          element.year == DateTime.now().year)
+                                      .toList(),
                                 )));
                   },
                 ),
