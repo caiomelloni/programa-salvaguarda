@@ -1,14 +1,16 @@
 import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-import '../errors/auth_exceptions.dart';
-import '../infra/security/security_service_interface.dart';
-import '../models/auth/admin_model.dart';
-import '../models/auth/user_model.dart';
-import '../services/auth/admin_service_interface.dart';
-import '../services/auth/user_service_inteface.dart';
-import '../transfer_object/auth_to.dart';
-import 'api.dart';
+import '../../errors/auth_exceptions.dart';
+import '../../infra/security/security_service_interface.dart';
+import '../../models/auth/admin_model.dart';
+import '../../models/auth/user_model.dart';
+import '../../services/auth/admin_service_interface.dart';
+import '../../services/auth/user_service_inteface.dart';
+import '../../transfer_object/auth_to.dart';
+import '../api.dart';
+import 'endpoints/sign_in_user.dart';
+import 'endpoints/sign_up_user.dart';
 
 class AuthApi extends Api {
   final ISecurityService _securityService;
@@ -24,49 +26,10 @@ class AuthApi extends Api {
     Router router = Router();
 
     ///sign up
-    router.post('/login', (Request req) async {
-      var body = jsonDecode(await req.readAsString());
-
-      try {
-        var createdUser =
-            await _userService.save(UserModel.fromMap(body['user']));
-        var jwt = await _generateUserJwt(createdUser);
-        return _noErrorResponse(createdUser, jwt);
-      } on AuthException catch (e) {
-        return Response.badRequest(
-            body: jsonEncode(
-          {
-            "error": e.message(),
-          },
-        ));
-      } catch (e) {
-        return Response.badRequest();
-      }
-    });
+    router.post('/login', SignUpUserEndPoint(_securityService, _userService).handler);
 
     ///sign in
-    router.post('/login/signin', (Request req) async {
-      var body = await req.readAsString();
-
-      UserModel? user;
-      String? jwt;
-
-      try {
-        var authTo = AuthTo.fromRequest(body);
-        user = await _userService.authenticate(authTo);
-        jwt = await _generateUserJwt(user!);
-      } on AuthException catch (e) {
-        return Response.forbidden(
-          jsonEncode(
-            {"error": e.message()},
-          ),
-        );
-      } on Exception {
-        return Response.badRequest();
-      }
-
-      return _noErrorResponse(user, jwt);
-    });
+    router.post('/login/signin', SignInUserEndPoint(_userService, _securityService).handler);
 
     ///admin sign in
     router.post('/login/admin', (Request req) async {

@@ -1,4 +1,4 @@
-import '../../api/auth_api.dart';
+import '../../api/auth/auth_api.dart';
 import '../../api/user_api.dart';
 import '../../api/workload_api.dart';
 import '../../services/auth/admin_service.dart';
