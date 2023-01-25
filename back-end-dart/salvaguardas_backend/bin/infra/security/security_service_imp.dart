@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:shelf/shelf.dart';
 import '../../util/custom_env.dart';
 import 'security_service_interface.dart';
@@ -5,12 +7,27 @@ import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
 class SecurityService implements ISecurityService<JWT> {
   @override
-  Future<String> generateJWT(int userID, bool isAdmin) async {
+  Future<String> generateJWTUser(int userID) async {
     var jwt = JWT(
       {
         'iat': DateTime.now().millisecondsSinceEpoch,
         'userID': userID,
-        'isAdmin': isAdmin,
+        'isAdmin': false,
+      },
+    );
+
+    String key = CustomEnv.jwtKey;
+    String token = jwt.sign(SecretKey(key));
+
+    return token;
+  }
+
+  Future<String> generateJWTAdmin(int userID) async {
+    var jwt = JWT(
+      {
+        'iat': DateTime.now().millisecondsSinceEpoch,
+        'userID': userID,
+        'isAdmin': true,
       },
     );
 

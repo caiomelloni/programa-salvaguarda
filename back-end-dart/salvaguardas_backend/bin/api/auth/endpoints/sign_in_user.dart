@@ -24,7 +24,7 @@ class SignInUserEndPoint extends EndPoint {
         try {
           var authTo = AuthTo.fromRequest(body);
           user = await _userService.authenticate(authTo);
-          jwt = await _generateUserJwt(user!);
+          jwt = await _securityService.generateJWTUser(user!.id!);
         } on AuthException catch (e) {
           return Response.forbidden(
             jsonEncode(
@@ -37,10 +37,6 @@ class SignInUserEndPoint extends EndPoint {
 
         return _noErrorResponse(user, jwt);
       };
-
-  Future<String> _generateUserJwt(UserModel user) async {
-    return _securityService.generateJWT(user.id!, false);
-  }
 
   Response _noErrorResponse(UserModel user, String jwt) {
     return Response.ok(

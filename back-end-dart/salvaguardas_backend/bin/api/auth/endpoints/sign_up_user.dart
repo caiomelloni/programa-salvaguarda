@@ -21,7 +21,7 @@ class SignUpUserEndPoint extends EndPoint {
         try {
           var createdUser =
               await _userService.save(UserModel.fromMap(body['user']));
-          var jwt = await _generateUserJwt(createdUser);
+          var jwt = await _securityService.generateJWTUser(createdUser.id!);
           return _noErrorResponse(createdUser, jwt);
         } on AuthException catch (e) {
           return Response.badRequest(
@@ -34,14 +34,6 @@ class SignUpUserEndPoint extends EndPoint {
           return Response.badRequest();
         }
       };
-
-  Future<String> _generateUserJwt(UserModel user) async {
-    return _securityService.generateJWT(user.id!, false);
-  }
-
-  Future<String> _generateAdminJwt(AdminModel admin) async {
-    return _securityService.generateJWT(admin.id!, true);
-  }
 
   Response _noErrorResponse(UserModel user, String jwt) {
     return Response.ok(

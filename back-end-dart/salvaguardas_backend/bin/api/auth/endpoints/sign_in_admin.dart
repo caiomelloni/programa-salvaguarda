@@ -46,6 +46,6 @@ class SignInAdminEndPoint extends EndPoint {
       };
 
   Future<String> _generateAdminJwt(AdminModel admin) async {
-    return _securityService.generateJWT(admin.id!, true);
+    return _securityService.generateJWTAdmin(admin.id!);
   }
 }
