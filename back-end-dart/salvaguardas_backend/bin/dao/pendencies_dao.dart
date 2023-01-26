@@ -37,8 +37,8 @@ class PendenciesDao extends DAO<PendenciesModel> {
   }
 
   Future<List<PendenciesModel>> findAllUserPendencies(int userId) async {
-    var sql = "select * from pendencies where id_user = :userId";
-    var q = await execQuery(sql, {"userId": userId});
+    var sql = "select * from pendencies";
+    var q = await execQuery(sql);
     var rows = q.rows;
     List<PendenciesModel> pendencies = [];
     for (var row in rows) {
