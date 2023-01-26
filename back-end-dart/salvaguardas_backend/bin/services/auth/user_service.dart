@@ -1,7 +1,7 @@
 import 'package:password_dart/password_dart.dart';
 
 import '../../errors/auth_exceptions.dart';
-import '../../infra/database/dao/user_dao.dart';
+import '../../dao/user_dao.dart';
 import '../../models/auth/user_model.dart';
 import '../../transfer_object/auth_to.dart';
 import 'user_service_inteface.dart';

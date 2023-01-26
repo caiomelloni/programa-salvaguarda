@@ -1,4 +1,4 @@
-import '../db_config.dart';
+import '../infra/database/db_config.dart';
 
 ///Database Object
 abstract class DAO<T> {
