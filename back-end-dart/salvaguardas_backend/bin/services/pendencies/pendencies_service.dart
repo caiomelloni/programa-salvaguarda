@@ -16,8 +16,8 @@ class PendenciesService implements IpendenciesService {
   }
 
   @override
-  Future<List<PendenciesModel>> findAll(int userId) {
-    return _pendenciesDAO.findAllUserPendencies(userId);
+  Future<List<PendenciesModel>> findAll() {
+    return _pendenciesDAO.findAllUserPendencies();
   }
 
   @override
@@ -29,7 +29,7 @@ class PendenciesService implements IpendenciesService {
   @override
   Future<PendenciesModel?> save(PendenciesModel pendency) async {
     PendenciesModel? pendencySearch = await _pendenciesDAO.findByDate(
-        pendency.month, pendency.year, pendency.userID!);
+        pendency.month, pendency.year, pendency.pendenciesIdUser!);
 
     if (pendencySearch == null) {
       return await _pendenciesDAO.create(pendency);

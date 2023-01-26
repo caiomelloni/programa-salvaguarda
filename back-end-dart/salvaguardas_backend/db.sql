@@ -56,10 +56,10 @@ CREATE TABLE IF NOT EXISTS `dart`.`pendencies` (
   `pending` TINYINT NULL DEFAULT 1,
   `dt_create` datetime DEFAULT CURRENT_TIMESTAMP,
   `dt_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `id_user` INT NOT NULL,
+  `pendencies_id_user` INT NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `id_user`
-    FOREIGN KEY (`id_user`)
+  CONSTRAINT `pendencies_id_user`
+    FOREIGN KEY (`pendencies_id_user`)
     REFERENCES `dart`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

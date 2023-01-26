@@ -1,5 +1,4 @@
 import '../models/pendencies/pendencies_model.dart';
-import '../models/workload/workload_model.dart';
 import 'dao.dart';
 
 class PendenciesDao extends DAO<PendenciesModel> {
@@ -8,11 +7,11 @@ class PendenciesDao extends DAO<PendenciesModel> {
   @override
   Future<PendenciesModel> create(PendenciesModel value) {
     String sql =
-        "insert into pendencies (dt_create, dt_update, year, month, id_user) values (current_timestamp(), current_timestamp(), :year, :month, :idUser);";
+        "insert into pendencies (dt_create, dt_update, year, month, pendencies_id_user) values (current_timestamp(), current_timestamp(), :year, :month, :idUser);";
     execQuery(sql, {
       "year": value.year,
       "month": value.month,
-      "idUser": value.userID,
+      "idUser": value.pendenciesIdUser,
     });
 
     return getLastCreated();
@@ -36,7 +35,7 @@ class PendenciesDao extends DAO<PendenciesModel> {
     throw UnimplementedError();
   }
 
-  Future<List<PendenciesModel>> findAllUserPendencies(int userId) async {
+  Future<List<PendenciesModel>> findAllUserPendencies() async {
     var sql = "select * from pendencies";
     var q = await execQuery(sql);
     var rows = q.rows;
@@ -49,16 +48,18 @@ class PendenciesDao extends DAO<PendenciesModel> {
 
   @override
   Future<PendenciesModel> update(PendenciesModel value) async {
-    var sql = "update pendencies set pending = 0 where id_user = :userId";
+    var sql =
+        "update pendencies set pending = 0 where pendencies_id_user = :userId";
 
     execQuery(
       sql,
       {
-        "userId": value.userID,
+        "userId": value.pendenciesIdUser,
       },
     );
 
-    return (await findByDate(value.month, value.year, value.userID!))!;
+    return (await findByDate(
+        value.month, value.year, value.pendenciesIdUser!))!;
   }
 
   Future<PendenciesModel> getLastCreated() async {
@@ -70,7 +71,7 @@ class PendenciesDao extends DAO<PendenciesModel> {
 
   Future<PendenciesModel?> findByDate(int month, int year, int userId) async {
     var sql =
-        "select * from pendencies where month = :month and year = :year and id_user = :userId";
+        "select * from pendencies where month = :month and year = :year and pendencies_id_user = :userId";
     var db = await connection;
     var result = (await db
             .execute(sql, {"month": month, "year": year, "userId": userId}))

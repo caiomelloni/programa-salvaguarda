@@ -3,22 +3,22 @@ import 'dart:convert';
 import '../model_utils.dart';
 
 class PendenciesModel {
-  int? userID;
+  int? pendenciesIdUser;
   int month;
   int year;
   PendenciesModel({
-    this.userID,
+    this.pendenciesIdUser,
     required this.month,
     required this.year,
   });
 
   PendenciesModel copyWith({
-    int? userID,
+    int? pendenciesIdUser,
     int? month,
     int? year,
   }) {
     return PendenciesModel(
-      userID: userID ?? this.userID,
+      pendenciesIdUser: pendenciesIdUser ?? this.pendenciesIdUser,
       month: month ?? this.month,
       year: year ?? this.year,
     );
@@ -26,7 +26,7 @@ class PendenciesModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'userID': userID,
+      'pendencies_id_user': pendenciesIdUser,
       'month': month,
       'year': year,
     };
@@ -34,7 +34,8 @@ class PendenciesModel {
 
   factory PendenciesModel.fromMap(Map<String, dynamic> map) {
     return PendenciesModel(
-      userID: ModelUtils.tryParseToInt(map['userID'].toString()),
+      pendenciesIdUser:
+          ModelUtils.tryParseToInt(map['pendencies_id_user'].toString()),
       month: DateTime.now().month,
       year: DateTime.now().year,
     );
@@ -42,7 +43,8 @@ class PendenciesModel {
 
   factory PendenciesModel.fromDB(Map<String, dynamic> dbMap) {
     return PendenciesModel(
-      userID: ModelUtils.ifNullReturn(dbMap['id_user'], int.parse),
+      pendenciesIdUser:
+          ModelUtils.ifNullReturn(dbMap['pendencies_id_user'], int.parse),
       month: ModelUtils.ifNullReturn(dbMap['month'], int.parse),
       year: ModelUtils.ifNullReturn(dbMap['year'], int.parse),
     );
@@ -55,6 +57,6 @@ class PendenciesModel {
 
   @override
   String toString() {
-    return 'PendenciesModel(userID: $userID, month: $month, year: $year';
+    return 'PendenciesModel(pendenciesIdUser: $pendenciesIdUser, month: $month, year: $year';
   }
 }

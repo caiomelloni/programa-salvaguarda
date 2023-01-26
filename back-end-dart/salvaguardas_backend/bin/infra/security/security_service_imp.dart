@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:shelf/shelf.dart';
 import '../../util/custom_env.dart';
 import 'security_service_interface.dart';
