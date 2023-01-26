@@ -47,3 +47,17 @@ CREATE TABLE IF NOT EXISTS `dart`.`workload` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `dart`.`pendencies` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `dt_create` datetime DEFAULT CURRENT_TIMESTAMP,
+  `dt_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `id_user` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `id_user`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `dart`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
