@@ -1,4 +1,4 @@
-import '../../../models/workload/workload_model.dart';
+import '../models/workload/workload_model.dart';
 import 'dao.dart';
 
 class WorkloadDAO extends DAO<WorkloadModel> {
@@ -77,9 +77,12 @@ class WorkloadDAO extends DAO<WorkloadModel> {
   }
 
   Future<WorkloadModel?> findByDate(int month, int year, int userId) async {
-    var sql = "select * from workload where month = :month and year = :year and id_user = :userId";
+    var sql =
+        "select * from workload where month = :month and year = :year and id_user = :userId";
     var db = await connection;
-    var result = (await db.execute(sql, {"month": month, "year": year, "userId": userId})).rows;
+    var result = (await db
+            .execute(sql, {"month": month, "year": year, "userId": userId}))
+        .rows;
     return result.isEmpty ? null : WorkloadModel.fromDB(result.first.assoc());
   }
 }

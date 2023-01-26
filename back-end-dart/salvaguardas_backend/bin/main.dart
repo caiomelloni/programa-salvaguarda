@@ -1,5 +1,6 @@
 import 'package:shelf/shelf.dart';
 import 'api/auth/auth_api.dart';
+import 'api/pendencies_api.dart';
 import 'api/user_api.dart';
 import 'api/workload_api.dart';
 import 'infra/custom_server.dart';
@@ -23,6 +24,7 @@ void main(List<String> arguments) async {
       .add(
         di.get<UserApi>().getHandler(),
       )
+      .add(di.get<PendenciesApi>().getHandler())
       .handler;
 
   var handler = Pipeline()

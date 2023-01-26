@@ -1,4 +1,4 @@
-import '../../infra/database/dao/workload_dao.dart';
+import '../../dao/workload_dao.dart';
 import '../../models/auth/user_model.dart';
 import '../../models/workload/workload_model.dart';
 import '../auth/user_service_inteface.dart';
@@ -12,8 +12,8 @@ class WorkLoadService implements IWorkloadService {
 
   @override
   Future<UserModel?> save(WorkloadModel workload) async {
-    WorkloadModel? workloadSearch =
-        await _workloadDao.findByDate(workload.month, workload.year, workload.userID!);
+    WorkloadModel? workloadSearch = await _workloadDao.findByDate(
+        workload.month, workload.year, workload.userID!);
 
     late int updatedWorkedHours;
     if (workloadSearch == null) {

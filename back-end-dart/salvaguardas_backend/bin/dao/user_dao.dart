@@ -1,6 +1,6 @@
 import 'package:password_dart/password_dart.dart';
 
-import '../../../models/auth/user_model.dart';
+import '../models/auth/user_model.dart';
 import 'dao.dart';
 
 class UserDAO extends DAO<UserModel> {
