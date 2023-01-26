@@ -51,6 +51,8 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `dart`.`pendencies` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `year` INT NOT NULL,
+  `month` INT NOT NULL,
   `dt_create` datetime DEFAULT CURRENT_TIMESTAMP,
   `dt_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `id_user` INT NOT NULL,
