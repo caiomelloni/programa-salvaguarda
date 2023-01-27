@@ -33,8 +33,13 @@ class PendenciesDao extends DAO<PendenciesModel> {
   //find all pendencies in the table of pendencies
   @override
   Future<List<PendenciesModel>> findAll() async {
-    var sql = "select * from pendencies";
-    var q = await execQuery(sql);
+    var sql = "select * from pendencies where pending = :state";
+    var q = await execQuery(
+      sql,
+      {
+        "state": true,
+      },
+    );
     var rows = q.rows;
     List<PendenciesModel> pendencies = [];
     for (var row in rows) {
