@@ -24,18 +24,13 @@ class PendenciesDao extends DAO<PendenciesModel> {
   }
 
   @override
-  Future<List<PendenciesModel>> findAll() {
-    // TODO: implement findAll
-    throw UnimplementedError();
-  }
-
-  @override
   Future<PendenciesModel> findOne(int id) {
     // TODO: implement findOne
     throw UnimplementedError();
   }
 
-  Future<List<PendenciesModel>> findAllUserPendencies() async {
+  @override
+  Future<List<PendenciesModel>> findAll() async {
     var sql = "select * from pendencies";
     var q = await execQuery(sql);
     var rows = q.rows;

@@ -17,7 +17,7 @@ class PendenciesService implements IpendenciesService {
 
   @override
   Future<List<PendenciesModel>> findAll() {
-    return _pendenciesDAO.findAllUserPendencies();
+    return _pendenciesDAO.findAll();
   }
 
   @override
