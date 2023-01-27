@@ -8,7 +8,7 @@ class WorkloadDAO extends DAO<WorkloadModel> {
   Future<WorkloadModel> create(WorkloadModel value) {
     String sql =
         "insert into workload (hours_worked, description, feedback, dt_create, dt_update, year, month, id_user) values (:hours, :des, :feed, current_timestamp(), current_timestamp(), :year, :month, :idUser);";
-    execQuery(sql, {
+    dbConfig.execQuery(sql, {
       "hours": value.workedHours,
       "des": value.description,
       "feed": value.feedback,
@@ -40,7 +40,7 @@ class WorkloadDAO extends DAO<WorkloadModel> {
 
   Future<List<WorkloadModel>> findAllUserWorkload(int userId) async {
     var sql = "select * from workload where id_user = :userId";
-    var q = await execQuery(sql, {"userId": userId});
+    var q = await dbConfig.execQuery(sql, {"userId": userId});
     var rows = q.rows;
     List<WorkloadModel> workloads = [];
     for (var row in rows) {
@@ -54,7 +54,7 @@ class WorkloadDAO extends DAO<WorkloadModel> {
     var sql =
         "update workload set hours_worked = :hours, description = :des, feedback = :feed where year = :year and month = :month and id_user = :userId";
 
-    execQuery(
+    dbConfig.execQuery(
       sql,
       {
         "hours": value.workedHours,

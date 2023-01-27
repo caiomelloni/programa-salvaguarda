@@ -3,6 +3,9 @@ import 'package:mysql_client/mysql_client.dart';
 abstract class DBConfig {
   Future<dynamic> createConnection();
   Future<DBConnection> get connection;
+
+  ///Executes a database operation
+  Future execQuery(String databaseCommand, [Map<String, dynamic>? fields]);
 }
 
 class DBConnection {
@@ -14,6 +17,4 @@ class DBConnection {
     required this.execute,
     required this.close,
   });
-
-
 }

@@ -10,7 +10,7 @@ class AdminDao extends DAO<AdminModel> {
   Future<AdminModel> create(AdminModel value) async {
     var sql =
         'INSERT INTO admins (name, email, role, password) VALUES (:name, :email, :role, :password)';
-    await execQuery(
+    await dbConfig.execQuery(
       sql,
       {
         "name": value.name,
@@ -44,7 +44,7 @@ class AdminDao extends DAO<AdminModel> {
   @override
   Future<AdminModel> findOne(int id) async {
     var sql = "SELECT * FROM admins WHERE id = :id";
-    var q = await execQuery(
+    var q = await dbConfig.execQuery(
       sql,
       {"id": id},
     );
@@ -56,7 +56,7 @@ class AdminDao extends DAO<AdminModel> {
   Future<AdminModel?> findByEmail(String email) async {
     var sql = "SELECT * FROM admins WHERE email = :email";
 
-    var q = await execQuery(
+    var q = await dbConfig.execQuery(
       sql,
       {"email": email},
     );

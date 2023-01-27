@@ -14,7 +14,7 @@ class PendenciesDao extends DAO<PendenciesModel> {
   @override
   Future<PendenciesModel?> findOne(int id) async {
     var sql = "select * from pendencies where id = :id";
-    var result = (await execQuery(sql, {"id": id})).rows;
+    var result = (await dbConfig.execQuery(sql, {"id": id})).rows;
     return result.isEmpty ? null : PendenciesModel.fromDB(result.first.assoc());
   }
 
@@ -23,7 +23,7 @@ class PendenciesDao extends DAO<PendenciesModel> {
   Future<PendenciesModel> create(PendenciesModel value) async {
     String sql =
         "insert into pendencies (dt_create, dt_update, year, month, pendencies_id_user) values (current_timestamp(), current_timestamp(), :year, :month, :idUser);";
-    await execQuery(sql, {
+    await dbConfig.execQuery(sql, {
       "year": value.year,
       "month": value.month,
       "idUser": value.pendenciesIdUser,
@@ -36,7 +36,7 @@ class PendenciesDao extends DAO<PendenciesModel> {
   @override
   Future<List<PendenciesModel>> findAll() async {
     var sql = "select * from pendencies where pending = :state";
-    var q = await execQuery(
+    var q = await dbConfig.execQuery(
       sql,
       {
         "state": true,
@@ -56,7 +56,7 @@ class PendenciesDao extends DAO<PendenciesModel> {
     var sql =
         "update pendencies set pending = 0 where pendencies_id_user = :userId and month = :month and year = :year";
 
-    execQuery(
+    dbConfig.execQuery(
       sql,
       {
         "userId": value.pendenciesIdUser,

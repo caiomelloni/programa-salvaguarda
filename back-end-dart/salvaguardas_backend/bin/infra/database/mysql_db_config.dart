@@ -32,5 +32,11 @@ class MySqlDBConfig implements DBConfig {
     await db.connect();
     return db;
   }
+
+@override
+Future execQuery(String sql, [Map<String, dynamic>? fields]) async {
+    var db = await connection;
+    return await db.execute(sql, fields);
+  }
 }
 
