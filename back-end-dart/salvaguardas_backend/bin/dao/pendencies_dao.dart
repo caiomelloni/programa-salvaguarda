@@ -10,18 +10,20 @@ class PendenciesDao extends DAO<PendenciesModel> {
     throw UnimplementedError();
   }
 
+  //return one pendency based on the id
   @override
-  Future<PendenciesModel> findOne(int id) {
-    // TODO: implement findOne
-    throw UnimplementedError();
+  Future<PendenciesModel?> findOne(int id) async {
+    var sql = "select * from pendencies where id = :id";
+    var result = (await execQuery(sql, {"id": id})).rows;
+    return result.isEmpty ? null : PendenciesModel.fromDB(result.first.assoc());
   }
 
   //create a new pendency to the table of pendencies
   @override
-  Future<PendenciesModel> create(PendenciesModel value) {
+  Future<PendenciesModel> create(PendenciesModel value) async {
     String sql =
         "insert into pendencies (dt_create, dt_update, year, month, pendencies_id_user) values (current_timestamp(), current_timestamp(), :year, :month, :idUser);";
-    execQuery(sql, {
+    await execQuery(sql, {
       "year": value.year,
       "month": value.month,
       "idUser": value.pendenciesIdUser,

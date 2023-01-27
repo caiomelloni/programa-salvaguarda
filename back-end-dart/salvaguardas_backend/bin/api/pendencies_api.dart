@@ -55,6 +55,25 @@ class PendenciesApi extends Api {
       ));
     });
 
+    ///get one pendency based on id
+    router.get("/pendencies/admin/pendency", (Request req) async {
+      late PendenciesModel pendency;
+      try {
+        var r = await req.readAsString();
+        pendency = PendenciesModel.fromId(json.decode(r));
+      } on Exception {
+        return Response.badRequest();
+      }
+      RequestContext context = RequestContext(req.context);
+      if (!context.isAdmin) return Response.forbidden("Not Authorized");
+
+      PendenciesModel? result = await _pendenciesService.findOne(pendency.id!);
+
+      return result == null
+          ? Response.badRequest()
+          : Response.ok(result.toJson());
+    });
+
     return createHandler(
       route: router,
       middlewares: middlewares,

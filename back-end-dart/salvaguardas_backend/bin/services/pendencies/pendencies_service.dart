@@ -17,8 +17,7 @@ class PendenciesService implements IpendenciesService {
 
   @override
   Future<PendenciesModel?> findOne(int id) {
-    // TODO: implement findOne
-    throw UnimplementedError();
+    return _pendenciesDAO.findOne(id);
   }
 
   @override
