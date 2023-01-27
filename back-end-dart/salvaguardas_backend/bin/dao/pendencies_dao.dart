@@ -30,7 +30,7 @@ class PendenciesDao extends DAO<PendenciesModel> {
     return getLastCreated();
   }
 
-  //find all pendencies in the table of pendencies
+  //find all pendencies which are active in the table of pendencies
   @override
   Future<List<PendenciesModel>> findAll() async {
     var sql = "select * from pendencies where pending = :state";
