@@ -32,8 +32,7 @@ class PendenciesApi extends Api {
 
       //verificar se o user tenta atualizar um pendencies com o id dele
       if (pendencies.pendenciesIdUser != context.userID) {
-        return Response.forbidden(
-            'You cant update a pendencies that isnt yours');
+        return Response.forbidden('You cant update a pendency that isnt yours');
       }
 
       PendenciesModel? updatePendencie =

@@ -36,8 +36,8 @@ class PendenciesModel {
     return PendenciesModel(
       pendenciesIdUser:
           ModelUtils.tryParseToInt(map['pendencies_id_user'].toString()),
-      month: DateTime.now().month,
-      year: DateTime.now().year,
+      month: ModelUtils.tryParseToInt(map['month'])!,
+      year: ModelUtils.tryParseToInt(map['year'])!,
     );
   }
 

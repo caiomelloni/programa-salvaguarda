@@ -5,6 +5,19 @@ class PendenciesDao extends DAO<PendenciesModel> {
   PendenciesDao(super.dbConfig);
 
   @override
+  Future<PendenciesModel> delete(int id) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<PendenciesModel> findOne(int id) {
+    // TODO: implement findOne
+    throw UnimplementedError();
+  }
+
+  //create a new pendency to the table of pendencies
+  @override
   Future<PendenciesModel> create(PendenciesModel value) {
     String sql =
         "insert into pendencies (dt_create, dt_update, year, month, pendencies_id_user) values (current_timestamp(), current_timestamp(), :year, :month, :idUser);";
@@ -17,18 +30,7 @@ class PendenciesDao extends DAO<PendenciesModel> {
     return getLastCreated();
   }
 
-  @override
-  Future<PendenciesModel> delete(int id) {
-    // TODO: implement delete
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<PendenciesModel> findOne(int id) {
-    // TODO: implement findOne
-    throw UnimplementedError();
-  }
-
+  //find all pendencies in the table of pendencies
   @override
   Future<List<PendenciesModel>> findAll() async {
     var sql = "select * from pendencies";
@@ -41,15 +43,18 @@ class PendenciesDao extends DAO<PendenciesModel> {
     return pendencies;
   }
 
+  //update a pendency in order to indicate it's resolved
   @override
   Future<PendenciesModel> update(PendenciesModel value) async {
     var sql =
-        "update pendencies set pending = 0 where pendencies_id_user = :userId";
+        "update pendencies set pending = 0 where pendencies_id_user = :userId and month = :month and year = :year";
 
     execQuery(
       sql,
       {
         "userId": value.pendenciesIdUser,
+        "month": value.month,
+        "year": value.year,
       },
     );
 

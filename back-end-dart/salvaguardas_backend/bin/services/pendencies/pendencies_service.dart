@@ -16,14 +16,14 @@ class PendenciesService implements IpendenciesService {
   }
 
   @override
-  Future<List<PendenciesModel>> findAll() {
-    return _pendenciesDAO.findAll();
-  }
-
-  @override
   Future<PendenciesModel?> findOne(int id) {
     // TODO: implement findOne
     throw UnimplementedError();
+  }
+
+  @override
+  Future<List<PendenciesModel>> findAll() {
+    return _pendenciesDAO.findAll();
   }
 
   @override
