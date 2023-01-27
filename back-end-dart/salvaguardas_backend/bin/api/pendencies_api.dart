@@ -32,8 +32,7 @@ class PendenciesApi extends Api {
 
       //verificar se o user tenta atualizar um pendencies com o id dele
       if (pendencies.pendenciesIdUser != context.userID) {
-        return Response.forbidden(
-            'You cant update a pendencies that isnt yours');
+        return Response.forbidden('You cant update a pendency that isnt yours');
       }
 
       PendenciesModel? updatePendencie =
@@ -54,6 +53,25 @@ class PendenciesApi extends Api {
       return Response.ok(jsonEncode(
         pendencies.map((e) => e.toMap()).toList(),
       ));
+    });
+
+    ///get one pendency based on id
+    router.get("/pendencies/admin/pendency", (Request req) async {
+      late PendenciesModel pendency;
+      try {
+        var r = await req.readAsString();
+        pendency = PendenciesModel.fromId(json.decode(r));
+      } on Exception {
+        return Response.badRequest();
+      }
+      RequestContext context = RequestContext(req.context);
+      if (!context.isAdmin) return Response.forbidden("Not Authorized");
+
+      PendenciesModel? result = await _pendenciesService.findOne(pendency.id!);
+
+      return result == null
+          ? Response.badRequest()
+          : Response.ok(result.toJson());
     });
 
     return createHandler(

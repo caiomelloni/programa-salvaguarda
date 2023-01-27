@@ -5,10 +5,25 @@ class PendenciesDao extends DAO<PendenciesModel> {
   PendenciesDao(super.dbConfig);
 
   @override
-  Future<PendenciesModel> create(PendenciesModel value) {
+  Future<PendenciesModel> delete(int id) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  //return one pendency based on the id
+  @override
+  Future<PendenciesModel?> findOne(int id) async {
+    var sql = "select * from pendencies where id = :id";
+    var result = (await execQuery(sql, {"id": id})).rows;
+    return result.isEmpty ? null : PendenciesModel.fromDB(result.first.assoc());
+  }
+
+  //create a new pendency to the table of pendencies
+  @override
+  Future<PendenciesModel> create(PendenciesModel value) async {
     String sql =
         "insert into pendencies (dt_create, dt_update, year, month, pendencies_id_user) values (current_timestamp(), current_timestamp(), :year, :month, :idUser);";
-    execQuery(sql, {
+    await execQuery(sql, {
       "year": value.year,
       "month": value.month,
       "idUser": value.pendenciesIdUser,
@@ -17,27 +32,16 @@ class PendenciesDao extends DAO<PendenciesModel> {
     return getLastCreated();
   }
 
+  //find all pendencies which are active in the table of pendencies
   @override
-  Future<PendenciesModel> delete(int id) {
-    // TODO: implement delete
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<PendenciesModel>> findAll() {
-    // TODO: implement findAll
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<PendenciesModel> findOne(int id) {
-    // TODO: implement findOne
-    throw UnimplementedError();
-  }
-
-  Future<List<PendenciesModel>> findAllUserPendencies() async {
-    var sql = "select * from pendencies";
-    var q = await execQuery(sql);
+  Future<List<PendenciesModel>> findAll() async {
+    var sql = "select * from pendencies where pending = :state";
+    var q = await execQuery(
+      sql,
+      {
+        "state": true,
+      },
+    );
     var rows = q.rows;
     List<PendenciesModel> pendencies = [];
     for (var row in rows) {
@@ -46,15 +50,18 @@ class PendenciesDao extends DAO<PendenciesModel> {
     return pendencies;
   }
 
+  //update a pendency in order to indicate it's resolved
   @override
   Future<PendenciesModel> update(PendenciesModel value) async {
     var sql =
-        "update pendencies set pending = 0 where pendencies_id_user = :userId";
+        "update pendencies set pending = 0 where pendencies_id_user = :userId and month = :month and year = :year";
 
     execQuery(
       sql,
       {
         "userId": value.pendenciesIdUser,
+        "month": value.month,
+        "year": value.year,
       },
     );
 
