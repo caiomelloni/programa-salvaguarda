@@ -1,13 +1,10 @@
-import 'dart:convert';
-
 import 'package:shelf/shelf.dart';
-import 'package:shelf/src/handler.dart';
-
 import '../../../errors/auth_exceptions.dart';
 import '../../../infra/security/security_service_interface.dart';
 import '../../../models/auth/user_model.dart';
 import '../../../services/auth/user_service_inteface.dart';
 import '../../../transfer_object/auth_to.dart';
+import '../../../util/extensions/json_parser_extension.dart';
 import '../../endpoint.dart';
 
 class SignInUserEndPoint extends EndPoint {
@@ -27,9 +24,7 @@ class SignInUserEndPoint extends EndPoint {
           jwt = await _securityService.generateJWTUser(user!.id!);
         } on AuthException catch (e) {
           return Response.forbidden(
-            jsonEncode(
-              {"error": e.message()},
-            ),
+              {"error": e.message()}.toJson(),
           );
         } on Exception {
           return Response.badRequest();
@@ -40,12 +35,10 @@ class SignInUserEndPoint extends EndPoint {
 
   Response _noErrorResponse(UserModel user, String jwt) {
     return Response.ok(
-      jsonEncode(
         {
           "user": user.toMap(),
           "token": jwt,
-        },
-      ),
+        }.toJson(),
     );
   }
 }

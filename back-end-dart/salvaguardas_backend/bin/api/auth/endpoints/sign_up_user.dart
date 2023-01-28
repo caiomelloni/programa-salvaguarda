@@ -1,12 +1,11 @@
-import 'dart:convert';
 
 import 'package:shelf/shelf.dart';
 
 import '../../../errors/auth_exceptions.dart';
 import '../../../infra/security/security_service_interface.dart';
-import '../../../models/auth/admin_model.dart';
 import '../../../models/auth/user_model.dart';
 import '../../../services/auth/user_service_inteface.dart';
+import '../../../util/extensions/json_parser_extension.dart';
 import '../../endpoint.dart';
 
 class SignUpUserEndPoint extends EndPoint {
@@ -16,7 +15,7 @@ class SignUpUserEndPoint extends EndPoint {
 
   @override
   Handler get handler => (Request req) async {
-        var body = jsonDecode(await req.readAsString());
+        var body = JsonParser.fromJson(await req.readAsString());
 
         try {
           var createdUser =
@@ -25,11 +24,11 @@ class SignUpUserEndPoint extends EndPoint {
           return _noErrorResponse(createdUser, jwt);
         } on AuthException catch (e) {
           return Response.badRequest(
-              body: jsonEncode(
+              body: 
             {
               "error": e.message(),
-            },
-          ));
+            }.toJson(),
+          );
         } catch (e) {
           return Response.badRequest();
         }
@@ -37,12 +36,10 @@ class SignUpUserEndPoint extends EndPoint {
 
   Response _noErrorResponse(UserModel user, String jwt) {
     return Response.ok(
-      jsonEncode(
         {
           "user": user.toMap(),
           "token": jwt,
-        },
-      ),
+        }.toJson(),
     );
   }
 }

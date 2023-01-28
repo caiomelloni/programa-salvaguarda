@@ -8,7 +8,6 @@ import '../../services/auth/admin_service_interface.dart';
 import '../../services/auth/user_service.dart';
 import '../../services/auth/user_service_inteface.dart';
 import '../../services/pendencies/pendencies_service.dart';
-import '../../services/pendencies/pendencies_service_interface.dart';
 import '../../services/workload/workload_service.dart';
 import '../../dao/admin_dao.dart';
 import '../../dao/user_dao.dart';

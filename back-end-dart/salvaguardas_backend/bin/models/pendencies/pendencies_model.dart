@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import '../../util/extensions/json_parser_extension.dart';
 import '../model_utils.dart';
 
 class PendenciesModel {
@@ -62,10 +61,10 @@ class PendenciesModel {
     );
   }
 
-  String toJson() => json.encode(toMap());
+  String toJson() => toMap().toJson();
 
   factory PendenciesModel.fromJson(String source) =>
-      PendenciesModel.fromMap(json.decode(source));
+      PendenciesModel.fromMap(JsonParser.fromJson(source));
 
   @override
   String toString() {

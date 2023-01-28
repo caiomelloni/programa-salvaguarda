@@ -1,10 +1,8 @@
-import 'dart:convert';
-
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-
 import '../models/request/request_context.dart';
 import '../services/auth/user_service_inteface.dart';
+import '../util/extensions/json_parser_extension.dart';
 import 'api.dart';
 
 class UserApi extends Api {
@@ -22,7 +20,7 @@ class UserApi extends Api {
         RequestContext context = RequestContext.fromRequest(req.headers);
         var user = await _userService.findOne(context.userID);
         return Response.ok(
-            user?.toJson() ?? jsonEncode({"error": "User Not Found"}));
+            user?.toJson() ?? {"error": "User Not Found"}.toJson());
       } catch (e) {
         return Response.badRequest();
       }
@@ -31,7 +29,7 @@ class UserApi extends Api {
     /// update a user (name, email or cellphone)
     router.patch("/user", (Request req) async {
       try {
-        var body = jsonDecode(await req.readAsString());
+        var body = JsonParser.fromJson(await req.readAsString());
         RequestContext context = RequestContext.fromRequest(req.headers);
         var user = await _userService.findOne(context.userID);
         user = user?.copyWith(
@@ -51,9 +49,9 @@ class UserApi extends Api {
         if (!context.isAdmin) return Response.forbidden("Not Authorized");
         var users = await _userService.findAll();
 
-        return Response.ok(jsonEncode(
-          users.map((e) => e.toMap()).toList(),
-        ));
+        return Response.ok(
+          users.map((e) => e.toMap()).toList().toJson()
+        );
       } catch (e) {
         return Response.badRequest();
       }

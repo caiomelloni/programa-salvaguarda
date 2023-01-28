@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import '../../util/extensions/json_parser_extension.dart';
 import '../model_utils.dart';
 
 class UserModel {
@@ -66,6 +65,8 @@ class UserModel {
       'dtUpdated': dtUpdated?.millisecondsSinceEpoch,
     };
   }
+  
+  String toJson() => toMap().toJson();
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
@@ -87,10 +88,8 @@ class UserModel {
     );
   }
 
-  String toJson() => json.encode(toMap());
-
   factory UserModel.fromJson(String source) =>
-      UserModel.fromMap(json.decode(source));
+      UserModel.fromMap(JsonParser.fromJson(source));
 
   @override
   String toString() {

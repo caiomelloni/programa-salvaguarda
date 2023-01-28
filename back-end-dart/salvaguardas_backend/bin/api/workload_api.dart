@@ -1,12 +1,10 @@
-import 'dart:convert';
-
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-
 import '../models/auth/user_model.dart';
 import '../models/request/request_context.dart';
 import '../models/workload/workload_model.dart';
 import '../services/workload/workload_service_interface.dart';
+import '../util/extensions/json_parser_extension.dart';
 import 'api.dart';
 
 class WorkloadApi extends Api {
@@ -57,9 +55,9 @@ class WorkloadApi extends Api {
 
       List<WorkloadModel> workloads = await _workloadService.findAll(userId);
 
-      return Response.ok(jsonEncode(
-        workloads.map((e) => e.toMap()).toList(),
-      ));
+      return Response.ok(
+        workloads.map((e) => e.toMap()).toList().toJson(),
+      );
     });
 
     return createHandler(

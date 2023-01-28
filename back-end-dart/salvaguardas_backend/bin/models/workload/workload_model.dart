@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import '../../util/extensions/json_parser_extension.dart';
 import '../model_utils.dart';
 
 class WorkloadModel {
@@ -70,10 +69,8 @@ class WorkloadModel {
     );
   }
 
-  String toJson() => json.encode(toMap());
-
   factory WorkloadModel.fromJson(String source) =>
-      WorkloadModel.fromMap(json.decode(source));
+      WorkloadModel.fromMap(JsonParser.fromJson(source));
 
   @override
   String toString() {
