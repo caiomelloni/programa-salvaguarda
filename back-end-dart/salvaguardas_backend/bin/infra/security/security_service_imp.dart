@@ -19,7 +19,8 @@ class SecurityService implements ISecurityService<JWT> {
 
     return token;
   }
-
+ 
+  @override
   Future<String> generateJWTAdmin(int userID) async {
     var jwt = JWT(
       {

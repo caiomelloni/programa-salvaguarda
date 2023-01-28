@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import '../../util/extensions/json_parser_extension.dart';
 import '../model_utils.dart';
 
 class AdminModel {
@@ -64,10 +63,8 @@ class AdminModel {
     );
   }
 
-  String toJson() => json.encode(toMap());
-
   factory AdminModel.fromJson(String source) =>
-      AdminModel.fromMap(json.decode(source));
+      AdminModel.fromMap(JsonParser.fromJson(source));
 
   @override
   String toString() {

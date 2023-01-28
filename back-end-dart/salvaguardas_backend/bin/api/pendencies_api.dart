@@ -1,11 +1,9 @@
-import 'dart:convert';
-
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-
 import '../models/pendencies/pendencies_model.dart';
 import '../models/request/request_context.dart';
 import '../services/pendencies/pendencies_service_interface.dart';
+import '../util/extensions/json_parser_extension.dart';
 import 'api.dart';
 
 class PendenciesApi extends Api {
@@ -50,9 +48,9 @@ class PendenciesApi extends Api {
 
       List<PendenciesModel> pendencies = await _pendenciesService.findAll();
 
-      return Response.ok(jsonEncode(
-        pendencies.map((e) => e.toMap()).toList(),
-      ));
+      return Response.ok(
+        pendencies.map((e) => e.toMap()).toList().toJson(),
+      );
     });
 
     ///get one pendency based on id
@@ -60,7 +58,7 @@ class PendenciesApi extends Api {
       late PendenciesModel pendency;
       try {
         var r = await req.readAsString();
-        pendency = PendenciesModel.fromId(json.decode(r));
+        pendency = PendenciesModel.fromId(JsonParser.fromJson(r));
       } on Exception {
         return Response.badRequest();
       }

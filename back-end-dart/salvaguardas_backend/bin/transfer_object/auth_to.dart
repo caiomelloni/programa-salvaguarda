@@ -1,4 +1,4 @@
-import 'dart:convert';
+import '../util/extensions/json_parser_extension.dart';
 
 class AuthTo {
   final String email;
@@ -9,7 +9,7 @@ class AuthTo {
   );
 
   factory AuthTo.fromRequest(String body) {
-    var map = jsonDecode(body);
+    var map = JsonParser.fromJson(body);
     return AuthTo(map['email'], map['password']);
   }
 }

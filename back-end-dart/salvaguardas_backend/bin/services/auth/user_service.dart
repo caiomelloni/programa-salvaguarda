@@ -1,5 +1,4 @@
 import 'package:password_dart/password_dart.dart';
-
 import '../../errors/auth_exceptions.dart';
 import '../../dao/user_dao.dart';
 import '../../models/auth/user_model.dart';
