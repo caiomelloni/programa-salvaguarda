@@ -23,14 +23,14 @@ class AuthApi extends Api {
 
     ///sign up
     router.post(
-        '/login', SignUpUserEndPoint(_securityService, _userService).handler);
+        '/auth/signup', SignUpUserEndPoint(_securityService, _userService).handler);
 
     ///sign in
-    router.post('/login/signin',
+    router.post('/auth/signin',
         SignInUserEndPoint(_userService, _securityService).handler);
 
     ///admin sign in
-    router.post('/login/admin',
+    router.post('/auth/signin/admin',
         SignInAdminEndPoint(_adminService, _securityService).handler);
 
     return createHandler(
