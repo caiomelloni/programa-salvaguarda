@@ -44,24 +44,23 @@ class AdminDao extends DAO<AdminModel> {
   @override
   Future<AdminModel> findOne(int id) async {
     var sql = "SELECT * FROM admins WHERE id = :id";
-    var q = await dbConfig.execQuery(
+    var rows = await dbConfig.execQuery(
       sql,
       {"id": id},
     );
-    var rows = q.rows;
     if (rows.isEmpty) throw Exception('[ERROR/DB] -> findOne $id not found.');
-    return AdminModel.fromMap(rows.first.assoc());
+    return AdminModel.fromMap(rows.first);
   }
 
   Future<AdminModel?> findByEmail(String email) async {
     var sql = "SELECT * FROM admins WHERE email = :email";
 
-    var q = await dbConfig.execQuery(
+    var rows = await dbConfig.execQuery(
       sql,
       {"email": email},
     );
-    var rows = q.rows;
+
     if (rows.isEmpty) return null;
-    return AdminModel.fromMap(rows.first.assoc());
+    return AdminModel.fromMap(rows.first);
   }
 }

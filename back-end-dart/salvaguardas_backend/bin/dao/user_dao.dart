@@ -38,8 +38,8 @@ class UserDAO extends DAO<UserModel> {
   Future<List<UserModel>> findAll() async {
     var sql = "select * from users";
     var q = await dbConfig.execQuery(sql);
-    var t = q.rows.map(
-      (row) => UserModel.fromMap(row.assoc()),
+    var t = q.map(
+      (row) => UserModel.fromMap(row),
     );
     List<UserModel> results = [];
     for (var elem in t) {
@@ -55,9 +55,9 @@ class UserDAO extends DAO<UserModel> {
       sql,
       {"id": id},
     );
-    var rows = q.rows;
+    var rows = q;
     if (rows.isEmpty) throw Exception('[ERROR/DB] -> findOne $id not found.');
-    return UserModel.fromMap(rows.first.assoc());
+    return UserModel.fromMap(rows.first);
   }
 
   @override
@@ -94,15 +94,14 @@ class UserDAO extends DAO<UserModel> {
       sql,
       {"email": email},
     );
-    var rows = q.rows;
+    var rows = q;
     if (rows.isEmpty) return null;
-    return UserModel.fromMap(rows.first.assoc());
+    return UserModel.fromMap(rows.first);
   }
 
   Future<UserModel> _lastUser() async {
     var sql = "select * from users order by id desc limit 1";
-    var db = await connection;
-    var result = await db.execute(sql);
-    return UserModel.fromMap(result.rows.first.assoc());
+    var result = await dbConfig.execQuery(sql);
+    return UserModel.fromMap(result.first);
   }
 }

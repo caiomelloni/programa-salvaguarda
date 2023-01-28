@@ -11,7 +11,4 @@ abstract class DAO<T> {
   DAO(this.dbConfig);
   final DBConfig dbConfig;
 
-  Future<DBConnection> get connection async => await dbConfig.connection;
-
-  
 }

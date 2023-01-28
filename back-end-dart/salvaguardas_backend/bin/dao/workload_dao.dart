@@ -40,11 +40,10 @@ class WorkloadDAO extends DAO<WorkloadModel> {
 
   Future<List<WorkloadModel>> findAllUserWorkload(int userId) async {
     var sql = "select * from workload where id_user = :userId";
-    var q = await dbConfig.execQuery(sql, {"userId": userId});
-    var rows = q.rows;
+    var rows = await dbConfig.execQuery(sql, {"userId": userId});
     List<WorkloadModel> workloads = [];
     for (var row in rows) {
-      workloads.add(WorkloadModel.fromDB(row.assoc()));
+      workloads.add(WorkloadModel.fromDB(row));
     }
     return workloads;
   }
@@ -71,18 +70,15 @@ class WorkloadDAO extends DAO<WorkloadModel> {
 
   Future<WorkloadModel> getLastCreated() async {
     var sql = "select * from workload order by id desc limit 1";
-    var db = await connection;
-    var result = await db.execute(sql);
-    return WorkloadModel.fromDB(result.rows.first.assoc());
+    var result = await dbConfig.execQuery(sql);
+    return WorkloadModel.fromDB(result.first);
   }
 
   Future<WorkloadModel?> findByDate(int month, int year, int userId) async {
     var sql =
         "select * from workload where month = :month and year = :year and id_user = :userId";
-    var db = await connection;
-    var result = (await db
-            .execute(sql, {"month": month, "year": year, "userId": userId}))
-        .rows;
-    return result.isEmpty ? null : WorkloadModel.fromDB(result.first.assoc());
+    var result = await dbConfig
+        .execQuery(sql, {"month": month, "year": year, "userId": userId});
+    return result.isEmpty ? null : WorkloadModel.fromDB(result.first);
   }
 }
