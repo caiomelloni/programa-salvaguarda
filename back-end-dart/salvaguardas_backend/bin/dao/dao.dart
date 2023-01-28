@@ -11,10 +11,4 @@ abstract class DAO<T> {
   DAO(this.dbConfig);
   final DBConfig dbConfig;
 
-  Future<DBConnection> get connection async => await dbConfig.connection;
-
-  Future execQuery(String sql, [Map<String, dynamic>? fields]) async {
-    var db = await connection;
-    return await db.execute(sql, fields);
-  }
 }

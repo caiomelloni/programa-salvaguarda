@@ -10,7 +10,7 @@ class AdminDao extends DAO<AdminModel> {
   Future<AdminModel> create(AdminModel value) async {
     var sql =
         'INSERT INTO admins (name, email, role, password) VALUES (:name, :email, :role, :password)';
-    await execQuery(
+    await dbConfig.execQuery(
       sql,
       {
         "name": value.name,
@@ -44,24 +44,23 @@ class AdminDao extends DAO<AdminModel> {
   @override
   Future<AdminModel> findOne(int id) async {
     var sql = "SELECT * FROM admins WHERE id = :id";
-    var q = await execQuery(
+    var rows = await dbConfig.execQuery(
       sql,
       {"id": id},
     );
-    var rows = q.rows;
     if (rows.isEmpty) throw Exception('[ERROR/DB] -> findOne $id not found.');
-    return AdminModel.fromMap(rows.first.assoc());
+    return AdminModel.fromMap(rows.first);
   }
 
   Future<AdminModel?> findByEmail(String email) async {
     var sql = "SELECT * FROM admins WHERE email = :email";
 
-    var q = await execQuery(
+    var rows = await dbConfig.execQuery(
       sql,
       {"email": email},
     );
-    var rows = q.rows;
+
     if (rows.isEmpty) return null;
-    return AdminModel.fromMap(rows.first.assoc());
+    return AdminModel.fromMap(rows.first);
   }
 }

@@ -14,8 +14,8 @@ class PendenciesDao extends DAO<PendenciesModel> {
   @override
   Future<PendenciesModel?> findOne(int id) async {
     var sql = "select * from pendencies where id = :id";
-    var result = (await execQuery(sql, {"id": id})).rows;
-    return result.isEmpty ? null : PendenciesModel.fromDB(result.first.assoc());
+    var result = (await dbConfig.execQuery(sql, {"id": id}));
+    return result.isEmpty ? null : PendenciesModel.fromDB(result.first);
   }
 
   //create a new pendency to the table of pendencies
@@ -23,7 +23,7 @@ class PendenciesDao extends DAO<PendenciesModel> {
   Future<PendenciesModel> create(PendenciesModel value) async {
     String sql =
         "insert into pendencies (dt_create, dt_update, year, month, pendencies_id_user) values (current_timestamp(), current_timestamp(), :year, :month, :idUser);";
-    await execQuery(sql, {
+    await dbConfig.execQuery(sql, {
       "year": value.year,
       "month": value.month,
       "idUser": value.pendenciesIdUser,
@@ -36,16 +36,16 @@ class PendenciesDao extends DAO<PendenciesModel> {
   @override
   Future<List<PendenciesModel>> findAll() async {
     var sql = "select * from pendencies where pending = :state";
-    var q = await execQuery(
+    var q = await dbConfig.execQuery(
       sql,
       {
         "state": true,
       },
     );
-    var rows = q.rows;
+    var rows = q;
     List<PendenciesModel> pendencies = [];
     for (var row in rows) {
-      pendencies.add(PendenciesModel.fromDB(row.assoc()));
+      pendencies.add(PendenciesModel.fromDB(row));
     }
     return pendencies;
   }
@@ -56,7 +56,7 @@ class PendenciesDao extends DAO<PendenciesModel> {
     var sql =
         "update pendencies set pending = 0 where pendencies_id_user = :userId and month = :month and year = :year";
 
-    execQuery(
+    dbConfig.execQuery(
       sql,
       {
         "userId": value.pendenciesIdUser,
@@ -71,18 +71,15 @@ class PendenciesDao extends DAO<PendenciesModel> {
 
   Future<PendenciesModel> getLastCreated() async {
     var sql = "select * from pendencies order by id desc limit 1";
-    var db = await connection;
-    var result = await db.execute(sql);
-    return PendenciesModel.fromDB(result.rows.first.assoc());
+    var result = await dbConfig.execQuery(sql);
+    return PendenciesModel.fromDB(result.first);
   }
 
   Future<PendenciesModel?> findByDate(int month, int year, int userId) async {
     var sql =
         "select * from pendencies where month = :month and year = :year and pendencies_id_user = :userId";
-    var db = await connection;
-    var result = (await db
-            .execute(sql, {"month": month, "year": year, "userId": userId}))
-        .rows;
-    return result.isEmpty ? null : PendenciesModel.fromDB(result.first.assoc());
+    var result =
+        await dbConfig.execQuery(sql, {"month": month, "year": year, "userId": userId});
+    return result.isEmpty ? null : PendenciesModel.fromDB(result.first);
   }
 }

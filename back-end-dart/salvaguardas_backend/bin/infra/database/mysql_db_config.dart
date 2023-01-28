@@ -4,23 +4,18 @@ import '../../util/custom_env.dart';
 import 'db_config.dart';
 
 class MySqlDBConfig implements DBConfig {
-  MySQLConnection? _connection;
+  MySQLConnection? _connectionInstance;
 
-  @override
-  Future<DBConnection> get connection async {
-    _connection ??= await createConnection();
-    if (_connection == null) {
+  Future<MySQLConnection> get _connection async {
+    _connectionInstance ??= await _createConnection();
+    if (_connectionInstance == null) {
       throw Exception("[ERROR/DB] -> DB Connection Failed");
     }
 
-    return DBConnection.fromMySQL(
-      execute: _connection!.execute,
-      close: _connection!.close,
-    );
+    return _connectionInstance!;
   }
 
-  @override
-  Future<MySQLConnection> createConnection() async {
+  Future<MySQLConnection> _createConnection() async {
     final db = await MySQLConnection.createConnection(
       host: CustomEnv.dbHost,
       port: CustomEnv.dbPort,
@@ -32,5 +27,17 @@ class MySqlDBConfig implements DBConfig {
     await db.connect();
     return db;
   }
-}
 
+  @override
+  Future<List<Map<String, String?>>> execQuery(String sql,
+      [Map<String, dynamic>? fields]) async {
+    var db = await _connection;
+    var resultSet = await db.execute(sql, fields);
+    List<Map<String, String?>> rows = [];
+
+    for (var rowSet in resultSet.rows) {
+      rows.add(rowSet.assoc());
+    }
+    return rows;
+  }
+}
