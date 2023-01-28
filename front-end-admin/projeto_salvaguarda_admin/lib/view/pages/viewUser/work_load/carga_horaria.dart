@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
+import 'package:projeto_salvaguarda_admin/model/activity.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/components/buttons/elevated_button_widget.dart';
@@ -9,7 +11,13 @@ import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/componen
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/components/workload_field.dart';
 
 class WorkLoadPage extends StatelessWidget {
-  const WorkLoadPage({super.key});
+  final Activity atividade;
+
+  const WorkLoadPage({
+    Key? key,
+    required this.atividade,
+  }) : super(key: key);
+  // const WorkLoadPage({super.key});
   //vai receber uma argumento da classe atividade que contenha os atributos de horas, descrição e feedback
   static const pageName = "/viewActivitiesDetails";
 
@@ -27,27 +35,26 @@ class WorkLoadPage extends StatelessWidget {
             extraPadding: const EdgeInsets.only(bottom: 30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                SizedBox(height: 20),
+              children: [
+                const SizedBox(height: 20),
                 Text(
-                  "Atividade dd/mm/yyyy",
-                  style: TextStyle(color: AppColors.lightPurple, fontSize: 30),
+                  "Atividade ${DateFormat('dd/MM/yyyy').format(atividade.date)}",
+                  style: const TextStyle(
+                      color: AppColors.lightPurple, fontSize: 30),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 WorkloadField(
-                  horasTrabalhadas: "16",
+                  horasTrabalhadas: atividade.hoursWorked.toString(),
                 ),
                 TextFieldDescription(
                   title: "Descrição dos feitos",
-                  descricao:
-                      "Corrigi 2 redações da Ana Almeida, 3 do Gustavo dos Santos e 3 da Júlia da silva. Forneci feedback construtivos de como poderiam ter feito melhores redações aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  descricao: atividade.description,
                 ),
                 TextFieldDescription(
                   title: "Feedback",
-                  descricao:
-                      "Corrigi 2 redações da Ana Almeida, 3 do Gustavo dos Santos e 3 da Júlia da silva. Forneci feedback construtivos de como poderiam ter feito melhores redações aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                  descricao: atividade.feedback,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ),

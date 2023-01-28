@@ -1,3 +1,5 @@
+import 'package:projeto_salvaguarda_admin/model/activity.dart';
+
 class User {
   final String name;
   final String role;
@@ -7,6 +9,8 @@ class User {
   final String course;
   final int hoursWorked;
   final String university;
+  final List<Activity> listActivities;
+  final List<DateTime> pendencies;
 
   User({
     required this.name,
@@ -17,18 +21,21 @@ class User {
     required this.course,
     required this.hoursWorked,
     required this.university,
+    required this.listActivities,
+    required this.pendencies,
   });
 
-  User copy({
-    String? name,
-    String? role,
-    DateTime? dtUpdated,
-    String? email,
-    String? cellphone,
-    String? course,
-    int? hoursWorked,
-    String? university,
-  }) =>
+  User copy(
+          {String? name,
+          String? role,
+          DateTime? dtUpdated,
+          String? email,
+          String? cellphone,
+          String? course,
+          int? hoursWorked,
+          String? university,
+          List<Activity>? listActivities,
+          List<DateTime>? pendencies}) =>
       User(
         name: name ?? this.name,
         role: role ?? this.role,
@@ -38,6 +45,8 @@ class User {
         course: course ?? this.course,
         hoursWorked: hoursWorked ?? this.hoursWorked,
         university: university ?? this.university,
+        listActivities: listActivities ?? this.listActivities,
+        pendencies: pendencies ?? this.pendencies,
       );
 
   @override
@@ -52,7 +61,9 @@ class User {
           cellphone == other.cellphone &&
           course == other.course &&
           hoursWorked == other.hoursWorked &&
-          university == other.university;
+          university == other.university &&
+          listActivities == other.listActivities &&
+          pendencies == other.pendencies;
 
   @override
   int get hashCode =>
@@ -63,5 +74,7 @@ class User {
       cellphone.hashCode ^
       course.hashCode ^
       hoursWorked.hashCode ^
-      university.hashCode;
+      university.hashCode ^
+      listActivities.hashCode ^
+      pendencies.hashCode;
 }

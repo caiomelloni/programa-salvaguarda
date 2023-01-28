@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:projeto_salvaguarda_admin/data/users.dart';
 import 'package:projeto_salvaguarda_admin/model/user.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
@@ -46,7 +47,7 @@ class _SortablePageState extends State<SortablePage> {
       );
 
   Widget buildDataTable() {
-    final columns = ['Nome', 'Cargo', 'Ultima Atualização'];
+    final columns = ['Nome', 'Cargo', 'Última Atualização'];
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -127,7 +128,11 @@ class _SortablePageState extends State<SortablePage> {
       // users.map((SalvaGuardaVolunteers user) {
       users.map((User user) {
         //mock para testes locais da parte visual
-        final cells = [user.name, user.role, user.dtUpdated];
+        final cells = [
+          user.name,
+          user.role,
+          DateFormat('dd/MM/yyyy').format(user.dtUpdated),
+        ];
         return DataRow(
           cells: getCells(cells),
           onSelectChanged: (value) {

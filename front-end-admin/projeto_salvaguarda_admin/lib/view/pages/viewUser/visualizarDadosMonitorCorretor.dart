@@ -29,6 +29,7 @@ class VisualizarDadosMoniCorret extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int year = DateTime.now().year;
     return SafeArea(
       child: Scaffold(
         // appBar: const AppBarViewUserData(),
@@ -67,6 +68,12 @@ class VisualizarDadosMoniCorret extends StatelessWidget {
                 ),
                 DataUser(info: "${user.hoursWorked} Horas cumpridas"),
                 const SizedBox(
+                  height: 20,
+                ),
+                DataUser(
+                    info:
+                        "${user.pendencies.where((element) => element.year == year).toList().length} pendência(s) neste ano"),
+                const SizedBox(
                   height: 40,
                 ),
                 ButtonDataUser(
@@ -76,7 +83,13 @@ class VisualizarDadosMoniCorret extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ViewActivities()));
+                            builder: (context) => ViewActivities(
+                                  listActivities: user.listActivities,
+                                  listPendencies: user.pendencies
+                                      .where((element) =>
+                                          element.year == DateTime.now().year)
+                                      .toList(),
+                                )));
                   },
                 ),
                 const SizedBox(
