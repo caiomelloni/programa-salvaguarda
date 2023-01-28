@@ -24,9 +24,9 @@ class SignInUserEndPoint extends EndPoint {
           jwt = await _securityService.generateJWTUser(user!.id!);
         } on AuthException catch (e) {
           return Response.forbidden(
-              {"error": e.message()}.toJson(),
+            {"error": e.message()}.toJson(),
           );
-        } on Exception {
+        } catch (e) {
           return Response.badRequest();
         }
 
@@ -35,10 +35,10 @@ class SignInUserEndPoint extends EndPoint {
 
   Response _noErrorResponse(UserModel user, String jwt) {
     return Response.ok(
-        {
-          "user": user.toMap(),
-          "token": jwt,
-        }.toJson(),
+      {
+        "user": user.toMap(),
+        "token": jwt,
+      }.toJson(),
     );
   }
 }
