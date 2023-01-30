@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:projeto_salvaguarda_admin/model/pendency.dart';
 import 'package:projeto_salvaguarda_admin/model/user.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
@@ -11,10 +12,12 @@ import 'package:projeto_salvaguarda_admin/view/pages/login/login_page.dart';
 class ListaPendenciasMes extends StatelessWidget {
   // late List<ButtonUser> buttonsList;
   final List<User> users;
+  final List<Pendency> pendencies;
   final String ano;
 
   const ListaPendenciasMes({
     super.key,
+    required this.pendencies,
     required this.users,
     required this.ano,
   });
@@ -40,7 +43,7 @@ class ListaPendenciasMes extends StatelessWidget {
                       child: SizedBox(
                         height: 350.0,
                         child: ListView.builder(
-                          itemCount: users.length,
+                          itemCount: pendencies.length,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () {
@@ -83,7 +86,15 @@ class ListaPendenciasMes extends StatelessWidget {
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Text(
-                                              users[index].name,
+                                              // users[index].name,
+                                              users
+                                                  .where((element) =>
+                                                      element.id ==
+                                                      pendencies[index].idUser)
+                                                  .toList()
+                                                  .first
+                                                  .name
+                                                  .toString(),
                                               style: const TextStyle(
                                                   color: Color.fromARGB(
                                                       255, 255, 17, 0),
@@ -91,7 +102,15 @@ class ListaPendenciasMes extends StatelessWidget {
                                               maxLines: 1,
                                             ),
                                             Text(
-                                              users[index].role,
+                                              // users[index].role,
+                                              users
+                                                  .where((element) =>
+                                                      element.id ==
+                                                      pendencies[index].idUser)
+                                                  .toList()
+                                                  .first
+                                                  .role
+                                                  .toString(),
                                               style: const TextStyle(
                                                   color: Color.fromARGB(
                                                       255, 255, 17, 0),
