@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_salvaguarda_admin/model/activity.dart';
+import 'package:projeto_salvaguarda_admin/model/pendency.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/components/page_padding_widget.dart';
@@ -11,7 +12,7 @@ import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/carga_ho
 
 class ViewActivities extends StatelessWidget {
   final List<Activity> listActivities;
-  final List<DateTime> listPendencies;
+  final List<Pendency> listPendencies;
 
   const ViewActivities({
     Key? key,
@@ -143,19 +144,22 @@ class ViewActivities extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () {
-                                showAlertDialog(
-                                    context: context,
-                                    title: "Mês pendente",
-                                    icone1: const Icon(Icons.close),
-                                    icone2: const Icon(Icons.check),
-                                    body: const Text(
-                                      "O usuário não preencheu a carga horária deste mês. Deseja dar um prazo de mais 3 dias para o preenchimento desse mês a partir de hoje?",
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    twoicons: true,
-                                    onPressed1: () => Navigator.pop(context),
-                                    onPressed2: () =>
-                                        {}); // Falta aqui *************************************************
+                                if (DateTime.now().year ==
+                                    listPendencies[index].year) {
+                                  showAlertDialog(
+                                      context: context,
+                                      title: "Mês pendente",
+                                      icone1: const Icon(Icons.close),
+                                      icone2: const Icon(Icons.check),
+                                      body: const Text(
+                                        "O usuário não preencheu a carga horária deste mês. Deseja dar um prazo de mais 3 dias para o preenchimento desse mês a partir de hoje?",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      twoicons: true,
+                                      onPressed1: () => Navigator.pop(context),
+                                      onPressed2: () =>
+                                          {}); // Falta aqui *************************************************
+                                }
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -191,7 +195,8 @@ class ViewActivities extends StatelessWidget {
                                               child: Text(
                                                 DateFormat('dd/MM/yyyy')
                                                     .format(
-                                                        listPendencies[index])
+                                                        listPendencies[index]
+                                                            .date)
                                                     .toString(),
                                                 textAlign: TextAlign.center,
                                                 style: const TextStyle(

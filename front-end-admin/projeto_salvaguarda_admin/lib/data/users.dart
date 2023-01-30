@@ -3,6 +3,7 @@ import 'package:projeto_salvaguarda_admin/model/user.dart';
 
 final allUsers = <User>[
   User(
+    id: 1,
     name: 'Emma',
     role: 'Monitor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -11,27 +12,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description:
-              "Corrigi 2 redações da Ana Almeida, 3 do Gustavo dos Santos e 3 da Júlia da silva. Forneci feedback construtivos de como poderiam ter feito melhores redações aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          feedback:
-              "Corrigi 2 redações da Ana Almeida, 3 do Gustavo dos Santos e 3 da Júlia da silva. Forneci feedback construtivos de como poderiam ter feito melhores redações sdvfvfsvaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2020, 7, 20),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2023, 1, 6),
-    ],
   ),
   User(
+    id: 2,
     name: 'Max',
     role: 'Corretor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -40,25 +23,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2019, 7, 20),
-      DateTime.utc(2021, 8, 29),
-      DateTime.utc(2023, 1, 6),
-    ],
   ),
   User(
+    id: 3,
     name: 'Sarah',
     role: 'Monitor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -67,25 +34,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2022, 7, 20),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2021, 1, 6),
-    ],
   ),
   User(
+    id: 4,
     name: 'James',
     role: 'Tutor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -94,25 +45,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2021, 7, 20),
-      DateTime.utc(2020, 8, 29),
-      DateTime.utc(2019, 1, 6),
-    ],
   ),
   User(
+    id: 5,
     name: 'Lorita',
     role: 'Tutor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -121,25 +56,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2022, 7, 20),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2022, 1, 6),
-    ],
   ),
   User(
+    id: 6,
     name: 'Anton',
     role: 'Correto',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -148,25 +67,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2023, 7, 20),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2023, 1, 6),
-    ],
   ),
   User(
+    id: 7,
     name: 'Salina',
     role: 'Corretor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -175,25 +78,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2023, 1, 8),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2023, 1, 6),
-    ],
   ),
   User(
+    id: 8,
     name: 'Sunday',
     role: 'Monitor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -202,25 +89,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2020, 7, 20),
-      DateTime.utc(2020, 8, 29),
-      DateTime.utc(2020, 1, 6),
-    ],
   ),
   User(
+    id: 9,
     name: 'Alva',
     role: 'Tutor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -229,25 +100,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2019, 7, 20),
-      DateTime.utc(2019, 8, 29),
-      DateTime.utc(2019, 1, 6),
-    ],
   ),
   User(
+    id: 10,
     name: 'Jonah',
     role: 'Corretor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -256,25 +111,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2021, 7, 20),
-      DateTime.utc(2021, 8, 29),
-      DateTime.utc(2021, 1, 6),
-    ],
   ),
   User(
+    id: 11,
     name: 'Kimberley',
     role: 'Tutor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -283,25 +122,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2022, 7, 20),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2022, 1, 6),
-    ],
   ),
   User(
+    id: 12,
     name: 'Waldo',
     role: 'Monitor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -310,25 +133,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2021, 7, 20),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2023, 1, 6),
-    ],
   ),
   User(
+    id: 13,
     name: 'Garret',
     role: 'Monitor',
     dtUpdated: DateTime.utc(2022, 05, 5),
@@ -337,25 +144,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2020, 7, 20),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2023, 1, 6),
-    ],
   ),
   User(
+    id: 14,
     name: 'Margaret',
     role: 'Tutor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -364,25 +155,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2020, 7, 20),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2023, 1, 6),
-    ],
   ),
   User(
+    id: 15,
     name: 'Foster',
     role: 'Monitor',
     dtUpdated: DateTime.utc(2022, 12, 30),
@@ -391,25 +166,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2020, 7, 20),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2023, 1, 6),
-    ],
   ),
   User(
+    id: 16,
     name: 'Samuel',
     role: 'Tutor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -418,25 +177,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2020, 7, 20),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2023, 1, 6),
-    ],
   ),
   User(
+    id: 17,
     name: 'Sam',
     role: 'Corretor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -445,25 +188,9 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2020, 7, 20),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2023, 1, 6),
-    ],
   ),
   User(
+    id: 18,
     name: 'Alise',
     role: 'Monitor',
     dtUpdated: DateTime.utc(2022, 11, 12),
@@ -472,22 +199,5 @@ final allUsers = <User>[
     course: 'Engenharia da computação',
     hoursWorked: 16,
     university: 'Unicamp',
-    listActivities: [
-      Activity(
-          hoursWorked: 16,
-          description: "aaaaaaaaa",
-          feedback: "dsvdvf",
-          date: DateTime.utc(2020, 12, 01)),
-      Activity(
-          hoursWorked: 19,
-          description: "fvfdvdfv",
-          feedback: "dvdfvdfderv",
-          date: DateTime.utc(2022, 12, 01)),
-    ],
-    pendencies: [
-      DateTime.utc(2020, 7, 20),
-      DateTime.utc(2022, 8, 29),
-      DateTime.utc(2023, 1, 6),
-    ],
   ),
 ];

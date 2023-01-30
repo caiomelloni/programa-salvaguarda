@@ -1,5 +1,9 @@
 import 'package:intl/intl.dart';
+import 'package:projeto_salvaguarda_admin/data/pendencies.dart';
 import 'package:projeto_salvaguarda_admin/data/users.dart';
+import 'package:projeto_salvaguarda_admin/data/workloadData.dart';
+import 'package:projeto_salvaguarda_admin/model/activity.dart';
+import 'package:projeto_salvaguarda_admin/model/pendency.dart';
 import 'package:projeto_salvaguarda_admin/model/user.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/visualizarDadosMonitorCorretor.dart';
@@ -23,6 +27,8 @@ class _SortablePageState extends State<SortablePage> {
   // List<SalvaGuardaVolunteers> _allUser = [];
   List<User> usersFiltered = []; //mock para testes locais da parte visual
   List<User> _allUser = []; //mock para testes locais da parte visual
+  List<Pendency> _allPendencies = [];
+  List<Activity> _allActivities = [];
 
   @override
   void initState() {
@@ -30,6 +36,8 @@ class _SortablePageState extends State<SortablePage> {
 
     usersFiltered = List.of(allUsers); //mock para testes locais da parte visual
     _allUser = List.of(allUsers); //mock para testes locais da parte visual
+    _allPendencies = List.of(allPendency);
+    _allActivities = List.of(allWorkloads);
     // fetchSalvaGuardaVolunteers().then(
     //   (value) {
     //     _allUser = value;
@@ -140,12 +148,27 @@ class _SortablePageState extends State<SortablePage> {
                 ? Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => VisualizarDadosTutor(user: user)))
+                        builder: (context) => VisualizarDadosTutor(
+                              user: user,
+                              userPendency: _allPendencies
+                                  .where((e) => e.idUser == user.id)
+                                  .toList(),
+                              userActivity: _allActivities
+                                  .where((e) => e.idUser == user.id)
+                                  .toList(),
+                            )))
                 : Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            VisualizarDadosMoniCorret(user: user)));
+                        builder: (context) => VisualizarDadosMoniCorret(
+                              user: user,
+                              userPendency: _allPendencies
+                                  .where((e) => e.idUser == user.id)
+                                  .toList(),
+                              userActivity: _allActivities
+                                  .where((e) => e.idUser == user.id)
+                                  .toList(),
+                            )));
           },
         );
       }).toList();
