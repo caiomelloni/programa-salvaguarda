@@ -104,4 +104,26 @@ class UserDAO extends DAO<UserModel> {
     var result = await dbConfig.execQuery(sql);
     return UserModel.fromMap(result.first);
   }
+
+  Future<UserModel> banUserbyId(int id) {
+    var sql = "UPDATE users SET is_banned = 1 WHERE id = :id";
+
+    dbConfig.execQuery(
+      sql,
+      {"id": id},
+    );
+
+    return findOne(id);
+  }
+
+  Future<UserModel> disableUserById(int id) {
+    var sql = "UPDATE users SET is_active = 0 WHERE id = :id";
+
+    dbConfig.execQuery(
+      sql,
+      {"id": id},
+    );
+
+    return findOne(id);
+  }
 }

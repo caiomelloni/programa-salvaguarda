@@ -65,4 +65,14 @@ class UserService implements IUserService {
     await _userDao.updateHoursWorked(id, workload);
     return _userDao.findOne(id);
   }
+
+  @override
+  Future<UserModel?> banUser(UserModel user) async {
+    return await _userDao.banUserbyId(user.id!);
+  }
+
+  @override
+  Future<UserModel?> disableUser(UserModel user) async {
+    return await _userDao.disableUserById(user.id!);
+  }
 }
