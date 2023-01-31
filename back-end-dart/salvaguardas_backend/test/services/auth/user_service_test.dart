@@ -2,9 +2,12 @@ import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 import '../../../bin/dao/user_dao.dart';
+import '../../../bin/errors/auth_exceptions.dart';
 import '../../../bin/models/auth/user_model.dart';
 import '../../../bin/services/auth/user_service.dart';
 import '../../../bin/services/auth/user_service_inteface.dart';
+import '../../../bin/transfer_object/auth_to.dart';
+import '../../../bin/util/password_hash/password_hash.dart';
 
 class MockUserDAO extends Mock implements UserDAO {}
 
@@ -12,20 +15,36 @@ void main() {
   late UserDAO userDao;
   late IUserService userService;
   late UserModel fakeUser;
+  final String nonexistentEmail = "nonexistent@teste.com";
   registerFallbackValue(UserModel());
 
   setUp(
     () {
       userDao = MockUserDAO();
       userService = UserService(userDao);
-      fakeUser = UserModel(id: 1, email: "teste@teste.com");
+      fakeUser = UserModel(
+        id: 1,
+        email: "teste@teste.com",
+        password: PasswordHash().hash("Senha123"),
+        hoursWorked: 23,
+        isActive: true,
+        isBanned: false,
+      );
 
       // call an existing email
       when(() => userDao.findByEmail("teste@teste.com"))
           .thenAnswer((_) async => fakeUser);
       // call an nonexistent email
-      when(() => userDao.findByEmail("nonexistent@teste.com"))
+      when(() => userDao.findByEmail(nonexistentEmail))
           .thenAnswer((_) async => null);
+
+      when(
+        () => userDao.updateHoursWorked(1, 37),
+      ).thenAnswer((_) async {
+        fakeUser.hoursWorked = fakeUser.hoursWorked! + 37;
+      });
+
+      when(() => userDao.findOne(1)).thenAnswer((_) async => fakeUser);
     },
   );
 
@@ -61,8 +80,7 @@ void main() {
     // Arrange
     when(() => userDao.create(any())).thenAnswer((_) async => UserModel(id: 2));
     // Act
-    var result =
-        await userService.save(UserModel(email: "nonexistent@teste.com"));
+    var result = await userService.save(UserModel(email: nonexistentEmail));
     // Assert
     expect(result.id, equals(2));
   });
@@ -87,16 +105,40 @@ void main() {
     expect(userService.save(UserModel(email: fakeUser.email)), throwsException);
   });
 
-  test("should throw wrong credential auth exception", () {},
-      skip: "falta implementar a logica do teste");
+  test(
+    "should throw wrong credential auth exception",
+    () {
+      // Arrange
+      // Act
+      // Assert
+      expect(userService.authenticate(AuthTo(fakeUser.email!, "Senha1234")),
+          throwsA(isA<WrongPasswordAuthException>()));
 
-  test("should authenticate", () {}, skip: "test not implemented");
+      expect(userService.authenticate(AuthTo(nonexistentEmail, "Senha123")),
+          throwsA(isA<UserNotFoundAuthException>()));
+    },
+  );
+
+  test("should authenticate", () async {
+    expect(
+        fakeUser,
+        equals(await userService
+            .authenticate(AuthTo(fakeUser.email!, "Senha123"))));
+  });
 
   test("should throw disabled user auth exception", () {},
       skip: "feature de desabilitar usuario nao implementada");
 
   test("should throw banned user auth exception", () {},
       skip: "feature de banir usuario nao implementada");
-  test("should update user workload", () {},
-      skip: "falta implementar a logica do teste");
+
+  test(
+    "should update user workload",
+    () async {
+      int previousHoursWorked = fakeUser.hoursWorked!;
+      var result = await userService.updateUserWorkload(1, 37);
+      expect(fakeUser, equals(result));
+      expect(fakeUser.hoursWorked, equals(previousHoursWorked + 37));
+    },
+  );
 }

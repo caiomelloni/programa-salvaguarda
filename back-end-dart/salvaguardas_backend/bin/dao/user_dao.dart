@@ -1,6 +1,5 @@
-import 'package:password_dart/password_dart.dart';
-
 import '../models/auth/user_model.dart';
+import '../util/password_hash/password_hash.dart';
 import 'dao.dart';
 
 class UserDAO extends DAO<UserModel> {
@@ -18,7 +17,7 @@ class UserDAO extends DAO<UserModel> {
         "role": user.role,
         "university": user.university,
         "course": user.course,
-        "password": Password.hash(user.password!, PBKDF2()),
+        "password": PasswordHash().hash(user.password!),
         "cellphone": user.cellphone,
       },
     );
