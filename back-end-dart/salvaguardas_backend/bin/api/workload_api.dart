@@ -48,9 +48,7 @@ class WorkloadApi extends Api {
       if (!context.isAdmin) return Response.forbidden("Not Authorized");
       late int userId;
       try {
-        var user = WorkloadModel.fromAdmUserReq(
-            JsonParser.fromJson(await req.readAsString()));
-        userId = user.userID!;
+        userId = int.parse(req.url.queryParameters["userId"]!);
       } on Exception {
         return Response.badRequest();
       }
