@@ -9,17 +9,25 @@ import '../../../bin/services/auth/user_service_inteface.dart';
 class MockUserDAO extends Mock implements UserDAO {}
 
 void main() {
-  UserDAO userDao = MockUserDAO();
-  IUserService userService = UserService(userDao);
-  UserModel fakeUser = UserModel(id: 1, email: "teste@teste.com");
+  late UserDAO userDao;
+  late IUserService userService;
+  late UserModel fakeUser;
   registerFallbackValue(UserModel());
 
-  // call an existing email
-  when(() => userDao.findByEmail("teste@teste.com"))
-      .thenAnswer((_) async => fakeUser);
-  // call an nonexistent email
-  when(() => userDao.findByEmail("nonexistent@teste.com"))
-      .thenAnswer((_) async => null);
+  setUp(
+    () {
+      userDao = MockUserDAO();
+      userService = UserService(userDao);
+      fakeUser = UserModel(id: 1, email: "teste@teste.com");
+
+      // call an existing email
+      when(() => userDao.findByEmail("teste@teste.com"))
+          .thenAnswer((_) async => fakeUser);
+      // call an nonexistent email
+      when(() => userDao.findByEmail("nonexistent@teste.com"))
+          .thenAnswer((_) async => null);
+    },
+  );
 
   test("should delete user", () async {
     // Arrange
@@ -61,18 +69,28 @@ void main() {
 
   test("should update a user", () async {
     // Arrange
+    when(() => userDao.update(fakeUser)).thenAnswer((_) async {
+      fakeUser.name = "fake";
+      return fakeUser;
+    });
     // Act
+    var result = await userService.save(fakeUser);
     // Assert
-  }, skip: "falta implementar a logica do teste");
+    expect(result.name, equals("fake"));
+    fakeUser.name = null;
+  });
 
   test("should avoid create a user with an existing email", () async {
     // Arrange
     // Act
     // Assert
-  }, skip: "falta implementar a logica do teste");
+    expect(userService.save(UserModel(email: fakeUser.email)), throwsException);
+  });
 
   test("should throw wrong credential auth exception", () {},
       skip: "falta implementar a logica do teste");
+
+  test("should authenticate", () {}, skip: "test not implemented");
 
   test("should throw disabled user auth exception", () {},
       skip: "feature de desabilitar usuario nao implementada");
