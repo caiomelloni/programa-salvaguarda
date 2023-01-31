@@ -115,4 +115,15 @@ class UserDAO extends DAO<UserModel> {
 
     return findOne(id);
   }
+
+  Future<UserModel> disableUserById(int id) {
+    var sql = "UPDATE users SET is_active = 0 WHERE id = :id";
+
+    dbConfig.execQuery(
+      sql,
+      {"id": id},
+    );
+
+    return findOne(id);
+  }
 }

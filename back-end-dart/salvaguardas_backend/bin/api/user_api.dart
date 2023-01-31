@@ -58,8 +58,8 @@ class UserApi extends Api {
 
     router.post("/user/banUser", (Request req) async {
       //verifica se é admin
-      // RequestContext context = RequestContext(req.context);
-      // if (!context.isAdmin) return Response.forbidden("Not Authorized");
+      RequestContext context = RequestContext.fromRequest(req.headers);
+      if (!context.isAdmin) return Response.forbidden("Not Authorized");
       late UserModel user;
 
       //verifica se o formato do body é correto
@@ -72,6 +72,28 @@ class UserApi extends Api {
       }
 
       UserModel? updatedBanUser = await _userService.banUser(user);
+
+      return updatedBanUser == null
+          ? Response.badRequest()
+          : Response.ok(updatedBanUser.toJson());
+    });
+
+    router.post("/user/disableUser", (Request req) async {
+      //verifica se é admin
+      RequestContext context = RequestContext.fromRequest(req.headers);
+      if (!context.isAdmin) return Response.forbidden("Not Authorized");
+      late UserModel user;
+
+      //verifica se o formato do body é correto
+      try {
+        var r = await req.readAsString();
+        print(r);
+        user = UserModel.fromUserStateRequest(JsonParser.fromJson(r));
+      } on Exception {
+        return Response.badRequest();
+      }
+
+      UserModel? updatedBanUser = await _userService.disableUser(user);
 
       return updatedBanUser == null
           ? Response.badRequest()

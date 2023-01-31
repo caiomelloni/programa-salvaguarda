@@ -11,4 +11,5 @@ abstract class IUserService {
   /// if workload is negative, it decreases the user workload, if positive it increases
   Future<UserModel?> updateUserWorkload(int id, int workload);
   Future<UserModel?> banUser(UserModel user);
+  Future<UserModel?> disableUser(UserModel user);
 }
