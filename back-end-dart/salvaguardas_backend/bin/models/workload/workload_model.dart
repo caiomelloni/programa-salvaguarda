@@ -68,6 +68,14 @@ class WorkloadModel {
           ModelUtils.ifNullReturn(dbMap['hours_worked'], int.parse) ?? 0,
     );
   }
+  //Check if this is working properly
+  factory WorkloadModel.fromAdmUserReq(Map<String, dynamic> dbMap) {
+    return WorkloadModel(
+      userID: dbMap['id_user'],
+      month: DateTime.now().month,
+      year: DateTime.now().year,
+    );
+  }
 
   factory WorkloadModel.fromJson(String source) =>
       WorkloadModel.fromMap(JsonParser.fromJson(source));
