@@ -28,7 +28,7 @@ class SignInAdminEndPoint extends EndPoint {
           return Response.forbidden(
             {"error": e.message()}.toJson(),
           );
-        } on Exception {
+        } catch (e) {
           return Response.badRequest();
         }
 
