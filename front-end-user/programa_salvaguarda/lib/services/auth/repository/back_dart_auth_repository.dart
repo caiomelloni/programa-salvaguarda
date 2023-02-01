@@ -7,6 +7,8 @@ import 'package:programa_salvaguarda/services/auth/models/user.dart';
 import 'package:programa_salvaguarda/services/auth/repository/auth_stream_repository.dart';
 import 'package:programa_salvaguarda/util/custom_env.dart';
 
+import '../requests/auth_http_request.dart';
+
 class BackDartAuthRepository implements AuthStreamRepository {
   final StreamController<SalvaGuardasUser?> _authStreamController =
       StreamController<SalvaGuardasUser?>();
@@ -24,19 +26,7 @@ class BackDartAuthRepository implements AuthStreamRepository {
   @override
   Future<void> initService() async {
     _token = await secureStorage.read(key: 'token');
-    if (_token == null) return;
-    var res = await http.get(
-      Uri.parse("${CustomEnv.url}/user"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $_token',
-      },
-    );
-    var userJson = {
-      "user": jsonDecode(res.body),
-      "token": _token,
-    };
-    var user = SalvaGuardasUser.fromJson(userJson);
+    var user = await AuthHttpRequest.getUserFromToken(_token);
     _emitUser(user);
   }
 
@@ -49,16 +39,7 @@ class BackDartAuthRepository implements AuthStreamRepository {
       throw InsufficientInformationAuthException();
     }
 
-    var req = {
-      "email": email,
-      "password": password,
-    };
-    var res = await http.post(Uri.parse("${CustomEnv.url}/login/signin"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(req));
-    var body = jsonDecode(res.body);
+    var body = await AuthHttpRequest.signInAndGetUserJson(email, password);
     String? error = body['error'];
     if (error != null) {
       if (error == "Wrong Password") {
@@ -68,10 +49,9 @@ class BackDartAuthRepository implements AuthStreamRepository {
         throw UserNotFoundAuthException();
       }
     }
-    var bodyJson = jsonDecode(res.body);
-    secureStorage.write(key: "token", value: bodyJson['token']);
-    _token = bodyJson['token'];
-    _emitUser(SalvaGuardasUser.fromJson(bodyJson));
+    secureStorage.write(key: "token", value: body['token']);
+    _token = body['token'];
+    _emitUser(SalvaGuardasUser.fromJson(body));
   }
 
   @override
@@ -111,24 +91,8 @@ class BackDartAuthRepository implements AuthStreamRepository {
     if (anyInvalidField) throw InsufficientInformationAuthException();
     if (senha != senhaConfirmada) throw WrongPasswordConfimationAuthException();
 
-    var req = {
-      "user": {
-        "name": "$name $lastName",
-        "email": email,
-        "cellphone": cellphone,
-        "role": role,
-        "university": university,
-        "course": course,
-        "password": senha,
-      }
-    };
-    await http.post(
-      Uri.parse("${CustomEnv.url}/login"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(req),
-    );
+    await AuthHttpRequest.signUpUser(name!, lastName!, email!, cellphone!,
+        role!, university!, course!, senha!);
   }
 
   @override
