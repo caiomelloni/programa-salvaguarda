@@ -14,7 +14,7 @@ class AuthHttpRequest {
         'Authorization': 'Bearer $token',
       },
     );
-    var user = res.statusCode == 403
+    var user = res.statusCode != 200 
         ? null
         : SalvaGuardasUser.fromJson({
             "user": JsonParser.fromJson(res.body),

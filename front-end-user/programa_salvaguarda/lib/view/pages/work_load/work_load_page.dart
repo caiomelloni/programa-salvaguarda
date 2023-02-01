@@ -40,17 +40,17 @@ class WorkLoadPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 RichText(
-                  text: const TextSpan(
-                    style:
-                        TextStyle(color: AppColors.lightPurple, fontSize: 25),
+                  text: TextSpan(
+                    style: const TextStyle(
+                        color: AppColors.lightPurple, fontSize: 25),
                     children: [
-                      TextSpan(
+                      const TextSpan(
                         text:
                             "Insira as informações a respeito do trabalho realizado no mês de",
                       ),
                       TextSpan(
-                        text: " Abril",
-                        style: TextStyle(color: AppColors.orange),
+                        text: " ${_controller.currentMonth()}",
+                        style: const TextStyle(color: AppColors.orange),
                       )
                     ],
                   ),
