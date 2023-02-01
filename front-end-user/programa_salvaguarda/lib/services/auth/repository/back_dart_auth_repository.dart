@@ -1,12 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart' as http;
 import 'package:programa_salvaguarda/services/auth/errors/auth_exceptions.dart';
 import 'package:programa_salvaguarda/services/auth/models/user.dart';
 import 'package:programa_salvaguarda/services/auth/repository/auth_stream_repository.dart';
-import 'package:programa_salvaguarda/util/custom_env.dart';
-
 import '../requests/auth_http_request.dart';
 
 class BackDartAuthRepository implements AuthStreamRepository {
@@ -103,18 +99,6 @@ class BackDartAuthRepository implements AuthStreamRepository {
 
   @override
   Future<void> refreshUserState() async {
-    var res = await http.get(
-      Uri.parse("${CustomEnv.url}/user"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $_token',
-      },
-    );
-    var userJson = {
-      "user": jsonDecode(res.body),
-      "token": _token,
-    };
-    var user = SalvaGuardasUser.fromJson(userJson);
-    _emitUser(user);
+    _emitUser(await AuthHttpRequest.getUserFromToken(_token));
   }
 }
