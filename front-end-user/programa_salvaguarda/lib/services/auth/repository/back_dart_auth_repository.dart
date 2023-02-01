@@ -96,25 +96,9 @@ class BackDartAuthRepository implements AuthStreamRepository {
   }
 
   @override
-  Future<void> updateUser(String? name, String? lastName, String? email,
-      String? phoneNumber) async {
-    var body = {
-      "name": '$name $lastName',
-      "email": email,
-      "cellphone": phoneNumber,
-    };
-
-    var res = await http.patch(
-      Uri.parse("${CustomEnv.url}/user"),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer $_token',
-      },
-      body: jsonEncode(body),
-    );
-
-    var userJson = {"user": jsonDecode(res.body), "token": _token};
-    _emitUser(SalvaGuardasUser.fromJson(userJson));
+  Future<void> updateUser(String name, String lastName, String email,
+      String phoneNumber) async {
+        _emitUser(await AuthHttpRequest.updateUser(name, lastName, email, phoneNumber, _token!));
   }
 
   @override

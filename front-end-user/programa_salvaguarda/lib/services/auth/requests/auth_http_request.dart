@@ -69,4 +69,25 @@ class AuthHttpRequest {
     );
     if (resp.statusCode != 200) throw GenericAuthException();
   }
+
+  static Future<SalvaGuardasUser> updateUser(String name, String lastName, String email, String phoneNumber, String token) async {
+    var body = {
+      "name": '$name $lastName',
+      "email": email,
+      "cellphone": phoneNumber,
+    };
+
+    var res = await http.patch(
+      Uri.parse("${CustomEnv.url}/user"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: body.toJson(),
+    );
+
+    var userJson = {"user": JsonParser.fromJson(res.body), "token": token};
+    return SalvaGuardasUser.fromJson(userJson);
+
+  }
 }
