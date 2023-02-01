@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:programa_salvaguarda/services/auth/errors/auth_exceptions.dart';
 import 'package:programa_salvaguarda/view/components/buttons/elevated_button_widget.dart';
@@ -8,6 +9,7 @@ import 'package:programa_salvaguarda/view/components/snackbar.dart';
 import 'package:programa_salvaguarda/view/pages/signup/components/dropdown_widget.dart';
 import 'package:programa_salvaguarda/view/pages/signup/components/signup_textfield.dart';
 import 'package:programa_salvaguarda/view/pages/signup/store/signup_store.dart';
+import 'package:programa_salvaguarda/view/pages/signup/utils/card_formater.dart';
 import 'package:programa_salvaguarda/view/pages/signup/utils/cursos.dart';
 import 'package:programa_salvaguarda/view/pages/signup/utils/universidades.dart';
 
@@ -52,11 +54,23 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 SignUpTextField(
                   label: "Email",
+                  keyboardType: TextInputType.emailAddress,
                   onChanged: (value) => _controller.setEmail(value),
                 ),
                 SignUpTextField(
                   label: "Telefone",
                   onChanged: (value) => _controller.setTelefone(value),
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                            FilteringTextInputFormatter.deny(
+                              RegExp('[, .]'),
+                            ),
+                            CardFormatter(
+                              sample: '(xx)xxxxx-xxxx',
+                              separator: ['(', ')', '-'],
+                            )
+                          ],
+
                 ),
                 Observer(
                   builder: (_) => DropDownWidget(
