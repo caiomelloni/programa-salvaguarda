@@ -22,11 +22,7 @@ class WorkLoadPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeAreaWidget(
       child: Scaffold(
-        appBar: getAppBarWidget(
-          context,
-          canPop: true,
-          onSignOut: () => Navigator.of(context).pop(),
-        ),
+        appBar: getAppBarWidget(context, canPop: true, showActions: false),
         body: SingleChildScrollView(
           child: PagePaddingWidget(
             extraPadding: const EdgeInsets.only(bottom: 30),

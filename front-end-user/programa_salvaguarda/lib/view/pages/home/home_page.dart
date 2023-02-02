@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
               PagePaddingWidget(
                 child: AuthListenableWidget(
                   builder: (_, user, __) => Text(
-                    "Boas Vindas, ${user!.name}!",
+                    "Boas Vindas, ${user?.name}!",
                     style: const TextStyle(
                         color: AppColors.lightPurple, fontSize: 30),
                   ),
