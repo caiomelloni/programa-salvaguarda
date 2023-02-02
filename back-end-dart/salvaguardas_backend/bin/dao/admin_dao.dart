@@ -9,13 +9,13 @@ class AdminDao extends DAO<AdminModel> {
   @override
   Future<AdminModel> create(AdminModel value) async {
     var sql =
-        'INSERT INTO admins (name, email, role, password) VALUES (:name, :email, :role, :password)';
+        'INSERT INTO admins (name, email, cellphone, password) VALUES (:name, :email, :cellphone, :password)';
     await dbConfig.execQuery(
       sql,
       {
         "name": value.name,
         "email": value.email,
-        "role": value.role,
+        "cellphone": value.cellphone,
         "password": Password.hash(value.password!, PBKDF2()),
       },
     );
