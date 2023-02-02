@@ -16,7 +16,7 @@ abstract class _EditProfileController with Store {
   final TextEditingController telefoneController = TextEditingController();
   final TextEditingController entradaController = TextEditingController();
 
-  late StreamSubscription<SalvaGuardasUser?> _listenAuthInfos;
+  late StreamSubscription<SalvaGuardasAdmin?> _listenAuthInfos;
   _EditProfileController() {
     _listenAuthInfos = AuthService.service.onAuthStateChange().listen((user) {
       if (user == null) return;
@@ -26,12 +26,12 @@ abstract class _EditProfileController with Store {
     _setUserInfosFields(AuthService.instance.currentUser!);
   }
 
-  void _setUserInfosFields(SalvaGuardasUser user) {
+  void _setUserInfosFields(SalvaGuardasAdmin user) {
     nomeController.text = user.name;
     sobrenomeController.text = user.lastName;
     emailController.text = user.email;
-    telefoneController.text = user.phoneNumber;
-    entradaController.text = user.subscriptionDate;
+    telefoneController.text = user.cellphone;
+    entradaController.text = user.subscriptionDate.toString();
   }
 
   void dispose() {

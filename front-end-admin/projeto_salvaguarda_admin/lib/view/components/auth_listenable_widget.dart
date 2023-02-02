@@ -6,9 +6,9 @@ import 'package:projeto_salvaguarda_admin/services/auth/models/user.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
 
 class AuthListenableWidget extends StatefulWidget {
-  final void Function(SalvaGuardasUser?)? onAuthStateChange;
+  final void Function(SalvaGuardasAdmin?)? onAuthStateChange;
   final Widget Function(
-      BuildContext context, SalvaGuardasUser? user, Widget? child) builder;
+      BuildContext context, SalvaGuardasAdmin? user, Widget? child) builder;
   const AuthListenableWidget({
     Key? key,
     this.onAuthStateChange,
@@ -20,7 +20,7 @@ class AuthListenableWidget extends StatefulWidget {
 }
 
 class _AuthListenableWidgetState extends State<AuthListenableWidget> {
-  late StreamSubscription<SalvaGuardasUser?> _userStream;
+  late StreamSubscription<SalvaGuardasAdmin?> _userStream;
 
   @override
   void initState() {
