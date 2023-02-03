@@ -43,7 +43,7 @@ class SalvaGuardasAdmin {
   }
 
   factory SalvaGuardasAdmin.fromJson(Map<String, dynamic> json) {
-    var user = json['user'];
+    var user = json['admin'];
     String token = json['token'];
 
     var name = user['name'] as String;

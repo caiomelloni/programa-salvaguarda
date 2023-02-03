@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:projeto_salvaguarda_admin/services/auth/models/user.dart';
+import 'package:projeto_salvaguarda_admin/services/auth/repository/back_end_auth_repository.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/repository/mock_auth_repository.dart';
 
 abstract class AuthStreamRepository implements AuthRepository, UserStream {
   factory AuthStreamRepository([bool isTest = false]) {
-    return MockAuthRepository();
+    if (isTest) return MockAuthRepository();
+    return BackDartAuthRepository();
   }
 }
 

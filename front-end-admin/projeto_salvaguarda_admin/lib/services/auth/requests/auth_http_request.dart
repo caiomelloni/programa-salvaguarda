@@ -6,9 +6,9 @@ import 'package:projeto_salvaguarda_admin/util/extensions/json_parser_extension.
 
 class AuthHttpRequest {
   static String url = CustomEnv.url;
-  static Future<SalvaGuardasAdmin?> getUserFromToken(String? token) async {
+  static Future<SalvaGuardasAdmin?> getAdminFromToken(String? token) async {
     var res = await http.get(
-      Uri.parse("${CustomEnv.url}/user"),
+      Uri.parse("${CustomEnv.url}/user/admin"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -17,7 +17,7 @@ class AuthHttpRequest {
     var user = res.statusCode != 200
         ? null
         : SalvaGuardasAdmin.fromJson({
-            "user": JsonParser.fromJson(res.body),
+            "admin": JsonParser.fromJson(res.body),
             "token": token,
           });
 
@@ -40,10 +40,10 @@ class AuthHttpRequest {
     return body;
   }
 
-  static Future<void> signUpUser(String name, String lastName, String email,
+  static Future<void> signUpAdmin(String name, String lastName, String email,
       String cellphone, String senha) async {
     var req = {
-      "user": {
+      "admin": {
         "name": "$name $lastName",
         "email": email,
         "cellphone": cellphone,
@@ -51,7 +51,7 @@ class AuthHttpRequest {
       }
     };
     var resp = await http.post(
-      Uri.parse("${CustomEnv.url}/auth/signup"),
+      Uri.parse("${CustomEnv.url}/auth/signup/admin"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -60,7 +60,7 @@ class AuthHttpRequest {
     if (resp.statusCode != 200) throw GenericAuthException();
   }
 
-  static Future<SalvaGuardasAdmin> updateUser(String name, String lastName,
+  static Future<SalvaGuardasAdmin> updateAdmin(String name, String lastName,
       String email, String phoneNumber, String token) async {
     var body = {
       "name": '$name $lastName',
@@ -69,7 +69,7 @@ class AuthHttpRequest {
     };
 
     var res = await http.patch(
-      Uri.parse("${CustomEnv.url}/user"),
+      Uri.parse("${CustomEnv.url}/user/admin"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
@@ -77,7 +77,7 @@ class AuthHttpRequest {
       body: body.toJson(),
     );
 
-    var userJson = {"user": JsonParser.fromJson(res.body), "token": token};
-    return SalvaGuardasAdmin.fromJson(userJson);
+    var adminJson = {"admin": JsonParser.fromJson(res.body), "token": token};
+    return SalvaGuardasAdmin.fromJson(adminJson);
   }
 }

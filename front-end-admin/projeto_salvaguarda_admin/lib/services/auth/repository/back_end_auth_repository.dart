@@ -23,7 +23,7 @@ class BackDartAuthRepository implements AuthStreamRepository {
   @override
   Future<void> initService() async {
     _token = await secureStorage.read(key: 'token');
-    var user = await AuthHttpRequest.getUserFromToken(_token);
+    var user = await AuthHttpRequest.getAdminFromToken(_token);
     _emitUser(user);
   }
 
@@ -77,19 +77,19 @@ class BackDartAuthRepository implements AuthStreamRepository {
     if (anyInvalidField) throw InsufficientInformationAuthException();
     if (senha != senhaConfirmada) throw WrongPasswordConfimationAuthException();
 
-    await AuthHttpRequest.signUpUser(
+    await AuthHttpRequest.signUpAdmin(
         name!, lastName!, email!, cellphone!, senha!);
   }
 
   @override
   Future<void> updateUser(
       String name, String lastName, String email, String phoneNumber) async {
-    _emitUser(await AuthHttpRequest.updateUser(
+    _emitUser(await AuthHttpRequest.updateAdmin(
         name, lastName, email, phoneNumber, _token!));
   }
 
   @override
   Future<void> refreshUserState() async {
-    _emitUser(await AuthHttpRequest.getUserFromToken(_token));
+    _emitUser(await AuthHttpRequest.getAdminFromToken(_token));
   }
 }
