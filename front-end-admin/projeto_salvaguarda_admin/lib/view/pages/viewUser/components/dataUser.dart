@@ -32,6 +32,7 @@ class DataUser extends StatelessWidget {
                   fontSize: 20,
                   color: AppColors.lightPurple,
                   fontWeight: FontWeight.normal),
+              overflow: TextOverflow.ellipsis,
             )
           ],
         ),

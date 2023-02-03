@@ -22,7 +22,7 @@ DisableUserController _disablecontroller = DisableUserController();
 
 class VisualizarDadosMoniCorret extends StatelessWidget {
   // final SalvaGuardaVolunteers user;
-  final User user;
+  final SalvaGuardaVolunteers user;
   final List<Pendency> userPendency;
   final List<Activity> userActivity;
 

@@ -23,7 +23,7 @@ EnableCertificateController _enableCertificateController =
 
 class VisualizarDadosTutor extends StatelessWidget {
   // final SalvaGuardaVolunteers user;
-  final User user; //mock para testes da parte visual
+  final SalvaGuardaVolunteers user; //mock para testes da parte visual
   final List<Pendency> userPendency;
   final List<Activity> userActivity;
 
