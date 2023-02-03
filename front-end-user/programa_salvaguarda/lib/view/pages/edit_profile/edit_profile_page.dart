@@ -80,7 +80,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   enabled: false,
                 ),
                 TextFormFieldWidget(
-                  labelText: "horas no projeto",
+                  labelText: "horas no programa",
                   primaryColor: AppColors.disabled,
                   controller: _controller.horasProjetoController,
                   enabled: false,

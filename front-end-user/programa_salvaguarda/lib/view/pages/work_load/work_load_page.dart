@@ -54,13 +54,13 @@ class WorkLoadPage extends StatelessWidget {
                 BigTextFieldWithTitleWidget(
                   title: "Descrição dos feitos",
                   hintText:
-                      "Descreva o trabalho realizado no projeto neste mês",
+                      "Descreva o trabalho realizado no programa neste mês",
                   controller: controller.descricaoFeitosController,
                 ),
                 BigTextFieldWithTitleWidget(
                   title: "Feedback",
                   hintText:
-                      "o feedback não é obrigatório, use esse campo para expor sua relação com os alunos e com o projeto nesse mês",
+                      "o feedback não é obrigatório, use esse campo para expor sua relação com os alunos e com o programa nesse mês",
                   controller: controller.feedbackController,
                 ),
                 const SizedBox(height: 20),
