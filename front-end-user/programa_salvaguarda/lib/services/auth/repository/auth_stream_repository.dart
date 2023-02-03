@@ -28,7 +28,7 @@ abstract class AuthRepository {
       String? senha,
       String? senhaConfimada);
   Future<void> updateUser(
-      String? name, String? lastName, String? email, String? phoneNumber);
+      String name, String lastName, String email, String phoneNumber);
   Stream<SalvaGuardasUser?> onAuthStateChange();
 }
 

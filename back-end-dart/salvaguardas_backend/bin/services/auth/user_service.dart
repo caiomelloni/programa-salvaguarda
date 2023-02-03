@@ -1,9 +1,8 @@
-import 'package:password_dart/password_dart.dart';
-
 import '../../errors/auth_exceptions.dart';
 import '../../dao/user_dao.dart';
 import '../../models/auth/user_model.dart';
 import '../../transfer_object/auth_to.dart';
+import '../../util/password_hash/password_hash.dart';
 import 'user_service_inteface.dart';
 
 class UserService implements IUserService {
@@ -48,7 +47,7 @@ class UserService implements IUserService {
     if (user == null) {
       throw UserNotFoundAuthException();
     }
-    if (!Password.verify(authTo.password, user.password!)) {
+    if (!PasswordHash().verify(authTo.password, user.password!)) {
       throw WrongPasswordAuthException();
     }
     if (!user.isActive!) {
@@ -62,8 +61,18 @@ class UserService implements IUserService {
   }
 
   @override
-  Future<UserModel?> updateUserWorkload(int id, int workload) async {
+  Future<UserModel> updateUserWorkload(int id, int workload) async {
     await _userDao.updateHoursWorked(id, workload);
     return _userDao.findOne(id);
+  }
+
+  @override
+  Future<UserModel?> banUser(UserModel user) async {
+    return await _userDao.banUserbyId(user.id!);
+  }
+
+  @override
+  Future<UserModel?> disableUser(UserModel user) async {
+    return await _userDao.disableUserById(user.id!);
   }
 }

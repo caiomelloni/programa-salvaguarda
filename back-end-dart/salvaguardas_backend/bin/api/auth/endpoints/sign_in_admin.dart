@@ -1,11 +1,10 @@
-import 'dart:convert';
 import 'package:shelf/shelf.dart';
-import 'package:shelf/src/handler.dart';
 import '../../../errors/auth_exceptions.dart';
 import '../../../infra/security/security_service_interface.dart';
 import '../../../models/auth/admin_model.dart';
 import '../../../services/auth/admin_service_interface.dart';
 import '../../../transfer_object/auth_to.dart';
+import '../../../util/extensions/json_parser_extension.dart';
 import '../../endpoint.dart';
 
 class SignInAdminEndPoint extends EndPoint {
@@ -27,21 +26,17 @@ class SignInAdminEndPoint extends EndPoint {
           jwt = await _generateAdminJwt(admin!);
         } on AuthException catch (e) {
           return Response.forbidden(
-            jsonEncode(
-              {"error": e.message()},
-            ),
+            {"error": e.message()}.toJson(),
           );
-        } on Exception {
+        } catch (e) {
           return Response.badRequest();
         }
 
         return Response.ok(
-          jsonEncode(
             {
               "admin": admin.toMap(),
               "token": jwt,
-            },
-          ),
+            }.toJson(),
         );
       };
 

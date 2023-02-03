@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:projeto_salvaguarda_admin/model/activity.dart';
+import 'package:projeto_salvaguarda_admin/model/pendency.dart';
 import 'package:projeto_salvaguarda_admin/services/banUser/errors/ban_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
@@ -21,10 +23,14 @@ DisableUserController _disablecontroller = DisableUserController();
 class VisualizarDadosMoniCorret extends StatelessWidget {
   // final SalvaGuardaVolunteers user;
   final User user;
+  final List<Pendency> userPendency;
+  final List<Activity> userActivity;
 
   const VisualizarDadosMoniCorret({
     Key? key,
     required this.user,
+    required this.userPendency,
+    required this.userActivity,
   }) : super(key: key);
 
   @override
@@ -72,7 +78,7 @@ class VisualizarDadosMoniCorret extends StatelessWidget {
                 ),
                 DataUser(
                     info:
-                        "${user.pendencies.where((element) => element.year == year).toList().length} pendência(s) neste ano"),
+                        "${userPendency.where((element) => element.year == year).toList().length} pendência(s) neste ano"),
                 const SizedBox(
                   height: 40,
                 ),
@@ -84,11 +90,8 @@ class VisualizarDadosMoniCorret extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ViewActivities(
-                                  listActivities: user.listActivities,
-                                  listPendencies: user.pendencies
-                                      .where((element) =>
-                                          element.year == DateTime.now().year)
-                                      .toList(),
+                                  listActivities: userActivity,
+                                  listPendencies: userPendency,
                                 )));
                   },
                 ),

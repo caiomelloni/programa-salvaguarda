@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import '../../util/extensions/json_parser_extension.dart';
 import '../model_utils.dart';
 
 class UserModel {
@@ -59,13 +58,15 @@ class UserModel {
       'university': university,
       'course': course,
       'hoursWorked': hoursWorked,
-      'cellphone' : cellphone,
+      'cellphone': cellphone,
       'isActive': isActive,
       'isBanned': isBanned,
       'dtCreated': dtCreated?.millisecondsSinceEpoch,
       'dtUpdated': dtUpdated?.millisecondsSinceEpoch,
     };
   }
+
+  String toJson() => toMap().toJson();
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
@@ -80,23 +81,35 @@ class UserModel {
       password: map['password'],
       isActive: int.parse(map['is_active'] ?? '0') == 1,
       isBanned: int.parse(map['is_banned'] ?? '0') == 1,
-      dtCreated:
-          ModelUtils.ifNullReturn(map['dt_create'], DateTime.parse),
-      dtUpdated:
-          ModelUtils.ifNullReturn(map['dt_update'], DateTime.parse),
+      dtCreated: ModelUtils.ifNullReturn(map['dt_create'], DateTime.parse),
+      dtUpdated: ModelUtils.ifNullReturn(map['dt_update'], DateTime.parse),
     );
   }
 
-  String toJson() => json.encode(toMap());
-
   factory UserModel.fromJson(String source) =>
-      UserModel.fromMap(json.decode(source));
+      UserModel.fromMap(JsonParser.fromJson(source));
+
+  factory UserModel.fromUserStateRequest(Map<String, dynamic> map) {
+    return UserModel(
+      id: map['id'],
+      name: map['name'],
+      email: map['email'],
+      role: map['role'],
+      university: map['university'],
+      cellphone: map['cellphone'],
+      course: map['course'],
+      hoursWorked: int.parse(map['hours_worked'] ?? '0'),
+      isActive: int.parse(map['is_active'] ?? '0') == 1,
+      isBanned: int.parse(map['is_banned'] ?? '0') == 1,
+      dtCreated: ModelUtils.ifNullReturn(map['dt_create'], DateTime.parse),
+      dtUpdated: ModelUtils.ifNullReturn(map['dt_update'], DateTime.parse),
+    );
+  }
 
   @override
   String toString() {
     return 'UserModel(id: $id, name: $name, email: $email, role: $role, university: $university, course: $course, hoursWorked: $hoursWorked, isActive: $isActive, isBanned: $isBanned, dtCreated: $dtCreated, dtUpdated: $dtUpdated)';
   }
-
 
   UserModel copyWith({
     int? id,

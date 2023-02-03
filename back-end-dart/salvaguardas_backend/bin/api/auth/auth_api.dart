@@ -1,16 +1,12 @@
-import 'dart:convert';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-import '../../errors/auth_exceptions.dart';
 import '../../infra/security/security_service_interface.dart';
-import '../../models/auth/admin_model.dart';
-import '../../models/auth/user_model.dart';
 import '../../services/auth/admin_service_interface.dart';
 import '../../services/auth/user_service_inteface.dart';
-import '../../transfer_object/auth_to.dart';
 import '../api.dart';
 import 'endpoints/sign_in_admin.dart';
 import 'endpoints/sign_in_user.dart';
+import 'endpoints/sign_up_admin.dart';
 import 'endpoints/sign_up_user.dart';
 
 class AuthApi extends Api {
@@ -27,15 +23,19 @@ class AuthApi extends Api {
     Router router = Router();
 
     ///sign up
-    router.post(
-        '/login', SignUpUserEndPoint(_securityService, _userService).handler);
+    router.post('/auth/signup',
+        SignUpUserEndPoint(_securityService, _userService).handler);
+
+    ///sign up
+    router.post('/auth/signup/admin',
+        SignUpAdminEndpoint(_securityService, _adminService).handler);
 
     ///sign in
-    router.post('/login/signin',
+    router.post('/auth/signin',
         SignInUserEndPoint(_userService, _securityService).handler);
 
     ///admin sign in
-    router.post('/login/admin',
+    router.post('/auth/signin/admin',
         SignInAdminEndPoint(_adminService, _securityService).handler);
 
     return createHandler(

@@ -1,4 +1,6 @@
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:projeto_salvaguarda_admin/model/activity.dart';
+import 'package:projeto_salvaguarda_admin/model/pendency.dart';
 import 'package:projeto_salvaguarda_admin/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
@@ -22,10 +24,14 @@ EnableCertificateController _enableCertificateController =
 class VisualizarDadosTutor extends StatelessWidget {
   // final SalvaGuardaVolunteers user;
   final User user; //mock para testes da parte visual
+  final List<Pendency> userPendency;
+  final List<Activity> userActivity;
 
   const VisualizarDadosTutor({
     Key? key,
     required this.user,
+    required this.userPendency,
+    required this.userActivity,
   }) : super(key: key);
 
   @override
@@ -72,7 +78,7 @@ class VisualizarDadosTutor extends StatelessWidget {
                 ),
                 DataUser(
                     info:
-                        "${user.pendencies.where((element) => element.year == year).toList().length} pendência(s) neste ano"),
+                        "${userPendency.where((element) => element.year == year).toList().length} pendência(s) neste ano"),
                 const SizedBox(
                   height: 40,
                 ),
@@ -98,11 +104,8 @@ class VisualizarDadosTutor extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ViewActivities(
-                                  listActivities: user.listActivities,
-                                  listPendencies: user.pendencies
-                                      .where((element) =>
-                                          element.year == DateTime.now().year)
-                                      .toList(),
+                                  listActivities: userActivity,
+                                  listPendencies: userPendency,
                                 )));
                   },
                 ),

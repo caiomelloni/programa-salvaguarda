@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       title: 'Projeto Salvaguardas',
       debugShowCheckedModeBanner: false,
       home: AuthListenableWidget(
-        builder: (context, user, child) {
+        builder: (context, user) {
           return user != null ? const HomePage() : const LoginPage();
         },
       ),

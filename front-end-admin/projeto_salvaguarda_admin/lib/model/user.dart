@@ -1,6 +1,5 @@
-import 'package:projeto_salvaguarda_admin/model/activity.dart';
-
 class User {
+  int? id;
   final String name;
   final String role;
   final DateTime dtUpdated;
@@ -9,10 +8,9 @@ class User {
   final String course;
   final int hoursWorked;
   final String university;
-  final List<Activity> listActivities;
-  final List<DateTime> pendencies;
 
   User({
+    this.id,
     required this.name,
     required this.role,
     required this.dtUpdated,
@@ -21,22 +19,21 @@ class User {
     required this.course,
     required this.hoursWorked,
     required this.university,
-    required this.listActivities,
-    required this.pendencies,
   });
 
-  User copy(
-          {String? name,
-          String? role,
-          DateTime? dtUpdated,
-          String? email,
-          String? cellphone,
-          String? course,
-          int? hoursWorked,
-          String? university,
-          List<Activity>? listActivities,
-          List<DateTime>? pendencies}) =>
+  User copy({
+    int? id,
+    String? name,
+    String? role,
+    DateTime? dtUpdated,
+    String? email,
+    String? cellphone,
+    String? course,
+    int? hoursWorked,
+    String? university,
+  }) =>
       User(
+        id: id ?? this.id,
         name: name ?? this.name,
         role: role ?? this.role,
         dtUpdated: dtUpdated ?? this.dtUpdated,
@@ -45,8 +42,6 @@ class User {
         course: course ?? this.course,
         hoursWorked: hoursWorked ?? this.hoursWorked,
         university: university ?? this.university,
-        listActivities: listActivities ?? this.listActivities,
-        pendencies: pendencies ?? this.pendencies,
       );
 
   @override
@@ -54,6 +49,7 @@ class User {
       identical(this, other) ||
       other is User &&
           runtimeType == other.runtimeType &&
+          id == other.id &&
           name == other.name &&
           role == other.role &&
           dtUpdated == other.dtUpdated &&
@@ -61,12 +57,11 @@ class User {
           cellphone == other.cellphone &&
           course == other.course &&
           hoursWorked == other.hoursWorked &&
-          university == other.university &&
-          listActivities == other.listActivities &&
-          pendencies == other.pendencies;
+          university == other.university;
 
   @override
   int get hashCode =>
+      id.hashCode ^
       name.hashCode ^
       role.hashCode ^
       dtUpdated.hashCode ^
@@ -74,7 +69,5 @@ class User {
       cellphone.hashCode ^
       course.hashCode ^
       hoursWorked.hashCode ^
-      university.hashCode ^
-      listActivities.hashCode ^
-      pendencies.hashCode;
+      university.hashCode;
 }

@@ -1,5 +1,4 @@
 import 'package:mysql_client/mysql_client.dart';
-
 import '../../util/custom_env.dart';
 import 'db_config.dart';
 

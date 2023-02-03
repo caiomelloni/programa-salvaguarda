@@ -1,6 +1,5 @@
-import 'package:password_dart/password_dart.dart';
-
 import '../models/auth/user_model.dart';
+import '../util/password_hash/password_hash.dart';
 import 'dao.dart';
 
 class UserDAO extends DAO<UserModel> {
@@ -18,7 +17,7 @@ class UserDAO extends DAO<UserModel> {
         "role": user.role,
         "university": user.university,
         "course": user.course,
-        "password": Password.hash(user.password!, PBKDF2()),
+        "password": PasswordHash().hash(user.password!),
         "cellphone": user.cellphone,
       },
     );
@@ -103,5 +102,27 @@ class UserDAO extends DAO<UserModel> {
     var sql = "select * from users order by id desc limit 1";
     var result = await dbConfig.execQuery(sql);
     return UserModel.fromMap(result.first);
+  }
+
+  Future<UserModel> banUserbyId(int id) {
+    var sql = "UPDATE users SET is_banned = 1 WHERE id = :id";
+
+    dbConfig.execQuery(
+      sql,
+      {"id": id},
+    );
+
+    return findOne(id);
+  }
+
+  Future<UserModel> disableUserById(int id) {
+    var sql = "UPDATE users SET is_active = 0 WHERE id = :id";
+
+    dbConfig.execQuery(
+      sql,
+      {"id": id},
+    );
+
+    return findOne(id);
   }
 }

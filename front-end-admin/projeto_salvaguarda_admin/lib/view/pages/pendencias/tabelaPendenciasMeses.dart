@@ -1,4 +1,6 @@
+import 'package:projeto_salvaguarda_admin/data/pendencies.dart';
 import 'package:projeto_salvaguarda_admin/data/users.dart';
+import 'package:projeto_salvaguarda_admin/model/pendency.dart';
 import 'package:projeto_salvaguarda_admin/model/user.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
@@ -19,6 +21,7 @@ class _TabelaPendenciasMesesState extends State<TabelaPendenciasMeses> {
   String dropdownValue = '';
   List<User> usersFiltered = []; //mock para testes locais da parte visual
   List<User> _allUsers = []; //mock para testes locais da parte visual
+  List<Pendency> _allPendencies = [];
 
   @override
   void initState() {
@@ -26,6 +29,8 @@ class _TabelaPendenciasMesesState extends State<TabelaPendenciasMeses> {
     dropdownValue = DateTime.now().year.toString();
     usersFiltered = List.of(allUsers); //mock para testes locais da parte visual
     _allUsers = List.of(allUsers); //mock para testes locais da parte visual
+    _allPendencies =
+        List.of(allPendency); //mock para testes locais da parte visual
   }
 
   @override
@@ -84,86 +89,134 @@ class _TabelaPendenciasMesesState extends State<TabelaPendenciasMeses> {
                   children: [
                     _ButtonMonth(
                       texto: "Janeiro",
-                      month: 1,
                       usersFiltered: usersFiltered,
                       dropdownValue: dropdownValue,
+                      usersPendencies: _allPendencies
+                          .where((e) =>
+                              e.year == int.parse(dropdownValue) &&
+                              e.month == 1)
+                          .toList(),
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Fevereiro",
-                      month: 2,
                       usersFiltered: usersFiltered,
                       dropdownValue: dropdownValue,
+                      usersPendencies: _allPendencies
+                          .where((e) =>
+                              e.year == int.parse(dropdownValue) &&
+                              e.month == 2)
+                          .toList(),
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Março",
-                      month: 3,
                       usersFiltered: usersFiltered,
                       dropdownValue: dropdownValue,
+                      usersPendencies: _allPendencies
+                          .where((e) =>
+                              e.year == int.parse(dropdownValue) &&
+                              e.month == 3)
+                          .toList(),
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Abril",
-                      month: 4,
                       usersFiltered: usersFiltered,
                       dropdownValue: dropdownValue,
+                      usersPendencies: _allPendencies
+                          .where((e) =>
+                              e.year == int.parse(dropdownValue) &&
+                              e.month == 4)
+                          .toList(),
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Maio",
-                      month: 5,
                       usersFiltered: usersFiltered,
                       dropdownValue: dropdownValue,
+                      usersPendencies: _allPendencies
+                          .where((e) =>
+                              e.year == int.parse(dropdownValue) &&
+                              e.month == 5)
+                          .toList(),
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Junho",
-                      month: 6,
                       usersFiltered: usersFiltered,
                       dropdownValue: dropdownValue,
+                      usersPendencies: _allPendencies
+                          .where((e) =>
+                              e.year == int.parse(dropdownValue) &&
+                              e.month == 6)
+                          .toList(),
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Julho",
-                      month: 7,
                       usersFiltered: usersFiltered,
                       dropdownValue: dropdownValue,
+                      usersPendencies: _allPendencies
+                          .where((e) =>
+                              e.year == int.parse(dropdownValue) &&
+                              e.month == 7)
+                          .toList(),
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Agosto",
-                      month: 8,
                       usersFiltered: usersFiltered,
                       dropdownValue: dropdownValue,
+                      usersPendencies: _allPendencies
+                          .where((e) =>
+                              e.year == int.parse(dropdownValue) &&
+                              e.month == 8)
+                          .toList(),
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Setembro",
-                      month: 9,
                       usersFiltered: usersFiltered,
                       dropdownValue: dropdownValue,
+                      usersPendencies: _allPendencies
+                          .where((e) =>
+                              e.year == int.parse(dropdownValue) &&
+                              e.month == 9)
+                          .toList(),
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Outubro",
-                      month: 10,
                       usersFiltered: usersFiltered,
                       dropdownValue: dropdownValue,
+                      usersPendencies: _allPendencies
+                          .where((e) =>
+                              e.year == int.parse(dropdownValue) &&
+                              e.month == 10)
+                          .toList(),
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Novembro",
-                      month: 11,
                       usersFiltered: usersFiltered,
                       dropdownValue: dropdownValue,
+                      usersPendencies: _allPendencies
+                          .where((e) =>
+                              e.year == int.parse(dropdownValue) &&
+                              e.month == 11)
+                          .toList(),
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Dezembro",
-                      month: 12,
                       usersFiltered: usersFiltered,
                       dropdownValue: dropdownValue,
+                      usersPendencies: _allPendencies
+                          .where((e) =>
+                              e.year == int.parse(dropdownValue) &&
+                              e.month == 12)
+                          .toList(),
                     ),
                   ],
                 )
@@ -178,13 +231,13 @@ class _TabelaPendenciasMesesState extends State<TabelaPendenciasMeses> {
 
 class _ButtonMonth extends StatelessWidget {
   final String texto;
-  final int month;
   final List<User> usersFiltered;
+  final List<Pendency> usersPendencies;
   final String dropdownValue;
 
   const _ButtonMonth({
     required this.texto,
-    required this.month,
+    required this.usersPendencies,
     required this.usersFiltered,
     required this.dropdownValue,
     Key? key,
@@ -206,14 +259,8 @@ class _ButtonMonth extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => ListaPendenciasMes(
-                      users: usersFiltered
-                          .where((user) => user.pendencies
-                              .where((element) =>
-                                  element.year == int.parse(dropdownValue) &&
-                                  element.month == month)
-                              .toList()
-                              .isNotEmpty)
-                          .toList(),
+                      pendencies: usersPendencies,
+                      users: usersFiltered,
                       ano: dropdownValue,
                     )));
       },
