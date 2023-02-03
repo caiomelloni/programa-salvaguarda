@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/models/user.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
@@ -31,7 +32,8 @@ abstract class _EditProfileController with Store {
     sobrenomeController.text = user.lastName;
     emailController.text = user.email;
     telefoneController.text = user.cellphone;
-    entradaController.text = user.subscriptionDate.toString();
+    entradaController.text =
+        DateFormat('dd/MM/yyyy').format(user.subscriptionDate).toString();
   }
 
   void dispose() {
