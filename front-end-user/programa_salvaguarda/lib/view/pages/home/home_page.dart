@@ -36,7 +36,6 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 20),
               ScrollableRow(
                 children: [
-                  const SizedBox(width: 30),
                   HomeBigButton(
                     icone: Icons.calendar_month,
                     texto: "controle de carga horária",
@@ -55,7 +54,6 @@ class HomePage extends StatelessWidget {
               ),
               ScrollableRow(
                 children: [
-                  const SizedBox(width: 30),
                   HomeBigButton(
                       icone: Icons.fact_check,
                       texto: "emissão de atestado",

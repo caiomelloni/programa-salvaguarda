@@ -88,6 +88,7 @@ void submitWorkLoad(BuildContext context, WorkLoadController controller) {
     context: context,
     title: "Deseja inserir a carga?",
     buttonText: "Enviar",
+    cancelButton: true,
     body: const Text(
       "Ao inserir um nova carga, você irá sobrescrever o último registro que foi realizado neste mês",
     ),

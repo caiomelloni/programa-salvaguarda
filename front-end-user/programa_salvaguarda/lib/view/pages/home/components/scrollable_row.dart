@@ -13,9 +13,11 @@ class ScrollableRow extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20),
-        child: Row(
-          children: children,
-        ),
+        child: Row(children: [
+          const SizedBox(width: 30),
+          ...children,
+          const SizedBox(width: 30)
+        ]),
       ),
     );
   }

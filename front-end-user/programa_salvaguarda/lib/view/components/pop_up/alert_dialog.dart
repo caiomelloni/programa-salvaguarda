@@ -6,10 +6,11 @@ Future<void> showAlertDialog(
     required String title,
     required String buttonText,
     required Widget body,
+    bool cancelButton = false,
     VoidCallback? onPressed}) async {
   return showDialog<void>(
     context: context,
-    barrierDismissible: false, // user must tap button!
+    barrierDismissible: true, // user must tap button!
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text(
@@ -18,6 +19,17 @@ Future<void> showAlertDialog(
         ),
         content: SingleChildScrollView(child: body),
         actions: <Widget>[
+          if (cancelButton) ...[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text(
+                "Cancelar",
+                style: TextStyle(
+                  color: AppColors.lightPurple,
+                ),
+              ),
+            )
+          ],
           TextButton(
             onPressed: onPressed,
             child: Text(
