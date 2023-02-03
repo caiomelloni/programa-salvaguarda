@@ -9,18 +9,18 @@ class AdminDao extends DAO<AdminModel> {
   @override
   Future<AdminModel> create(AdminModel value) async {
     var sql =
-        'INSERT INTO admins (name, email, role, password) VALUES (:name, :email, :role, :password)';
+        'INSERT INTO admins (name, email, cellphone, password) VALUES (:name, :email, :cellphone, :password)';
     await dbConfig.execQuery(
       sql,
       {
         "name": value.name,
         "email": value.email,
-        "role": value.role,
+        "cellphone": value.cellphone,
         "password": Password.hash(value.password!, PBKDF2()),
       },
     );
 
-    return value;
+    return _lastUser();
   }
 
   @override
@@ -36,9 +36,20 @@ class AdminDao extends DAO<AdminModel> {
   }
 
   @override
-  Future<AdminModel> update(AdminModel value) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<AdminModel> update(AdminModel admin) async {
+    var sql =
+        "UPDATE admins SET name = :name, email = :email, cellphone = :cellphone  WHERE id = :id";
+    await dbConfig.execQuery(
+      sql,
+      {
+        "id": admin.id,
+        "name": admin.name,
+        "email": admin.email,
+        "cellphone": admin.cellphone,
+      },
+    );
+
+    return findOne(admin.id!);
   }
 
   @override
@@ -62,5 +73,11 @@ class AdminDao extends DAO<AdminModel> {
 
     if (rows.isEmpty) return null;
     return AdminModel.fromMap(rows.first);
+  }
+
+  Future<AdminModel> _lastUser() async {
+    var sql = "select * from admins order by id desc limit 1";
+    var result = await dbConfig.execQuery(sql);
+    return AdminModel.fromMap(result.first);
   }
 }

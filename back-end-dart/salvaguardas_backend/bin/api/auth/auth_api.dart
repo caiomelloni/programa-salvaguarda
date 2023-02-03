@@ -6,6 +6,7 @@ import '../../services/auth/user_service_inteface.dart';
 import '../api.dart';
 import 'endpoints/sign_in_admin.dart';
 import 'endpoints/sign_in_user.dart';
+import 'endpoints/sign_up_admin.dart';
 import 'endpoints/sign_up_user.dart';
 
 class AuthApi extends Api {
@@ -22,8 +23,12 @@ class AuthApi extends Api {
     Router router = Router();
 
     ///sign up
-    router.post(
-        '/auth/signup', SignUpUserEndPoint(_securityService, _userService).handler);
+    router.post('/auth/signup',
+        SignUpUserEndPoint(_securityService, _userService).handler);
+
+    ///sign up
+    router.post('/auth/signup/admin',
+        SignUpAdminEndpoint(_securityService, _adminService).handler);
 
     ///sign in
     router.post('/auth/signin',

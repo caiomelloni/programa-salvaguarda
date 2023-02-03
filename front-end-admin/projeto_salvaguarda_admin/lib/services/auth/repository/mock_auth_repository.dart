@@ -7,11 +7,10 @@ import 'package:projeto_salvaguarda_admin/services/auth/repository/auth_stream_r
 class MockAuthRepository implements AuthStreamRepository {
   final String _userEmail = "andre@gmail.com";
   final String _userPassword = "1234567";
- 
 
-  final StreamController<SalvaGuardasUser?> _authStreamController =
-      StreamController<SalvaGuardasUser?>();
-  late Stream<SalvaGuardasUser?> _streamBroadcast;
+  final StreamController<SalvaGuardasAdmin?> _authStreamController =
+      StreamController<SalvaGuardasAdmin?>();
+  late Stream<SalvaGuardasAdmin?> _streamBroadcast;
 
   MockAuthRepository() {
     _streamBroadcast = _authStreamController.stream.asBroadcastStream();
@@ -25,7 +24,7 @@ class MockAuthRepository implements AuthStreamRepository {
     print("service initialized");
   }
 
-  void _emitUser(SalvaGuardasUser? user) =>
+  void _emitUser(SalvaGuardasAdmin? user) =>
       _authStreamController.sink.add(user);
 
   @override
@@ -45,7 +44,7 @@ class MockAuthRepository implements AuthStreamRepository {
     String? name,
     String? lastName,
     String? email,
-    String? phoneNumber,
+    String? cellphone,
     String? password,
     String? passwordConfirmation,
   ) async {
@@ -55,44 +54,50 @@ class MockAuthRepository implements AuthStreamRepository {
     if (name == null ||
         lastName == null ||
         email == null ||
-        phoneNumber == null ||
+        cellphone == null ||
         password == null ||
         passwordConfirmation == null) {
       throw InsufficientInformationAuthException();
     }
     await Future.delayed(const Duration(seconds: 5));
-    _emitUser(SalvaGuardasUser(
+    _emitUser(SalvaGuardasAdmin(
+      id: 1,
       name: name,
       lastName: lastName,
       email: email,
-      phoneNumber: phoneNumber,
-      subscriptionDate: "17/04/2000",
+      cellphone: cellphone,
+      subscriptionDate: DateTime.now(),
+      token: "tok",
     ));
   }
 
   @override
   // get in the database the current state of the user
-  SalvaGuardasUser? getInitialUserState() => null; // mockUser;
+  SalvaGuardasAdmin? getInitialUserState() => null; // mockUser;
 
   @override
-  Stream<SalvaGuardasUser?> onAuthStateChange() => _streamBroadcast;
+  Stream<SalvaGuardasAdmin?> onAuthStateChange() => _streamBroadcast;
 
   @override
-  Future<void> updateUser(String? name, String? lastName, String? email,
-      String? phoneNumber) async {
+  Future<void> updateUser(
+      String? name, String? lastName, String? email, String? cellphone) async {
     await Future.delayed(const Duration(seconds: 2));
     _emitUser(mockUser.copyWith(
-        name: name,
-        lastName: lastName,
-        email: email,
-        phoneNumber: phoneNumber));
+        name: name, lastName: lastName, email: email, cellphone: cellphone));
+  }
+
+  @override
+  Future<void> refreshUserState() {
+    // TODO: implement refreshUserState
+    throw UnimplementedError();
   }
 }
 
-final mockUser = SalvaGuardasUser(
-  email: "andre@gmail.com",
-  name: "Andre",
-  lastName: "Eidi Maeda",
-  phoneNumber: "(11) 4002-8922",
-  subscriptionDate: "14/11/22",
-);
+final mockUser = SalvaGuardasAdmin(
+    id: 1,
+    email: "andre@gmail.com",
+    name: "Andre",
+    lastName: "Eidi Maeda",
+    cellphone: "(11) 4002-8922",
+    subscriptionDate: DateTime.now(),
+    token: 'tok');

@@ -7,6 +7,7 @@ class AdminModel {
   String? email;
   String? password;
   String? role;
+  String? cellphone;
   DateTime? dtCreated;
   DateTime? dtUpdated;
 
@@ -16,6 +17,7 @@ class AdminModel {
     this.email,
     this.password,
     this.role,
+    this.cellphone,
     this.dtCreated,
     this.dtUpdated,
   });
@@ -26,6 +28,7 @@ class AdminModel {
     String? email,
     String? password,
     String? role,
+    String? cellphone,
     DateTime? dtCreated,
     DateTime? dtUpdated,
   }) {
@@ -35,6 +38,7 @@ class AdminModel {
       email: email ?? this.email,
       password: password ?? this.password,
       role: role ?? this.role,
+      cellphone: cellphone ?? this.cellphone,
       dtCreated: dtCreated ?? this.dtCreated,
       dtUpdated: dtUpdated ?? this.dtUpdated,
     );
@@ -46,6 +50,7 @@ class AdminModel {
       'name': name,
       'email': email,
       'role': role,
+      'cellphone': cellphone,
       'dtCreated': dtCreated?.millisecondsSinceEpoch,
       'dtUpdated': dtUpdated?.millisecondsSinceEpoch,
     };
@@ -56,8 +61,9 @@ class AdminModel {
       id: ModelUtils.ifNullReturn(map['id'], int.parse),
       name: map['name'],
       email: map['email'],
-      role: map['role'],
-      dtCreated: ModelUtils.ifNullReturn(map['dt_create'], DateTime.parse) ,
+      cellphone: map['cellphone'],
+      role: map['role'] ?? "admin",
+      dtCreated: ModelUtils.ifNullReturn(map['dt_create'], DateTime.parse),
       dtUpdated: ModelUtils.ifNullReturn(map['dt_update'], DateTime.parse),
       password: map['password'],
     );
@@ -66,9 +72,10 @@ class AdminModel {
   factory AdminModel.fromJson(String source) =>
       AdminModel.fromMap(JsonParser.fromJson(source));
 
+  String toJson() => toMap().toJson();
+
   @override
   String toString() {
     return 'AdminModel(id: $id, name: $name, email: $email, password: $password)';
   }
-
 }
