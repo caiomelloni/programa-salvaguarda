@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:projeto_salvaguarda_admin/services/auth/models/user.dart';
+import 'package:projeto_salvaguarda_admin/services/auth/models/user_admin.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/repository/back_end_auth_repository.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/repository/mock_auth_repository.dart';
 

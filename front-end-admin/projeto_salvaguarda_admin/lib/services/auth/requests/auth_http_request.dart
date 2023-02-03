@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'package:projeto_salvaguarda_admin/services/auth/errors/auth_exceptions.dart';
-import 'package:projeto_salvaguarda_admin/services/auth/models/user.dart';
+import 'package:projeto_salvaguarda_admin/services/auth/models/user_admin.dart';
 import 'package:projeto_salvaguarda_admin/util/custom_env.dart';
 import 'package:projeto_salvaguarda_admin/util/extensions/json_parser_extension.dart';
 
