@@ -13,6 +13,7 @@ class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
   static const pageName = "/home";
 
+
   @override
   Widget build(BuildContext context) {
     return SafeAreaWidget(
@@ -25,7 +26,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 20),
               PagePaddingWidget(
                 child: AuthListenableWidget(
-                  builder: (_, user, __) => Text(
+                  builder: (_, user) => Text(
                     "Boas Vindas, ${user?.name}!",
                     style: const TextStyle(
                         color: AppColors.lightPurple, fontSize: 30),
