@@ -48,7 +48,7 @@ class WrongPasswordConfimationAuthException
     implements Exception, AuthException {
   @override
   String message() {
-    return "Preencha todos os campos";
+    return "A confirmação de senha está errada";
   }
 }
 

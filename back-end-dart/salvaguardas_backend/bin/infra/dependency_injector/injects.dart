@@ -83,6 +83,7 @@ class Injects {
     di.register(
       () => UserApi(
         di.get<IUserService>(),
+        di.get<IAdminService>(),
       ),
     );
     di.register<PendenciesApi>(

@@ -6,13 +6,15 @@ import 'package:projeto_salvaguarda_admin/services/auth/models/user.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
 
 class AuthListenableWidget extends StatefulWidget {
-  final void Function(SalvaGuardasUser?)? onAuthStateChange;
+  final void Function(SalvaGuardasAdmin?)? onAuthStateChange;
   final Widget Function(
-      BuildContext context, SalvaGuardasUser? user, Widget? child) builder;
+      BuildContext context, SalvaGuardasAdmin? user, Widget? child) builder;
+  final Widget? child;
   const AuthListenableWidget({
     Key? key,
     this.onAuthStateChange,
     required this.builder,
+    this.child,
   }) : super(key: key);
 
   @override
@@ -20,27 +22,30 @@ class AuthListenableWidget extends StatefulWidget {
 }
 
 class _AuthListenableWidgetState extends State<AuthListenableWidget> {
-  late StreamSubscription<SalvaGuardasUser?> _userStream;
+  StreamSubscription<SalvaGuardasAdmin?>? _userStream;
 
   @override
   void initState() {
     super.initState();
-    _userStream = AuthService.service.onAuthStateChange().listen((user) {
-      if (mounted && widget.onAuthStateChange != null) {
-        widget.onAuthStateChange ?? (user);
-      }
-    });
+    if (mounted && widget.onAuthStateChange != null) {
+      _userStream = AuthService.service.onAuthStateChange().listen((user) {
+        widget.onAuthStateChange!(user);
+      });
+    }
   }
 
   @override
   void dispose() {
-    _userStream.cancel();
+    _userStream?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-        valueListenable: AuthService.instance, builder: widget.builder);
+      valueListenable: AuthService.instance,
+      builder: widget.builder,
+      child: widget.child,
+    );
   }
 }

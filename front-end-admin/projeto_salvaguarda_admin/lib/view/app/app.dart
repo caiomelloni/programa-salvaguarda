@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
+import 'package:projeto_salvaguarda_admin/theme/app_theme.dart';
+import 'package:projeto_salvaguarda_admin/view/app/app_routes.dart';
+import 'package:projeto_salvaguarda_admin/view/components/auth_listenable_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/home/home_page.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/login/login_page.dart';
-import 'package:projeto_salvaguarda_admin/theme/app_theme.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -13,9 +14,13 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Projeto Salvaguardas',
       debugShowCheckedModeBanner: false,
-      home:
-          AuthService.instance.isLogged ? const HomePage() : const LoginPage(),
+      home: AuthListenableWidget(
+        builder: (context, user, child) {
+          return user != null ? const HomePage() : const LoginPage();
+        },
+      ),
       theme: appTheme(),
+      routes: kRoutes,
     );
   }
 }

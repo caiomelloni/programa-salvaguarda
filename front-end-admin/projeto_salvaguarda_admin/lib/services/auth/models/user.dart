@@ -1,41 +1,64 @@
-class SalvaGuardasUser {
+import 'package:flutter/scheduler.dart';
+
+class SalvaGuardasAdmin {
+  int id;
   String name;
   String lastName;
   String email;
-  String phoneNumber;
-  String subscriptionDate;
+  String cellphone;
+  DateTime subscriptionDate;
+  String token;
 
-  SalvaGuardasUser({
+  SalvaGuardasAdmin({
+    required this.id,
     required this.name,
     required this.lastName,
     required this.email,
-    required this.phoneNumber,
+    required this.cellphone,
     required this.subscriptionDate,
+    required this.token,
   });
 
-  SalvaGuardasUser copyWith({
+  SalvaGuardasAdmin copyWith({
+    int? id,
     String? name,
     String? lastName,
     String? email,
-    String? phoneNumber,
-    String? subscriptionDate,
+    // String? cellphone,
+    DateTime? subscriptionDate,
+    String? token,
+    String? cellphone,
   }) {
-    return SalvaGuardasUser(
+    return SalvaGuardasAdmin(
+      id: id ?? this.id,
       name: name ?? this.name,
       lastName: lastName ?? this.lastName,
       email: email ?? this.email,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-      subscriptionDate: subscriptionDate ?? this.subscriptionDate,
+      cellphone: cellphone ?? this.cellphone,
+      subscriptionDate: DateTime.fromMillisecondsSinceEpoch(
+          subscriptionDate?.millisecondsSinceEpoch ??
+              this.subscriptionDate.millisecondsSinceEpoch),
+      token: token ?? this.token,
     );
   }
 
-  factory SalvaGuardasUser.fromJson(Map<String, dynamic> json) {
-    return SalvaGuardasUser(
-      name: json["name"],
-      lastName: json["lastName"],
-      email: json["email"],
-      phoneNumber: json["phoneNumber"],
-      subscriptionDate: json["subscriptionDate"],
+  factory SalvaGuardasAdmin.fromJson(Map<String, dynamic> json) {
+    var user = json['admin'];
+    String token = json['token'];
+
+    var name = user['name'] as String;
+    int firstSpace = (name).indexOf(" ");
+    var firstName = (name).substring(0, firstSpace);
+    var lastName = (name).substring(firstSpace + 1);
+
+    return SalvaGuardasAdmin(
+      id: user["id"],
+      name: firstName,
+      lastName: lastName,
+      email: user["email"],
+      subscriptionDate: DateTime.fromMillisecondsSinceEpoch(user["dtCreated"]),
+      token: token,
+      cellphone: user["cellphone"],
     );
   }
 
@@ -43,8 +66,14 @@ class SalvaGuardasUser {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['email'] = email;
-    data['phoneNumber'] = phoneNumber;
+    data['cellphone'] = cellphone;
     data['subscriptionDate'] = subscriptionDate;
+    data['token'] = token;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'SalvaGuardasUser(id: $id, name: $name, lastName: $lastName, cellphoe: $cellphone, email: $email, subscriptionDate: $subscriptionDate, token: $token)';
   }
 }

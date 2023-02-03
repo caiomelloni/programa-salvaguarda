@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS `dart`.`admins` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
+  `cellphone` VARCHAR(255) NOT NULL,
   `role` VARCHAR(255) NULL DEFAULT 'admin',
   `password` VARCHAR(255) NOT NULL,
   `dt_create` datetime DEFAULT CURRENT_TIMESTAMP,
