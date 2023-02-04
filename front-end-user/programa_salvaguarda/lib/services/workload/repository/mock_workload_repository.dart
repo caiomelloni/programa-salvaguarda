@@ -1,4 +1,5 @@
 import 'package:programa_salvaguarda/services/workload/errors/workload_exceptions.dart';
+import 'package:programa_salvaguarda/services/workload/models/workload_model.dart';
 import 'package:programa_salvaguarda/services/workload/repository/workload_repository.dart';
 
 class MockWorkLoadRepository implements WorkLoadRepository {
@@ -13,5 +14,17 @@ class MockWorkLoadRepository implements WorkLoadRepository {
 
     await Future.delayed(const Duration(seconds: 3));
     // throw OutOfTimeWorkLoadException();
+  }
+
+  @override
+  Future<WorkloadModel> getLastWorkload() {
+    // TODO: implement getLastWorkload
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<List<WorkloadModel>> getAllWorkloads() {
+    // TODO: implement getAllWorkloads
+    throw UnimplementedError();
   }
 }

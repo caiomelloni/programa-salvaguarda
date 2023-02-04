@@ -18,7 +18,7 @@ class UserApi extends Api {
   Handler getHandler({List<Middleware>? middlewares, bool isSecurity = false}) {
     Router router = Router();
 
-    /// get a user information, a user can get only its on info, admin can get anyone
+    /// get a user information, a user can get only its on info
     router.get("/user", (Request req) async {
       try {
         RequestContext context = RequestContext.fromRequest(req.headers);

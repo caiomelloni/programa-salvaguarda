@@ -5,12 +5,13 @@ class BigTextFieldWidget extends StatelessWidget {
   final void Function(String value)? onChanged;
   final String? hintText;
   final TextEditingController? controller;
-
+  final bool readOnly;
   const BigTextFieldWidget({
     Key? key,
     this.onChanged,
     this.hintText,
     this.controller,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -22,6 +23,7 @@ class BigTextFieldWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: TextFormField(
+            readOnly: readOnly,
             controller: controller,
             onChanged: onChanged,
             minLines: 5,

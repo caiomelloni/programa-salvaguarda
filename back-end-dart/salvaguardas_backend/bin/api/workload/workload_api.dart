@@ -1,11 +1,13 @@
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-import '../models/auth/user_model.dart';
-import '../models/request/request_context.dart';
-import '../models/workload/workload_model.dart';
-import '../services/workload/workload_service_interface.dart';
-import '../util/extensions/json_parser_extension.dart';
-import 'api.dart';
+import '../../models/auth/user_model.dart';
+import '../../models/request/request_context.dart';
+import '../../models/workload/workload_model.dart';
+import '../../services/workload/workload_service_interface.dart';
+import '../../util/extensions/json_parser_extension.dart';
+import '../api.dart';
+import 'endpoints/get_all_workloads_user.dart';
+import 'endpoints/get_last_workload_user.dart';
 
 class WorkloadApi extends Api {
   final IWorkloadService _workloadService;
@@ -59,6 +61,14 @@ class WorkloadApi extends Api {
         workloads.map((e) => e.toMap()).toList().toJson(),
       );
     });
+
+    // get all workloads from a user
+    router.get(
+        "/workload", GetAllWorkloadsUserEndPoint(_workloadService).handler);
+
+    // the last workload from a user
+    router.get("/workload/last",
+        GetLastWorkloadUserEndPoint(_workloadService).handler);
 
     return createHandler(
       route: router,
