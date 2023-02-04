@@ -76,7 +76,7 @@ class WorkLoadPage extends StatelessWidget {
                             Observer(
                               builder: (context) => ElevatedButtonWidget(
                                 isLoading: controller.isLoading,
-                                title: 'Enviar',
+                                title: 'Salvar',
                                 icon: Icons.check_circle,
                                 onPressed: controller.isLoading
                                     ? () {}

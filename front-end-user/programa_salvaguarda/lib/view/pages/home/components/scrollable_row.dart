@@ -16,7 +16,7 @@ class ScrollableRow extends StatelessWidget {
         child: Row(children: [
           const SizedBox(width: 30),
           ...children,
-          const SizedBox(width: 30)
+          const SizedBox(width: 15)
         ]),
       ),
     );

@@ -16,4 +16,6 @@ abstract class WorkLoadRepository {
       String? workload, String? description, String? feedBack);
 
   Future<WorkloadModel?> getLastWorkload();
+
+  Future<List<WorkloadModel>> getAllWorkloads();
 }

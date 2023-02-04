@@ -21,4 +21,10 @@ class MockWorkLoadRepository implements WorkLoadRepository {
     // TODO: implement getLastWorkload
     throw UnimplementedError();
   }
+  
+  @override
+  Future<List<WorkloadModel>> getAllWorkloads() {
+    // TODO: implement getAllWorkloads
+    throw UnimplementedError();
+  }
 }
