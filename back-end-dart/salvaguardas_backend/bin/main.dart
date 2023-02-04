@@ -2,7 +2,7 @@ import 'package:shelf/shelf.dart';
 import 'api/auth/auth_api.dart';
 import 'api/pendencies_api.dart';
 import 'api/user_api.dart';
-import 'api/workload_api.dart';
+import 'api/workload/workload_api.dart';
 import 'infra/custom_server.dart';
 import 'infra/dependency_injector/injects.dart';
 import 'infra/middlewares/default_response_props.dart';

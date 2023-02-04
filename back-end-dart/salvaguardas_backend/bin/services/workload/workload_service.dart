@@ -32,4 +32,10 @@ class WorkLoadService implements IWorkloadService {
   Future<List<WorkloadModel>> findAll(int userId) {
     return _workloadDao.findAllUserWorkload(userId);
   }
+
+  @override
+  Future<WorkloadModel?> findLast(int userId) async {
+    var now = DateTime.now();
+    return await _workloadDao.findByDate(now.month, now.year, userId);
+  }
 }

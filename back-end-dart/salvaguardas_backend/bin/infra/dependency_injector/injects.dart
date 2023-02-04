@@ -1,7 +1,7 @@
 import '../../api/auth/auth_api.dart';
 import '../../api/pendencies_api.dart';
 import '../../api/user_api.dart';
-import '../../api/workload_api.dart';
+import '../../api/workload/workload_api.dart';
 import '../../dao/pendencies_dao.dart';
 import '../../services/auth/admin_service.dart';
 import '../../services/auth/admin_service_interface.dart';
