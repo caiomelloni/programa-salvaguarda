@@ -21,63 +21,73 @@ class WorkLoadPage extends StatelessWidget {
     return SafeAreaWidget(
       child: Scaffold(
         appBar: getAppBarWidget(context, canPop: true, showActions: false),
-        body: SingleChildScrollView(
-          child: PagePaddingWidget(
-            extraPadding: const EdgeInsets.only(bottom: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                const Text(
-                  "Controle de carga horária",
-                  style: TextStyle(color: AppColors.lightPurple, fontSize: 30),
-                ),
-                const SizedBox(height: 8),
-                RichText(
-                  text: TextSpan(
-                    style: const TextStyle(
-                        color: AppColors.lightPurple, fontSize: 25),
-                    children: [
-                      const TextSpan(
-                        text:
-                            "Insira as informações a respeito do trabalho realizado no mês de",
+        body: FutureBuilder(
+            future: controller.fetchLastWorkload(),
+            builder: (context, snapshot) {
+              return snapshot.connectionState == ConnectionState.waiting
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : SingleChildScrollView(
+                      child: PagePaddingWidget(
+                        extraPadding: const EdgeInsets.only(bottom: 30),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 20),
+                            const Text(
+                              "Controle de carga horária",
+                              style: TextStyle(
+                                  color: AppColors.lightPurple, fontSize: 30),
+                            ),
+                            const SizedBox(height: 8),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                    color: AppColors.lightPurple, fontSize: 25),
+                                children: [
+                                  const TextSpan(
+                                    text:
+                                        "Insira as informações a respeito do trabalho realizado no mês de",
+                                  ),
+                                  TextSpan(
+                                    text: " ${controller.currentMonth()}",
+                                    style: const TextStyle(
+                                        color: AppColors.orange),
+                                  )
+                                ],
+                              ),
+                            ),
+                            InsertWorkloadField(
+                                controller: controller.cargaHorariaController),
+                            BigTextFieldWithTitleWidget(
+                              title: "Descrição dos feitos",
+                              hintText:
+                                  "Descreva o trabalho realizado no programa neste mês",
+                              controller: controller.descricaoFeitosController,
+                            ),
+                            BigTextFieldWithTitleWidget(
+                              title: "Feedback",
+                              hintText:
+                                  "o feedback não é obrigatório, use esse campo para expor sua relação com os alunos e com o programa nesse mês",
+                              controller: controller.feedbackController,
+                            ),
+                            const SizedBox(height: 20),
+                            Observer(
+                              builder: (context) => ElevatedButtonWidget(
+                                isLoading: controller.isLoading,
+                                title: 'Enviar',
+                                icon: Icons.check_circle,
+                                onPressed: controller.isLoading
+                                    ? () {}
+                                    : () => submitWorkLoad(context, controller),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      TextSpan(
-                        text: " ${controller.currentMonth()}",
-                        style: const TextStyle(color: AppColors.orange),
-                      )
-                    ],
-                  ),
-                ),
-                InsertWorkloadField(
-                    controller: controller.cargaHorariaController),
-                BigTextFieldWithTitleWidget(
-                  title: "Descrição dos feitos",
-                  hintText:
-                      "Descreva o trabalho realizado no programa neste mês",
-                  controller: controller.descricaoFeitosController,
-                ),
-                BigTextFieldWithTitleWidget(
-                  title: "Feedback",
-                  hintText:
-                      "o feedback não é obrigatório, use esse campo para expor sua relação com os alunos e com o programa nesse mês",
-                  controller: controller.feedbackController,
-                ),
-                const SizedBox(height: 20),
-                Observer(
-                  builder: (context) => ElevatedButtonWidget(
-                    isLoading: controller.isLoading,
-                    title: 'Enviar',
-                    icon: Icons.check_circle,
-                    onPressed: controller.isLoading
-                        ? () {}
-                        : () => submitWorkLoad(context, controller),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+                    );
+            }),
       ),
     );
   }

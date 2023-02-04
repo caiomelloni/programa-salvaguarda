@@ -15,6 +15,16 @@ abstract class _WorkLoadController with Store {
   final TextEditingController feedbackController =
       TextEditingController(text: "");
 
+  Future<void> fetchLastWorkload() async {
+    var workload = await WorkLoadService.service.getLastWorkload();
+
+    if (workload != null) {
+      cargaHorariaController.text = workload.workedHours.toString();
+      descricaoFeitosController.text = workload.description;
+      feedbackController.text = workload.feedback;
+    }
+  }
+
   @observable
   bool isLoading = false;
 
