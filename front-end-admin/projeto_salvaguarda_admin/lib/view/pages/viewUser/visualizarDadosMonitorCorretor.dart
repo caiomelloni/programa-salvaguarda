@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:projeto_salvaguarda_admin/model/activity.dart';
 import 'package:projeto_salvaguarda_admin/model/pendency.dart';
 import 'package:projeto_salvaguarda_admin/services/banUser/errors/ban_errors.dart';
+import 'package:projeto_salvaguarda_admin/services/getPendencies/get_pendencies_from_api.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/model/user.dart';
@@ -20,18 +23,41 @@ import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/atividad
 BanUserController _bancontroller = BanUserController();
 DisableUserController _disablecontroller = DisableUserController();
 
-class VisualizarDadosMoniCorret extends StatelessWidget {
+class VisualizarDadosMoniCorret extends StatefulWidget {
   // final SalvaGuardaVolunteers user;
-  final User user;
-  final List<Pendency> userPendency;
+  final SalvaGuardaVolunteers user;
+  // final List<PendenciesModel> userPendency;
   final List<Activity> userActivity;
 
   const VisualizarDadosMoniCorret({
     Key? key,
     required this.user,
-    required this.userPendency,
+    // required this.userPendency,
     required this.userActivity,
   }) : super(key: key);
+
+  @override
+  State<VisualizarDadosMoniCorret> createState() =>
+      _VisualizarDadosMoniCorretState();
+}
+
+class _VisualizarDadosMoniCorretState extends State<VisualizarDadosMoniCorret> {
+  List<PendenciesModel> _allPendenciesUser = [];
+  @override
+  void initState() {
+    super.initState();
+
+    // fetchPendenciesModel().then((value) {
+    //   _allPendenciesUser =
+    //       value.where((e) => e.pendenciesIdUser == widget.user.id).toList();
+    //   setState(() {});
+    // });
+    fetchOneUserPendenciesModel(
+        jsonEncode({'pendencies_id_user': widget.user.id})).then((value) {
+      _allPendenciesUser = value;
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,37 +74,37 @@ class VisualizarDadosMoniCorret extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                DataUser(info: user.name),
+                DataUser(info: widget.user.name),
                 const SizedBox(
                   height: 20,
                 ),
-                DataUser(info: user.email),
+                DataUser(info: widget.user.email),
                 const SizedBox(
                   height: 20,
                 ),
-                DataUser(info: user.cellphone),
+                DataUser(info: widget.user.cellphone),
                 const SizedBox(
                   height: 20,
                 ),
-                DataUser(info: user.course),
+                DataUser(info: widget.user.course),
                 const SizedBox(
                   height: 20,
                 ),
-                DataUser(info: user.university),
+                DataUser(info: widget.user.university),
                 const SizedBox(
                   height: 20,
                 ),
-                DataUser(info: user.role),
+                DataUser(info: widget.user.role),
                 const SizedBox(
                   height: 20,
                 ),
-                DataUser(info: "${user.hoursWorked} Horas cumpridas"),
+                DataUser(info: "${widget.user.hoursWorked} Horas cumpridas"),
                 const SizedBox(
                   height: 20,
                 ),
                 DataUser(
                     info:
-                        "${userPendency.where((element) => element.year == year).toList().length} pendência(s) neste ano"),
+                        "${_allPendenciesUser.where((element) => element.dtCreated.year == year).toList().length} pendência(s) neste ano"),
                 const SizedBox(
                   height: 40,
                 ),
@@ -90,8 +116,8 @@ class VisualizarDadosMoniCorret extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ViewActivities(
-                                  listActivities: userActivity,
-                                  listPendencies: userPendency,
+                                  listActivities: widget.userActivity,
+                                  listPendencies: _allPendenciesUser,
                                 )));
                   },
                 ),

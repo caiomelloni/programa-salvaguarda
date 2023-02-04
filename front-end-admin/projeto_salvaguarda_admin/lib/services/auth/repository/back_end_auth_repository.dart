@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:projeto_salvaguarda_admin/services/auth/errors/auth_exceptions.dart';
-import 'package:projeto_salvaguarda_admin/services/auth/models/user.dart';
+import 'package:projeto_salvaguarda_admin/services/auth/models/user_admin.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/repository/auth_stream_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 

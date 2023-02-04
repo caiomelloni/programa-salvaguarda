@@ -22,18 +22,22 @@ class DataUser extends StatelessWidget {
       width: 370,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              info,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontSize: 20,
-                  color: AppColors.lightPurple,
-                  fontWeight: FontWeight.normal),
-            )
-          ],
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                info,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontSize: 20,
+                    color: AppColors.lightPurple,
+                    fontWeight: FontWeight.normal),
+                overflow: TextOverflow.fade,
+              )
+            ],
+          ),
         ),
       ),
     );

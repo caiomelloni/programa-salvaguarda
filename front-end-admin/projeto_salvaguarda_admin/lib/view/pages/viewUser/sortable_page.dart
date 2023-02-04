@@ -5,6 +5,7 @@ import 'package:projeto_salvaguarda_admin/data/workloadData.dart';
 import 'package:projeto_salvaguarda_admin/model/activity.dart';
 import 'package:projeto_salvaguarda_admin/model/pendency.dart';
 import 'package:projeto_salvaguarda_admin/model/user.dart';
+import 'package:projeto_salvaguarda_admin/services/getPendencies/get_pendencies_from_api.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/visualizarDadosMonitorCorretor.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/visualizarDadosTutor.dart';
@@ -23,28 +24,34 @@ class _SortablePageState extends State<SortablePage> {
   bool isAscending = false;
   TextEditingController controller = TextEditingController();
   String _searchResult = '';
-  // List<SalvaGuardaVolunteers> usersFiltered = [];
-  // List<SalvaGuardaVolunteers> _allUser = [];
-  List<User> usersFiltered = []; //mock para testes locais da parte visual
-  List<User> _allUser = []; //mock para testes locais da parte visual
-  List<Pendency> _allPendencies = [];
+  List<SalvaGuardaVolunteers> usersFiltered = [];
+  List<SalvaGuardaVolunteers> _allUser = [];
+  // List<PendenciesModel> _allPendencies = [];
+  // List<User> usersFiltered = []; //mock para testes locais da parte visual
+  // List<User> _allUser = []; //mock para testes locais da parte visual
+  // List<Pendency> _allPendencies = [];
+
   List<Activity> _allActivities = [];
 
   @override
   void initState() {
     super.initState();
 
-    usersFiltered = List.of(allUsers); //mock para testes locais da parte visual
-    _allUser = List.of(allUsers); //mock para testes locais da parte visual
-    _allPendencies = List.of(allPendency);
+    // usersFiltered = List.of(allUsers); //mock para testes locais da parte visual
+    // _allUser = List.of(allUsers); //mock para testes locais da parte visual
+    // _allPendencies = List.of(allPendency);
     _allActivities = List.of(allWorkloads);
-    // fetchSalvaGuardaVolunteers().then(
-    //   (value) {
-    //     _allUser = value;
-    //     usersFiltered = value;
-    //     setState(() {});
-    //   },
-    // );
+    fetchSalvaGuardaVolunteers().then(
+      (value) {
+        _allUser = value;
+        usersFiltered = value;
+        setState(() {});
+      },
+    );
+    // fetchPendenciesModel().then((value) {
+    //   _allPendencies = value;
+    //   setState(() {});
+    // });
   }
 
   @override
@@ -130,11 +137,11 @@ class _SortablePageState extends State<SortablePage> {
           ))
       .toList();
 
-  // List<DataRow> getRows(List<SalvaGuardaVolunteers> users) =>
-  List<DataRow> getRows(
-          List<User> users) => //mock para testes locais da parte visual
-      // users.map((SalvaGuardaVolunteers user) {
-      users.map((User user) {
+  List<DataRow> getRows(List<SalvaGuardaVolunteers> users) =>
+      users.map((SalvaGuardaVolunteers user) {
+        // List<DataRow> getRows(
+        //         List<User> users) => //mock para testes locais da parte visual
+        // users.map((User user) {
         //mock para testes locais da parte visual
         final cells = [
           user.name,
@@ -150,9 +157,9 @@ class _SortablePageState extends State<SortablePage> {
                     MaterialPageRoute(
                         builder: (context) => VisualizarDadosTutor(
                               user: user,
-                              userPendency: _allPendencies
-                                  .where((e) => e.idUser == user.id)
-                                  .toList(),
+                              // userPendency: _allPendencies
+                              //     .where((e) => e.pendenciesIdUser == user.id)
+                              //     .toList(),
                               userActivity: _allActivities
                                   .where((e) => e.idUser == user.id)
                                   .toList(),
@@ -162,9 +169,9 @@ class _SortablePageState extends State<SortablePage> {
                     MaterialPageRoute(
                         builder: (context) => VisualizarDadosMoniCorret(
                               user: user,
-                              userPendency: _allPendencies
-                                  .where((e) => e.idUser == user.id)
-                                  .toList(),
+                              // userPendency: _allPendencies
+                              //     .where((e) => e.pendenciesIdUser == user.id)
+                              //     .toList(),
                               userActivity: _allActivities
                                   .where((e) => e.idUser == user.id)
                                   .toList(),

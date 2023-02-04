@@ -54,7 +54,7 @@ class PendenciesApi extends Api {
     });
 
     ///get one pendency based on id
-    router.get("/pendencies/admin/pendency", (Request req) async {
+    router.post("/pendencies/admin/pendency", (Request req) async {
       late PendenciesModel pendency;
       try {
         var r = await req.readAsString();
@@ -65,11 +65,14 @@ class PendenciesApi extends Api {
       RequestContext context = RequestContext(req.context);
       if (!context.isAdmin) return Response.forbidden("Not Authorized");
 
-      PendenciesModel? result = await _pendenciesService.findOne(pendency.id!);
+      List<PendenciesModel>? result = await _pendenciesService
+          .findOneByUserIdService(pendency.pendenciesIdUser!);
 
       return result == null
           ? Response.badRequest()
-          : Response.ok(result.toJson());
+          : Response.ok(
+              result.map((e) => e.toMap()).toList().toJson(),
+            );
     });
 
     return createHandler(

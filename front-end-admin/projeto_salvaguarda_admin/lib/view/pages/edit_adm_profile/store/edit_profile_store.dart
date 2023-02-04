@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
-import 'package:projeto_salvaguarda_admin/services/auth/models/user.dart';
+import 'package:projeto_salvaguarda_admin/services/auth/models/user_admin.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
 part 'edit_profile_store.g.dart';
 

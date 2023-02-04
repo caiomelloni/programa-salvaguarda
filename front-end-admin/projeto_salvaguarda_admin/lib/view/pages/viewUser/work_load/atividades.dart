@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_salvaguarda_admin/model/activity.dart';
 import 'package:projeto_salvaguarda_admin/model/pendency.dart';
+import 'package:projeto_salvaguarda_admin/services/getPendencies/get_pendencies_from_api.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/components/page_padding_widget.dart';
@@ -12,7 +13,7 @@ import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/carga_ho
 
 class ViewActivities extends StatelessWidget {
   final List<Activity> listActivities;
-  final List<Pendency> listPendencies;
+  final List<PendenciesModel> listPendencies;
 
   const ViewActivities({
     Key? key,
@@ -196,7 +197,7 @@ class ViewActivities extends StatelessWidget {
                                                 DateFormat('dd/MM/yyyy')
                                                     .format(
                                                         listPendencies[index]
-                                                            .date)
+                                                            .dtCreated)
                                                     .toString(),
                                                 textAlign: TextAlign.center,
                                                 style: const TextStyle(

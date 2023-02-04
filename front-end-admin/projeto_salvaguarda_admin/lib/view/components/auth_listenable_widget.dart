@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'package:projeto_salvaguarda_admin/services/auth/models/user.dart';
+import 'package:projeto_salvaguarda_admin/services/auth/models/user_admin.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
 
 class AuthListenableWidget extends StatefulWidget {
