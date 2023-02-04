@@ -69,6 +69,21 @@ class PendenciesDao extends DAO<PendenciesModel> {
         value.month, value.year, value.pendenciesIdUser!))!;
   }
 
+  Future<List<PendenciesModel>> findOneByUserId(int pendencies_id_user) async {
+    var sql =
+        "select * from pendencies where pendencies_id_user = :pendencies_id_user and pending = :state";
+    var q = (await dbConfig.execQuery(sql, {
+      "pendencies_id_user": pendencies_id_user,
+      "state": true,
+    }));
+    var rows = q;
+    List<PendenciesModel> pendencies = [];
+    for (var row in rows) {
+      pendencies.add(PendenciesModel.fromDB(row));
+    }
+    return pendencies;
+  }
+
   Future<PendenciesModel> getLastCreated() async {
     var sql = "select * from pendencies order by id desc limit 1";
     var result = await dbConfig.execQuery(sql);
@@ -78,8 +93,8 @@ class PendenciesDao extends DAO<PendenciesModel> {
   Future<PendenciesModel?> findByDate(int month, int year, int userId) async {
     var sql =
         "select * from pendencies where month = :month and year = :year and pendencies_id_user = :userId";
-    var result =
-        await dbConfig.execQuery(sql, {"month": month, "year": year, "userId": userId});
+    var result = await dbConfig
+        .execQuery(sql, {"month": month, "year": year, "userId": userId});
     return result.isEmpty ? null : PendenciesModel.fromDB(result.first);
   }
 }

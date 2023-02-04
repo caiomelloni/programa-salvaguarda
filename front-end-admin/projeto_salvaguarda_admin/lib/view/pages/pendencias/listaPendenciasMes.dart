@@ -3,24 +3,47 @@ import 'package:intl/intl.dart';
 import 'package:projeto_salvaguarda_admin/model/pendency.dart';
 import 'package:projeto_salvaguarda_admin/model/user.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
+import 'package:projeto_salvaguarda_admin/services/getPendencies/get_pendencies_from_api.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/components/page_padding_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/components/pop-up/alert_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/login/login_page.dart';
 
-class ListaPendenciasMes extends StatelessWidget {
+class ListaPendenciasMes extends StatefulWidget {
   // late List<ButtonUser> buttonsList;
-  final List<User> users;
-  final List<Pendency> pendencies;
+  final List<SalvaGuardaVolunteers> users;
   final String ano;
+  final int month;
 
   const ListaPendenciasMes({
     super.key,
-    required this.pendencies,
     required this.users,
     required this.ano,
+    required this.month,
   });
+
+  @override
+  State<ListaPendenciasMes> createState() => _ListaPendenciasMesState();
+}
+
+class _ListaPendenciasMesState extends State<ListaPendenciasMes> {
+  List<PendenciesModel> _pendencies = [];
+  @override
+  void initState() {
+    super.initState();
+    fetchPendenciesModel().then(
+      (value) {
+        _pendencies = value
+            .where((e) =>
+                e.dtCreated.year == int.parse(widget.ano) &&
+                e.dtCreated.month == widget.month)
+            .toList();
+        setState(() {});
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +66,12 @@ class ListaPendenciasMes extends StatelessWidget {
                       child: SizedBox(
                         height: 350.0,
                         child: ListView.builder(
-                          itemCount: pendencies.length,
+                          itemCount: _pendencies.length,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () {
-                                if (int.parse(ano) == DateTime.now().year) {
+                                if (int.parse(widget.ano) ==
+                                    DateTime.now().year) {
                                   showAlertDialog(
                                     context: context,
                                     title: "Mês pendente",
@@ -87,10 +111,11 @@ class ListaPendenciasMes extends StatelessWidget {
                                           children: [
                                             Text(
                                               // users[index].name,
-                                              users
+                                              widget.users
                                                   .where((element) =>
                                                       element.id ==
-                                                      pendencies[index].idUser)
+                                                      _pendencies[index]
+                                                          .pendenciesIdUser)
                                                   .toList()
                                                   .first
                                                   .name
@@ -103,10 +128,11 @@ class ListaPendenciasMes extends StatelessWidget {
                                             ),
                                             Text(
                                               // users[index].role,
-                                              users
+                                              widget.users
                                                   .where((element) =>
                                                       element.id ==
-                                                      pendencies[index].idUser)
+                                                      _pendencies[index]
+                                                          .pendenciesIdUser)
                                                   .toList()
                                                   .first
                                                   .role

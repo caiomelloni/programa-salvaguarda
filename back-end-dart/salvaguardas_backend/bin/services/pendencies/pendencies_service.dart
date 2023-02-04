@@ -3,10 +3,8 @@ import '../../models/pendencies/pendencies_model.dart';
 import 'pendencies_service_interface.dart';
 
 class PendenciesService implements IpendenciesService {
-  // final IUserService _userService;
   final PendenciesDao _pendenciesDAO;
 
-  // PendenciesService(this._userService, this._pendenciesDAO);
   PendenciesService(this._pendenciesDAO);
 
   @override
@@ -35,5 +33,10 @@ class PendenciesService implements IpendenciesService {
     } else {
       return await _pendenciesDAO.update(pendency);
     }
+  }
+
+  @override
+  Future<List<PendenciesModel>>? findOneByUserIdService(int idUser) {
+    return _pendenciesDAO.findOneByUserId(idUser);
   }
 }

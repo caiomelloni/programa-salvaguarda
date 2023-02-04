@@ -9,4 +9,6 @@ abstract class IpendenciesService {
   Future<PendenciesModel?> findOne(int id);
   //create/update one pendencie
   Future<PendenciesModel?> save(PendenciesModel user);
+  //find pendency by given user id
+  Future<List<PendenciesModel>>? findOneByUserIdService(int idUser);
 }
