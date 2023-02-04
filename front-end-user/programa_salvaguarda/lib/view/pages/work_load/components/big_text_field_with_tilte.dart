@@ -6,11 +6,13 @@ class BigTextFieldWithTitleWidget extends StatelessWidget {
   final String title;
   final String? hintText;
   final TextEditingController controller;
+  final bool readOnly;
   const BigTextFieldWithTitleWidget({
     Key? key,
     required this.title,
     this.hintText,
     required this.controller,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -27,6 +29,7 @@ class BigTextFieldWithTitleWidget extends StatelessWidget {
         BigTextFieldWidget(
           hintText: hintText,
           controller: controller,
+          readOnly: readOnly,
         )
       ],
     );

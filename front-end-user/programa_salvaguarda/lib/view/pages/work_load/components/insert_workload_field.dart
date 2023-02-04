@@ -5,9 +5,11 @@ import 'package:programa_salvaguarda/view/pages/work_load/components/decorated_i
 
 class InsertWorkloadField extends StatelessWidget {
   final TextEditingController controller;
+  final bool readOnly;
   const InsertWorkloadField({
     Key? key,
     required this.controller,
+    this.readOnly = false,
   }) : super(key: key);
 
   @override
@@ -29,6 +31,7 @@ class InsertWorkloadField extends StatelessWidget {
               SizedBox(
                 width: 40,
                 child: TextField(
+                  readOnly: readOnly,
                   keyboardType: TextInputType.number,
                   controller: controller,
                   style: const TextStyle(
