@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:projeto_salvaguarda_admin/services/disableUser/errors/disable_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/disableUser/service/disable_user_service.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
 
 part 'disable_store.g.dart';
 
@@ -13,10 +14,10 @@ abstract class _DisableUserController with Store {
   bool isLoading = false;
 
   @action
-  Future<void> tryDisableUser() async {
+  Future<void> tryDisableUser(SalvaGuardaVolunteers user) async {
     isLoading = true;
     try {
-      await DisableUserService.service.requestDisableUser();
+      await DisableUserService.service.requestDisableUser(user);
     } on CantDisableException {
       rethrow;
     } finally {

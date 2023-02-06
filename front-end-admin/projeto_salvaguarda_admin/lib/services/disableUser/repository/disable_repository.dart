@@ -1,8 +1,9 @@
-import 'package:projeto_salvaguarda_admin/services/disableUser/repository/mock_disable_repository.dart';
+import 'package:projeto_salvaguarda_admin/services/disableUser/repository/back_dart_disable_user.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
 
 abstract class DisableUserRepository {
   factory DisableUserRepository() {
-    return MockDisableUserRepository();
+    return BackDartDisableUser();
   }
 
   // Future<void> RequestBanUser(
@@ -11,7 +12,5 @@ abstract class DisableUserRepository {
   //     String? description,
   //     String? feedBack);
 
-  Future<void> requestDisableUser(
-      //mudar para requisitar a api para banir o usuario -- mudar o estado do usuario para banido
-      );
+  Future<void> requestDisableUser(SalvaGuardaVolunteers user);
 }
