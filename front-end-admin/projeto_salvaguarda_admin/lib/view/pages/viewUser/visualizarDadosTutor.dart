@@ -7,6 +7,7 @@ import 'package:projeto_salvaguarda_admin/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/get_pendencies_from_api.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
+import 'package:projeto_salvaguarda_admin/services/getWorkload/get_workload_admin_permission.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/components/buttonDataUser.dart';
@@ -28,13 +29,13 @@ class VisualizarDadosTutor extends StatefulWidget {
   // final SalvaGuardaVolunteers user;
   final SalvaGuardaVolunteers user; //mock para testes da parte visual
   // final List<PendenciesModel> userPendency;
-  final List<Activity> userActivity;
+  // final List<Activity> userActivity;
 
   const VisualizarDadosTutor({
     Key? key,
     required this.user,
     // required this.userPendency,
-    required this.userActivity,
+    // required this.userActivity,
   }) : super(key: key);
 
   @override
@@ -43,6 +44,7 @@ class VisualizarDadosTutor extends StatefulWidget {
 
 class _VisualizarDadosTutorState extends State<VisualizarDadosTutor> {
   List<PendenciesModel> _allPendenciesUser = [];
+  List<WorkloadModel> _allWorkloadUser = [];
   @override
   void initState() {
     super.initState();
@@ -50,6 +52,10 @@ class _VisualizarDadosTutorState extends State<VisualizarDadosTutor> {
     fetchOneUserPendenciesModel(
         jsonEncode({'pendencies_id_user': widget.user.id})).then((value) {
       _allPendenciesUser = value;
+      setState(() {});
+    });
+    fetchUserWorkloadModel(widget.user.id.toString()).then((value) {
+      _allWorkloadUser = value;
       setState(() {});
     });
   }
@@ -124,7 +130,7 @@ class _VisualizarDadosTutorState extends State<VisualizarDadosTutor> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ViewActivities(
-                                  listActivities: widget.userActivity,
+                                  listActivities: _allWorkloadUser,
                                   listPendencies: _allPendenciesUser,
                                 )));
                   },

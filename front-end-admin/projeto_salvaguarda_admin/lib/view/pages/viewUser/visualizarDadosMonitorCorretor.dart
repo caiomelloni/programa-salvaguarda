@@ -7,6 +7,7 @@ import 'package:projeto_salvaguarda_admin/model/pendency.dart';
 import 'package:projeto_salvaguarda_admin/services/banUser/errors/ban_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/get_pendencies_from_api.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
+import 'package:projeto_salvaguarda_admin/services/getWorkload/get_workload_admin_permission.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/model/user.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
@@ -27,13 +28,13 @@ class VisualizarDadosMoniCorret extends StatefulWidget {
   // final SalvaGuardaVolunteers user;
   final SalvaGuardaVolunteers user;
   // final List<PendenciesModel> userPendency;
-  final List<Activity> userActivity;
+  // final List<Activity> userActivity;
 
   const VisualizarDadosMoniCorret({
     Key? key,
     required this.user,
     // required this.userPendency,
-    required this.userActivity,
+    // required this.userActivity,
   }) : super(key: key);
 
   @override
@@ -43,6 +44,7 @@ class VisualizarDadosMoniCorret extends StatefulWidget {
 
 class _VisualizarDadosMoniCorretState extends State<VisualizarDadosMoniCorret> {
   List<PendenciesModel> _allPendenciesUser = [];
+  List<WorkloadModel> _allWorkloadUser = [];
   @override
   void initState() {
     super.initState();
@@ -55,6 +57,10 @@ class _VisualizarDadosMoniCorretState extends State<VisualizarDadosMoniCorret> {
     fetchOneUserPendenciesModel(
         jsonEncode({'pendencies_id_user': widget.user.id})).then((value) {
       _allPendenciesUser = value;
+      setState(() {});
+    });
+    fetchUserWorkloadModel(widget.user.id.toString()).then((value) {
+      _allWorkloadUser = value;
       setState(() {});
     });
   }
@@ -116,7 +122,7 @@ class _VisualizarDadosMoniCorretState extends State<VisualizarDadosMoniCorret> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => ViewActivities(
-                                  listActivities: widget.userActivity,
+                                  listActivities: _allWorkloadUser,
                                   listPendencies: _allPendenciesUser,
                                 )));
                   },

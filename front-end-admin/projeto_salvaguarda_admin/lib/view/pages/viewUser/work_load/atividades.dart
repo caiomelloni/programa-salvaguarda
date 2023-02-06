@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:projeto_salvaguarda_admin/model/activity.dart';
 import 'package:projeto_salvaguarda_admin/model/pendency.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/get_pendencies_from_api.dart';
+import 'package:projeto_salvaguarda_admin/services/getWorkload/get_workload_admin_permission.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/components/page_padding_widget.dart';
@@ -12,7 +13,7 @@ import 'package:projeto_salvaguarda_admin/view/components/safe_area_widget.dart'
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/carga_horaria.dart';
 
 class ViewActivities extends StatelessWidget {
-  final List<Activity> listActivities;
+  final List<WorkloadModel> listActivities;
   final List<PendenciesModel> listPendencies;
 
   const ViewActivities({
@@ -99,11 +100,7 @@ class ViewActivities extends StatelessWidget {
                                                         Radius.circular(10.0)),
                                               ),
                                               child: Text(
-                                                DateFormat('dd/MM/yyyy')
-                                                    .format(
-                                                        listActivities[index]
-                                                            .date)
-                                                    .toString(),
+                                                '${listActivities[index].month}/${listActivities[index].year}',
                                                 textAlign: TextAlign.center,
                                                 style: const TextStyle(
                                                     color: Color.fromARGB(
