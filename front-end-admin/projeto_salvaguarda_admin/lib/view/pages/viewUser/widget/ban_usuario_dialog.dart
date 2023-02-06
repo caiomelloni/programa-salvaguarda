@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_salvaguarda_admin/services/banUser/errors/ban_errors.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
 import 'package:projeto_salvaguarda_admin/view/components/pop-up/alert_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/home/home_page.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_ban/ban_store.dart';
 
-void banUsuario(BuildContext context, BanUserController _controller) {
+void banUsuario(BuildContext context, BanUserController _controller,
+    SalvaGuardaVolunteers user) {
   showAlertDialog(
     context: context,
     title: "Você tem certeza que deseja banir este usuário?",
@@ -20,7 +22,7 @@ void banUsuario(BuildContext context, BanUserController _controller) {
       Navigator.pop(context);
 
       try {
-        await _controller.tryBanUser();
+        await _controller.tryBanUser(user);
         showAlertDialog(
           context: context,
           title: "Usuário banido!",

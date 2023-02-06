@@ -1,17 +1,10 @@
-import 'package:projeto_salvaguarda_admin/services/banUser/repository/mock_ban_repository.dart';
+import 'package:projeto_salvaguarda_admin/services/banUser/repository/back_dart_ban_user.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
 
 abstract class BanUserRepository {
   factory BanUserRepository() {
-    return MockBanUserRepository();
+    return BackDartBanUser();
   }
 
-  // Future<void> RequestBanUser(
-  //     //mudar para requisitar a api para banir o usuario
-  //     String? workload,
-  //     String? description,
-  //     String? feedBack);
-
-  Future<void> RequestBanUser(
-      //mudar para requisitar a api para banir o usuario -- mudar o estado do usuario para banido
-      );
+  Future<void> RequestBanUser(SalvaGuardaVolunteers user);
 }

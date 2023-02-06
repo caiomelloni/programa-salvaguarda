@@ -29,8 +29,8 @@ mixin _$BanUserController on _BanUserController, Store {
       AsyncAction('_BanUserController.tryBanUser', context: context);
 
   @override
-  Future<void> tryBanUser() {
-    return _$tryBanUserAsyncAction.run(() => super.tryBanUser());
+  Future<void> tryBanUser(SalvaGuardaVolunteers user) {
+    return _$tryBanUserAsyncAction.run(() => super.tryBanUser(user));
   }
 
   @override

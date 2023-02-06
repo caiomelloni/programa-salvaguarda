@@ -144,7 +144,8 @@ class _VisualizarDadosMoniCorretState extends State<VisualizarDadosMoniCorret> {
                     isLoading: _bancontroller.isLoading,
                     onPressed: _bancontroller.isLoading
                         ? () {}
-                        : () => banUsuario(context, _bancontroller),
+                        : () =>
+                            banUsuario(context, _bancontroller, widget.user),
                   ),
                 ),
                 const SizedBox(
