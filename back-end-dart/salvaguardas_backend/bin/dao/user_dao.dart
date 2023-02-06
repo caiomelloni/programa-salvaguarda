@@ -104,12 +104,12 @@ class UserDAO extends DAO<UserModel> {
     return UserModel.fromMap(result.first);
   }
 
-  Future<UserModel> banUserbyId(int id) {
-    var sql = "UPDATE users SET is_banned = 1 WHERE id = :id";
+  Future<UserModel> banUser(int id, bool is_banned) {
+    var sql = "UPDATE users SET is_banned = :is_banned WHERE id = :id";
 
     dbConfig.execQuery(
       sql,
-      {"id": id},
+      {"id": id, "is_banned": is_banned},
     );
 
     return findOne(id);
