@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 
 class TabBarWidget extends StatelessWidget {

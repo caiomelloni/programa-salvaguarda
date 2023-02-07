@@ -222,8 +222,3 @@ class ViewActivities extends StatelessWidget {
     );
   }
 }
-
-// class Carga {
-//   String data;
-//   Carga(this.data);
-// }

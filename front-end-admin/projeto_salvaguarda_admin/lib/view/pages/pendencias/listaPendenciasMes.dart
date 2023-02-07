@@ -7,7 +7,6 @@ import 'package:projeto_salvaguarda_admin/view/components/page_padding_widget.da
 import 'package:projeto_salvaguarda_admin/view/components/pop-up/alert_dialog.dart';
 
 class ListaPendenciasMes extends StatefulWidget {
-  // late List<ButtonUser> buttonsList;
   final List<SalvaGuardaVolunteers> users;
   final String ano;
   final List<PendenciesModel> pendencies;

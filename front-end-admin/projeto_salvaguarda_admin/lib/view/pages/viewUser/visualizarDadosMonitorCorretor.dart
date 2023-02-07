@@ -86,10 +86,9 @@ class _VisualizarDadosMoniCorretState extends State<VisualizarDadosMoniCorret> {
                   builder: (context) => ButtonDataUser(
                     icone: Icons.volunteer_activism,
                     texto: "visualizar atividades",
-                    isLoading: _pendecyApiController.isLoading,
-                    isLoading2: _workloadApiController.isLoading,
-                    onPressed: _pendecyApiController.isLoading &&
-                            _workloadApiController.isLoading
+                    isLoading: _workloadApiController.isLoading,
+                    // isLoading2: _workloadApiController.isLoading,
+                    onPressed: _workloadApiController.isLoading
                         ? () {}
                         : () async {
                             try {

@@ -1,16 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:projeto_salvaguarda_admin/model/activity.dart';
-import 'package:projeto_salvaguarda_admin/model/pendency.dart';
-import 'package:projeto_salvaguarda_admin/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/errors/pendencies_api_errors.dart';
-import 'package:projeto_salvaguarda_admin/services/getPendencies/pendencies_model.dart';
-import 'package:projeto_salvaguarda_admin/services/getPendencies/requests/pendencies_http_requests.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
-import 'package:projeto_salvaguarda_admin/services/getWorkload/workload_model.dart';
-import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/components/snackbar.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/components/buttonDataUser.dart';
@@ -112,10 +105,9 @@ class _VisualizarDadosTutorState extends State<VisualizarDadosTutor> {
                   builder: (context) => ButtonDataUser(
                     icone: Icons.volunteer_activism,
                     texto: "visualizar atividades",
-                    isLoading: _pendecyApiController.isLoading,
-                    isLoading2: _workloadApiController.isLoading,
-                    onPressed: _pendecyApiController.isLoading &&
-                            _workloadApiController.isLoading
+                    isLoading: _workloadApiController.isLoading,
+                    // isLoading2: _workloadApiController.isLoading,
+                    onPressed: _workloadApiController.isLoading
                         ? () {}
                         : () async {
                             try {

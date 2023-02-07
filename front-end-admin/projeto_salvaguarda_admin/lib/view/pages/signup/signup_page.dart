@@ -3,7 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:projeto_salvaguarda_admin/view/components/buttons/elevated_button_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/components/page_padding_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/components/safe_area_widget.dart';
-import 'package:projeto_salvaguarda_admin/view/pages/signup/components/dropdown_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/signup/components/signup_textfield.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/signup/store/signup_store.dart';
 
