@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_salvaguarda_admin/model/activity.dart';
 import 'package:projeto_salvaguarda_admin/model/pendency.dart';
-import 'package:projeto_salvaguarda_admin/services/getPendencies/get_pendencies_from_api.dart';
+import 'package:projeto_salvaguarda_admin/services/getPendencies/pendencies_model.dart';
 import 'package:projeto_salvaguarda_admin/services/getWorkload/get_workload_admin_permission.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';

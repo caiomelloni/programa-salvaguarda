@@ -1,19 +1,21 @@
-import 'package:projeto_salvaguarda_admin/data/pendencies.dart';
-import 'package:projeto_salvaguarda_admin/data/users.dart';
-import 'package:projeto_salvaguarda_admin/model/pendency.dart';
-import 'package:projeto_salvaguarda_admin/model/user.dart';
-import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
-import 'package:projeto_salvaguarda_admin/services/getPendencies/get_pendencies_from_api.dart';
+import 'package:projeto_salvaguarda_admin/services/getPendencies/errors/pendencies_api_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
-import 'package:projeto_salvaguarda_admin/view/pages/login/login_page.dart';
+import 'package:projeto_salvaguarda_admin/view/components/snackbar.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/pendencias/listaPendenciasMes.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 
-class TabelaPendenciasMeses extends StatefulWidget {
-  const TabelaPendenciasMeses({super.key});
+import '../viewUser/store_pendencies/pendency_api_store.dart';
 
+PendecyApiController _pendecyApiController = PendecyApiController();
+
+class TabelaPendenciasMeses extends StatefulWidget {
+  final List<SalvaGuardaVolunteers> usersFiltered;
+  const TabelaPendenciasMeses({
+    Key? key,
+    required this.usersFiltered,
+  }) : super(key: key);
   @override
   State<TabelaPendenciasMeses> createState() => _TabelaPendenciasMesesState();
 }
@@ -21,17 +23,10 @@ class TabelaPendenciasMeses extends StatefulWidget {
 class _TabelaPendenciasMesesState extends State<TabelaPendenciasMeses> {
   List<String> listYears = getYears();
   String dropdownValue = '';
-  List<SalvaGuardaVolunteers> usersFiltered = [];
   @override
   void initState() {
     super.initState();
     dropdownValue = DateTime.now().year.toString();
-    fetchSalvaGuardaVolunteers().then(
-      (value) {
-        usersFiltered = value;
-        setState(() {});
-      },
-    );
   }
 
   @override
@@ -90,86 +85,110 @@ class _TabelaPendenciasMesesState extends State<TabelaPendenciasMeses> {
                   children: [
                     _ButtonMonth(
                       texto: "Janeiro",
-                      usersFiltered: usersFiltered,
+                      usersFiltered: widget.usersFiltered,
                       dropdownValue: dropdownValue,
                       month: 1,
+                      isLoading: _pendecyApiController.isLoading,
+                      controller: _pendecyApiController,
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Fevereiro",
-                      usersFiltered: usersFiltered,
+                      usersFiltered: widget.usersFiltered,
                       dropdownValue: dropdownValue,
                       month: 2,
+                      isLoading: _pendecyApiController.isLoading,
+                      controller: _pendecyApiController,
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Março",
-                      usersFiltered: usersFiltered,
+                      usersFiltered: widget.usersFiltered,
                       dropdownValue: dropdownValue,
                       month: 3,
+                      isLoading: _pendecyApiController.isLoading,
+                      controller: _pendecyApiController,
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Abril",
-                      usersFiltered: usersFiltered,
+                      usersFiltered: widget.usersFiltered,
                       dropdownValue: dropdownValue,
                       month: 4,
+                      isLoading: _pendecyApiController.isLoading,
+                      controller: _pendecyApiController,
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Maio",
-                      usersFiltered: usersFiltered,
+                      usersFiltered: widget.usersFiltered,
                       dropdownValue: dropdownValue,
                       month: 5,
+                      isLoading: _pendecyApiController.isLoading,
+                      controller: _pendecyApiController,
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Junho",
-                      usersFiltered: usersFiltered,
+                      usersFiltered: widget.usersFiltered,
                       dropdownValue: dropdownValue,
                       month: 6,
+                      isLoading: _pendecyApiController.isLoading,
+                      controller: _pendecyApiController,
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Julho",
-                      usersFiltered: usersFiltered,
+                      usersFiltered: widget.usersFiltered,
                       dropdownValue: dropdownValue,
                       month: 7,
+                      isLoading: _pendecyApiController.isLoading,
+                      controller: _pendecyApiController,
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Agosto",
-                      usersFiltered: usersFiltered,
+                      usersFiltered: widget.usersFiltered,
                       dropdownValue: dropdownValue,
                       month: 8,
+                      isLoading: _pendecyApiController.isLoading,
+                      controller: _pendecyApiController,
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Setembro",
-                      usersFiltered: usersFiltered,
+                      usersFiltered: widget.usersFiltered,
                       dropdownValue: dropdownValue,
                       month: 9,
+                      isLoading: _pendecyApiController.isLoading,
+                      controller: _pendecyApiController,
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Outubro",
-                      usersFiltered: usersFiltered,
+                      usersFiltered: widget.usersFiltered,
                       dropdownValue: dropdownValue,
                       month: 10,
+                      isLoading: _pendecyApiController.isLoading,
+                      controller: _pendecyApiController,
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Novembro",
-                      usersFiltered: usersFiltered,
+                      usersFiltered: widget.usersFiltered,
                       dropdownValue: dropdownValue,
                       month: 11,
+                      isLoading: _pendecyApiController.isLoading,
+                      controller: _pendecyApiController,
                     ),
                     const SizedBox(width: 25),
                     _ButtonMonth(
                       texto: "Dezembro",
-                      usersFiltered: usersFiltered,
+                      usersFiltered: widget.usersFiltered,
                       dropdownValue: dropdownValue,
                       month: 12,
+                      isLoading: _pendecyApiController.isLoading,
+                      controller: _pendecyApiController,
                     ),
                   ],
                 )
@@ -187,17 +206,24 @@ class _ButtonMonth extends StatelessWidget {
   final List<SalvaGuardaVolunteers> usersFiltered;
   final String dropdownValue;
   final int month;
+  final bool? isLoading;
+  final PendecyApiController controller;
+  // final VoidCallback onPressed;
 
   const _ButtonMonth({
     required this.texto,
     required this.usersFiltered,
     required this.dropdownValue,
     required this.month,
+    required this.controller,
+    // required this.onPressed,
+    this.isLoading,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    bool isLoadingButton = isLoading ?? false;
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.grey[200],
@@ -207,34 +233,60 @@ class _ButtonMonth extends StatelessWidget {
         shadowColor: Colors.black38,
         elevation: 5,
       ),
-      onPressed: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ListaPendenciasMes(
-                      users: usersFiltered,
-                      ano: dropdownValue,
-                      month: month,
-                    )));
-      },
+      onPressed: isLoadingButton
+          ? () {}
+          : () async {
+              try {
+                await controller.tryFetchPendencies().then(
+                  (value) {
+                    value ??= [];
+                    if (value.isNotEmpty) {
+                      value = value
+                          .where((e) =>
+                              e.dtCreated.year == int.parse(dropdownValue) &&
+                              e.dtCreated.month == month)
+                          .toList();
+                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ListaPendenciasMes(
+                          users: usersFiltered,
+                          pendencies: value!,
+                          ano: dropdownValue,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              } on CantFetchPendenciesException catch (e) {
+                showSnackBar(context, e.message());
+              }
+            },
       child: SizedBox(
         height: 35,
         width: 380,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                Text(
-                  texto,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 23, color: AppColors.lightPurple),
-                )
-              ],
-            )
-          ],
-        ),
+        child: isLoadingButton
+            ? const Center(
+                child: SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator(color: AppColors.yellow)))
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        texto,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontSize: 23, color: AppColors.lightPurple),
+                      )
+                    ],
+                  )
+                ],
+              ),
       ),
     );
   }

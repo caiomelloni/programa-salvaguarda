@@ -1,23 +1,23 @@
-import 'dart:async';
-import 'dart:convert';
+// import 'dart:async';
+// import 'dart:convert';
 
-import 'package:http/http.dart' as http;
-import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
-import 'package:projeto_salvaguarda_admin/util/custom_env.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
+// import 'package:projeto_salvaguarda_admin/util/custom_env.dart';
 
-Future<List<SalvaGuardaVolunteers>> fetchSalvaGuardaVolunteers() async {
-  final response = await http.get(
-    Uri.parse('${CustomEnv.url}/allUsers'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer ${AuthService.admToken}',
-    },
-  );
+// Future<List<SalvaGuardaVolunteers>> fetchSalvaGuardaVolunteers() async {
+//   final response = await http.get(
+//     Uri.parse('${CustomEnv.url}/allUsers'),
+//     headers: <String, String>{
+//       'Content-Type': 'application/json; charset=UTF-8',
+//       'Authorization': 'Bearer ${AuthService.admToken}',
+//     },
+//   );
 
-  return (jsonDecode(response.body) as List)
-      .map((userJson) => SalvaGuardaVolunteers.fromJson(userJson))
-      .toList();
-}
+//   return (jsonDecode(response.body) as List)
+//       .map((userJson) => SalvaGuardaVolunteers.fromJson(userJson))
+//       .toList();
+// }
 
 class SalvaGuardaVolunteers {
   final int id;

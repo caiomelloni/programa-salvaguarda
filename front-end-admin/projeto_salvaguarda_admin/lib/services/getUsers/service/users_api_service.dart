@@ -1,4 +1,4 @@
-import 'package:projeto_salvaguarda_admin/services/getUsers/repository/user_spi_repository.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/repository/user_api_repository.dart';
 
 class UsersApiService {
   UsersApiService._();

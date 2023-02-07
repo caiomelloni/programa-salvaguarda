@@ -1,11 +1,4 @@
 import 'package:intl/intl.dart';
-import 'package:projeto_salvaguarda_admin/data/pendencies.dart';
-import 'package:projeto_salvaguarda_admin/data/users.dart';
-import 'package:projeto_salvaguarda_admin/data/workloadData.dart';
-import 'package:projeto_salvaguarda_admin/model/activity.dart';
-import 'package:projeto_salvaguarda_admin/model/pendency.dart';
-import 'package:projeto_salvaguarda_admin/model/user.dart';
-import 'package:projeto_salvaguarda_admin/services/getPendencies/get_pendencies_from_api.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/visualizarDadosMonitorCorretor.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/visualizarDadosTutor.dart';

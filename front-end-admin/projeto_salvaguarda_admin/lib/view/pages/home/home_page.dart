@@ -89,16 +89,38 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 20),
-                      HomeBigButton(
+                      Observer(
+                        builder: (context) => HomeBigButton(
                           icone: Icons.announcement,
                           texto: "Acessar pendências",
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        TabelaPendenciasMeses()));
-                          }),
+                          isLoading: _userApiController.isLoading,
+                          onPressed: _userApiController.isLoading
+                              ? () {}
+                              : () async {
+                                  try {
+                                    await _userApiController
+                                        .tryFetchUsers()
+                                        .then(
+                                      (value) {
+                                        if (value != null) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TabelaPendenciasMeses(
+                                                usersFiltered: value,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    );
+                                  } on UserApiErrors catch (e) {
+                                    showSnackBar(context, e.message());
+                                  }
+                                },
+                        ),
+                      ),
                     ],
                   ),
                 )
