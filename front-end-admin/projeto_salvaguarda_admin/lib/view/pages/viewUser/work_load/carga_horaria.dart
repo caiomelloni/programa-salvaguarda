@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_salvaguarda_admin/model/activity.dart';
+import 'package:projeto_salvaguarda_admin/services/getWorkload/get_workload_admin_permission.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/components/buttons/elevated_button_widget.dart';
@@ -11,7 +12,7 @@ import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/componen
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/components/workload_field.dart';
 
 class WorkLoadPage extends StatelessWidget {
-  final Activity atividade;
+  final WorkloadModel atividade;
 
   const WorkLoadPage({
     Key? key,
@@ -38,13 +39,13 @@ class WorkLoadPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 20),
                 Text(
-                  "Atividade ${DateFormat('dd/MM/yyyy').format(atividade.date)}",
+                  "Atividade de ${atividade.month}/${atividade.year}",
                   style: const TextStyle(
                       color: AppColors.lightPurple, fontSize: 30),
                 ),
                 const SizedBox(height: 8),
                 WorkloadField(
-                  horasTrabalhadas: atividade.hoursWorked.toString(),
+                  horasTrabalhadas: atividade.workedHours.toString(),
                 ),
                 TextFieldDescription(
                   title: "Descrição dos feitos",

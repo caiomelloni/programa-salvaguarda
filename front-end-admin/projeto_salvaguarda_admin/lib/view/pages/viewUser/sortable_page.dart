@@ -31,7 +31,7 @@ class _SortablePageState extends State<SortablePage> {
   // List<User> _allUser = []; //mock para testes locais da parte visual
   // List<Pendency> _allPendencies = [];
 
-  List<Activity> _allActivities = [];
+  // List<Activity> _allActivities = [];
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _SortablePageState extends State<SortablePage> {
     // usersFiltered = List.of(allUsers); //mock para testes locais da parte visual
     // _allUser = List.of(allUsers); //mock para testes locais da parte visual
     // _allPendencies = List.of(allPendency);
-    _allActivities = List.of(allWorkloads);
+    // _allActivities = List.of(allWorkloads);
     fetchSalvaGuardaVolunteers().then(
       (value) {
         _allUser = value;
@@ -160,9 +160,9 @@ class _SortablePageState extends State<SortablePage> {
                               // userPendency: _allPendencies
                               //     .where((e) => e.pendenciesIdUser == user.id)
                               //     .toList(),
-                              userActivity: _allActivities
-                                  .where((e) => e.idUser == user.id)
-                                  .toList(),
+                              // userActivity: _allActivities
+                              //     .where((e) => e.idUser == user.id)
+                              //     .toList(),
                             )))
                 : Navigator.push(
                     context,
@@ -172,9 +172,9 @@ class _SortablePageState extends State<SortablePage> {
                               // userPendency: _allPendencies
                               //     .where((e) => e.pendenciesIdUser == user.id)
                               //     .toList(),
-                              userActivity: _allActivities
-                                  .where((e) => e.idUser == user.id)
-                                  .toList(),
+                              // userActivity: _allActivities
+                              //     .where((e) => e.idUser == user.id)
+                              //     .toList(),
                             )));
           },
         );
