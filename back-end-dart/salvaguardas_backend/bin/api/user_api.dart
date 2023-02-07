@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import '../models/auth/user_model.dart';
@@ -87,48 +89,83 @@ class UserApi extends Api {
       }
     });
 
-    router.post("/user/banUser", (Request req) async {
+    // router.post("/user/banUser", (Request req) async {
+    //   //verifica se é admin
+    //   RequestContext context = RequestContext.fromRequest(req.headers);
+    //   if (!context.isAdmin) return Response.forbidden("Not Authorized");
+    //   late UserModel user;
+
+    //   //verifica se o formato do body é correto
+    //   try {
+    //     var r = await req.readAsString();
+    //     print(r);
+    //     user = UserModel.fromUserStateRequest(JsonParser.fromJson(r));
+    //   } on Exception {
+    //     return Response.badRequest();
+    //   }
+
+    //   UserModel? updatedBanUser = await _userService.banUser(user);
+
+    //   return updatedBanUser == null
+    //       ? Response.badRequest()
+    //       : Response.ok(updatedBanUser.toJson());
+    // });
+
+    router.patch("/user/banUser", (Request req) async {
       //verifica se é admin
       RequestContext context = RequestContext.fromRequest(req.headers);
       if (!context.isAdmin) return Response.forbidden("Not Authorized");
-      late UserModel user;
 
-      //verifica se o formato do body é correto
       try {
-        var r = await req.readAsString();
-        print(r);
-        user = UserModel.fromUserStateRequest(JsonParser.fromJson(r));
-      } on Exception {
+        var body = JsonParser.fromJson(await req.readAsString());
+        var user = await _userService.findOne(body['id']);
+        user = user?.copyWith(
+          isBanned: body['isBanned'] == 1 ? true : false,
+        );
+        user = await _userService.banUser(user!);
+        return Response.ok(user!.toJson());
+      } catch (e) {
         return Response.badRequest();
       }
-
-      UserModel? updatedBanUser = await _userService.banUser(user);
-
-      return updatedBanUser == null
-          ? Response.badRequest()
-          : Response.ok(updatedBanUser.toJson());
     });
 
-    router.post("/user/disableUser", (Request req) async {
+    // router.post("/user/disableUser", (Request req) async {
+    //   //verifica se é admin
+    //   RequestContext context = RequestContext.fromRequest(req.headers);
+    //   if (!context.isAdmin) return Response.forbidden("Not Authorized");
+    //   late UserModel user;
+
+    //   //verifica se o formato do body é correto
+    //   try {
+    //     var r = await req.readAsString();
+    //     print(r);
+    //     user = UserModel.fromUserStateRequest(JsonParser.fromJson(r));
+    //   } on Exception {
+    //     return Response.badRequest();
+    //   }
+
+    //   UserModel? updatedBanUser = await _userService.disableUser(user);
+
+    //   return updatedBanUser == null
+    //       ? Response.badRequest()
+    //       : Response.ok(updatedBanUser.toJson());
+    // });
+    router.patch("/user/disableUser", (Request req) async {
       //verifica se é admin
       RequestContext context = RequestContext.fromRequest(req.headers);
       if (!context.isAdmin) return Response.forbidden("Not Authorized");
-      late UserModel user;
 
-      //verifica se o formato do body é correto
       try {
-        var r = await req.readAsString();
-        print(r);
-        user = UserModel.fromUserStateRequest(JsonParser.fromJson(r));
-      } on Exception {
+        var body = JsonParser.fromJson(await req.readAsString());
+        var user = await _userService.findOne(body['id']);
+        user = user?.copyWith(
+          isActive: body['isActive'] == 1 ? true : false,
+        );
+        user = await _userService.disableUser(user!);
+        return Response.ok(user!.toJson());
+      } catch (e) {
         return Response.badRequest();
       }
-
-      UserModel? updatedBanUser = await _userService.disableUser(user);
-
-      return updatedBanUser == null
-          ? Response.badRequest()
-          : Response.ok(updatedBanUser.toJson());
     });
 
     return router;

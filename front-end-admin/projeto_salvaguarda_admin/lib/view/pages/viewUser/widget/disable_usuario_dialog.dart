@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_salvaguarda_admin/services/disableUser/errors/disable_errors.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
 import 'package:projeto_salvaguarda_admin/view/components/pop-up/alert_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/home/home_page.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_disable/disable_store.dart';
 
-void disableUsuario(BuildContext context, DisableUserController _controller) {
+void disableUsuario(BuildContext context, DisableUserController _controller,
+    SalvaGuardaVolunteers user) {
   showAlertDialog(
     context: context,
     title: "Você tem certeza que deseja desativar este usuário?",
@@ -20,7 +22,7 @@ void disableUsuario(BuildContext context, DisableUserController _controller) {
       Navigator.pop(context);
 
       try {
-        await _controller.tryDisableUser();
+        await _controller.tryDisableUser(user);
         showAlertDialog(
           context: context,
           title: "Usuário desativado!",

@@ -145,7 +145,8 @@ class _VisualizarDadosTutorState extends State<VisualizarDadosTutor> {
                     isLoading: _disablecontroller.isLoading,
                     onPressed: _disablecontroller.isLoading
                         ? () {}
-                        : () => disableUsuario(context, _disablecontroller),
+                        : () => disableUsuario(
+                            context, _disablecontroller, widget.user),
                   ),
                 ),
                 const SizedBox(
@@ -158,7 +159,8 @@ class _VisualizarDadosTutorState extends State<VisualizarDadosTutor> {
                     isLoading: _bancontroller.isLoading,
                     onPressed: _bancontroller.isLoading
                         ? () {}
-                        : () => banUsuario(context, _bancontroller),
+                        : () =>
+                            banUsuario(context, _bancontroller, widget.user),
                   ),
                 ),
                 const SizedBox(

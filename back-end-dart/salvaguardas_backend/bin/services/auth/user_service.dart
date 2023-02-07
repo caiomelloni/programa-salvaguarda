@@ -68,11 +68,11 @@ class UserService implements IUserService {
 
   @override
   Future<UserModel?> banUser(UserModel user) async {
-    return await _userDao.banUserbyId(user.id!);
+    return await _userDao.banUser(user.id!, user.isBanned!);
   }
 
   @override
   Future<UserModel?> disableUser(UserModel user) async {
-    return await _userDao.disableUserById(user.id!);
+    return await _userDao.disableUser(user.id!, user.isActive!);
   }
 }

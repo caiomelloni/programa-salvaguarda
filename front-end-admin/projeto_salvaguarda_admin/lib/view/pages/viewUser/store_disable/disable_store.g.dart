@@ -29,8 +29,8 @@ mixin _$DisableUserController on _DisableUserController, Store {
       AsyncAction('_DisableUserController.tryDisableUser', context: context);
 
   @override
-  Future<void> tryDisableUser() {
-    return _$tryDisableUserAsyncAction.run(() => super.tryDisableUser());
+  Future<void> tryDisableUser(SalvaGuardaVolunteers user) {
+    return _$tryDisableUserAsyncAction.run(() => super.tryDisableUser(user));
   }
 
   @override
