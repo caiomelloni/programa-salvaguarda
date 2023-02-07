@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_salvaguarda_admin/model/activity.dart';
-import 'package:projeto_salvaguarda_admin/services/getWorkload/get_workload_admin_permission.dart';
+import 'package:projeto_salvaguarda_admin/services/getWorkload/workload_model.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/components/buttons/elevated_button_widget.dart';

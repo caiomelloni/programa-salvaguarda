@@ -9,7 +9,7 @@ import 'package:projeto_salvaguarda_admin/services/getPendencies/errors/pendenci
 import 'package:projeto_salvaguarda_admin/services/getPendencies/pendencies_model.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/requests/pendencies_http_requests.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
-import 'package:projeto_salvaguarda_admin/services/getWorkload/get_workload_admin_permission.dart';
+import 'package:projeto_salvaguarda_admin/services/getWorkload/workload_model.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/components/snackbar.dart';
@@ -19,16 +19,20 @@ import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_ban/ban_stor
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_disable/disable_store.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_enable_certificate/enable_store.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_pendencies/pendency_api_store.dart';
+import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_workloads/workload_api_store.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/widget/ban_usuario_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/widget/disable_usuario_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/widget/enable_certificate_tutor_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/atividades.dart';
+
+import '../../../services/getWorkload/errors/workload_api_errors.dart';
 
 BanUserController _bancontroller = BanUserController();
 DisableUserController _disablecontroller = DisableUserController();
 EnableCertificateController _enableCertificateController =
     EnableCertificateController();
 PendecyApiController _pendecyApiController = PendecyApiController();
+WorkloadApiController _workloadApiController = WorkloadApiController();
 
 class VisualizarDadosTutor extends StatefulWidget {
   final SalvaGuardaVolunteers user;
@@ -43,23 +47,9 @@ class VisualizarDadosTutor extends StatefulWidget {
 }
 
 class _VisualizarDadosTutorState extends State<VisualizarDadosTutor> {
-  List<PendenciesModel> _allPendenciesUser = [];
-  List<WorkloadModel> _allWorkloadUser = [];
-  int lengthPendenciesUser = 0;
   @override
   void initState() {
     super.initState();
-
-    PendencyHttpRequests.fetchOneUserPendenciesModel(
-        jsonEncode({'pendencies_id_user': widget.user.id})).then((value) {
-      // _allPendenciesUser = value;
-      lengthPendenciesUser = value.length;
-      setState(() {});
-    });
-    fetchUserWorkloadModel(widget.user.id.toString()).then((value) {
-      _allWorkloadUser = value;
-      setState(() {});
-    });
   }
 
   @override
@@ -102,12 +92,6 @@ class _VisualizarDadosTutorState extends State<VisualizarDadosTutor> {
                 ),
                 DataUser(info: "${widget.user.hoursWorked} Horas cumpridas"),
                 const SizedBox(
-                  height: 20,
-                ),
-                DataUser(
-                    info:
-                        "${_allPendenciesUser.where((element) => element.year == year).toList().length} pendência(s) neste ano"),
-                const SizedBox(
                   height: 40,
                 ),
                 Observer(
@@ -129,25 +113,40 @@ class _VisualizarDadosTutorState extends State<VisualizarDadosTutor> {
                     icone: Icons.volunteer_activism,
                     texto: "visualizar atividades",
                     isLoading: _pendecyApiController.isLoading,
-                    onPressed: _pendecyApiController.isLoading
+                    isLoading2: _workloadApiController.isLoading,
+                    onPressed: _pendecyApiController.isLoading &&
+                            _workloadApiController.isLoading
                         ? () {}
                         : () async {
                             try {
-                              var pendencies = await _pendecyApiController
+                              await _pendecyApiController
                                   .tryFetchOnePendency(jsonEncode(
                                       {'pendencies_id_user': widget.user.id}))
                                   .then(
-                                (value) {
+                                (value) async {
                                   value ??= [];
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ViewActivities(
-                                        listActivities: _allWorkloadUser,
-                                        listPendencies: value!,
-                                      ),
-                                    ),
-                                  );
+                                  try {
+                                    await _workloadApiController
+                                        .tryFetchWorkloads(
+                                            widget.user.id.toString())
+                                        .then(
+                                      (valueWorkload) {
+                                        valueWorkload ??= [];
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ViewActivities(
+                                              listActivities: valueWorkload!,
+                                              listPendencies: value!,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  } on CantFetchWorkloadException catch (e) {
+                                    showSnackBar(context, e.message());
+                                  }
                                 },
                               );
                             } on CantFetchPendenciesException catch (e) {
