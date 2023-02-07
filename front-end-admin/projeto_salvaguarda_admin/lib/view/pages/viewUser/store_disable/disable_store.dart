@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:projeto_salvaguarda_admin/services/disableUser/errors/disable_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/disableUser/service/disable_user_service.dart';
-import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
 
 part 'disable_store.g.dart';
 

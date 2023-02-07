@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_salvaguarda_admin/services/disableUser/errors/disable_errors.dart';
-import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
 import 'package:projeto_salvaguarda_admin/view/components/pop-up/alert_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/home/home_page.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_disable/disable_store.dart';

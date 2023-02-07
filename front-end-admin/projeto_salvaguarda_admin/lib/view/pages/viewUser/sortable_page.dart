@@ -6,14 +6,20 @@ import 'package:projeto_salvaguarda_admin/model/activity.dart';
 import 'package:projeto_salvaguarda_admin/model/pendency.dart';
 import 'package:projeto_salvaguarda_admin/model/user.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/get_pendencies_from_api.dart';
-import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/visualizarDadosMonitorCorretor.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/visualizarDadosTutor.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/widget/scrollable_widget.dart';
 import 'package:flutter/material.dart';
 
 class SortablePage extends StatefulWidget {
-  const SortablePage({super.key});
+  List<SalvaGuardaVolunteers>? usersFiltered;
+  List<SalvaGuardaVolunteers>? allUser;
+  SortablePage({
+    Key? key,
+    this.usersFiltered,
+    this.allUser,
+  }) : super(key: key);
 
   @override
   _SortablePageState createState() => _SortablePageState();
@@ -24,34 +30,10 @@ class _SortablePageState extends State<SortablePage> {
   bool isAscending = false;
   TextEditingController controller = TextEditingController();
   String _searchResult = '';
-  List<SalvaGuardaVolunteers> usersFiltered = [];
-  List<SalvaGuardaVolunteers> _allUser = [];
-  // List<PendenciesModel> _allPendencies = [];
-  // List<User> usersFiltered = []; //mock para testes locais da parte visual
-  // List<User> _allUser = []; //mock para testes locais da parte visual
-  // List<Pendency> _allPendencies = [];
-
-  // List<Activity> _allActivities = [];
 
   @override
   void initState() {
     super.initState();
-
-    // usersFiltered = List.of(allUsers); //mock para testes locais da parte visual
-    // _allUser = List.of(allUsers); //mock para testes locais da parte visual
-    // _allPendencies = List.of(allPendency);
-    // _allActivities = List.of(allWorkloads);
-    fetchSalvaGuardaVolunteers().then(
-      (value) {
-        _allUser = value;
-        usersFiltered = value;
-        setState(() {});
-      },
-    );
-    // fetchPendenciesModel().then((value) {
-    //   _allPendencies = value;
-    //   setState(() {});
-    // });
   }
 
   @override
@@ -78,7 +60,7 @@ class _SortablePageState extends State<SortablePage> {
                   onChanged: (value) {
                     setState(() {
                       _searchResult = value;
-                      usersFiltered = _allUser
+                      widget.usersFiltered = widget.allUser!
                           .where((user) => user.name
                               .toLowerCase()
                               .contains(_searchResult.toLowerCase()))
@@ -91,7 +73,7 @@ class _SortablePageState extends State<SortablePage> {
                   setState(() {
                     controller.clear();
                     _searchResult = '';
-                    usersFiltered = _allUser;
+                    widget.usersFiltered = widget.allUser;
                   });
                 },
               ),
@@ -111,7 +93,7 @@ class _SortablePageState extends State<SortablePage> {
                 showCheckboxColumn: false,
                 sortAscending: isAscending,
                 sortColumnIndex: sortColumnIndex,
-                rows: getRows(usersFiltered),
+                rows: getRows(widget.usersFiltered!),
                 columns: getColumns(columns),
                 headingRowColor: MaterialStateColor.resolveWith(
                     (states) => const Color.fromARGB(234, 235, 77, 10)),
@@ -139,10 +121,6 @@ class _SortablePageState extends State<SortablePage> {
 
   List<DataRow> getRows(List<SalvaGuardaVolunteers> users) =>
       users.map((SalvaGuardaVolunteers user) {
-        // List<DataRow> getRows(
-        //         List<User> users) => //mock para testes locais da parte visual
-        // users.map((User user) {
-        //mock para testes locais da parte visual
         final cells = [
           user.name,
           user.role,
@@ -157,24 +135,12 @@ class _SortablePageState extends State<SortablePage> {
                     MaterialPageRoute(
                         builder: (context) => VisualizarDadosTutor(
                               user: user,
-                              // userPendency: _allPendencies
-                              //     .where((e) => e.pendenciesIdUser == user.id)
-                              //     .toList(),
-                              // userActivity: _allActivities
-                              //     .where((e) => e.idUser == user.id)
-                              //     .toList(),
                             )))
                 : Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => VisualizarDadosMoniCorret(
                               user: user,
-                              // userPendency: _allPendencies
-                              //     .where((e) => e.pendenciesIdUser == user.id)
-                              //     .toList(),
-                              // userActivity: _allActivities
-                              //     .where((e) => e.idUser == user.id)
-                              //     .toList(),
                             )));
           },
         );
@@ -185,13 +151,13 @@ class _SortablePageState extends State<SortablePage> {
 
   void onSort(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
-      usersFiltered.sort(
+      widget.usersFiltered!.sort(
           (user1, user2) => compareString(ascending, user1.name, user2.name));
     } else if (columnIndex == 1) {
-      usersFiltered.sort(
+      widget.usersFiltered!.sort(
           (user1, user2) => compareString(ascending, user1.role, user2.role));
     } else if (columnIndex == 2) {
-      usersFiltered.sort((user1, user2) =>
+      widget.usersFiltered!.sort((user1, user2) =>
           compareString(ascending, '${user1.dtUpdated}', '${user2.dtUpdated}'));
     }
 
