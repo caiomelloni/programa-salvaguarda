@@ -12,10 +12,12 @@ class BackDartWorkloadRepository implements WorkLoadRepository {
     this._refreshUser,
   );
 
-  final Map<String, String> _headers = <String, String>{
-    'Content-Type': 'application/json; charset=UTF-8',
-    'Authorization': 'Bearer ${AuthService.instance.currentUser?.token}',
-  };
+  Map<String, String> _getHeaders() {
+    return <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer ${AuthService.instance.currentUser!.token}',
+    };
+  }
 
   @override
   Future<void> submitWorkLoad(
@@ -33,7 +35,7 @@ class BackDartWorkloadRepository implements WorkLoadRepository {
     };
     await http.post(
       Uri.parse("${CustomEnv.url}/workload"),
-      headers: _headers,
+      headers: _getHeaders(),
       body: req.toJson(),
     );
 
@@ -44,7 +46,7 @@ class BackDartWorkloadRepository implements WorkLoadRepository {
   Future<WorkloadModel?> getLastWorkload() async {
     var res = await http.get(
       Uri.parse("${CustomEnv.url}/workload/last"),
-      headers: _headers,
+      headers: _getHeaders(),
     );
 
     var body = JsonParser.fromJson(res.body);
@@ -56,7 +58,7 @@ class BackDartWorkloadRepository implements WorkLoadRepository {
   Future<List<WorkloadModel>> getAllWorkloads() async {
     var res = await http.get(
       Uri.parse("${CustomEnv.url}/workload"),
-      headers: _headers,
+      headers: _getHeaders(),
     );
 
     List<Map<String, dynamic>> body = JsonParser.fromJsonList(res.body);
