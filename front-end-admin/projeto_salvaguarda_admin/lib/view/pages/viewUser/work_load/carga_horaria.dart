@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:intl/intl.dart';
-import 'package:projeto_salvaguarda_admin/model/activity.dart';
-import 'package:projeto_salvaguarda_admin/services/getWorkload/get_workload_admin_permission.dart';
+import 'package:projeto_salvaguarda_admin/services/getWorkload/workload_model.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
-import 'package:projeto_salvaguarda_admin/view/components/buttons/elevated_button_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/components/page_padding_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/components/safe_area_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/components/big_text_field_description.dart';
@@ -18,8 +14,6 @@ class WorkLoadPage extends StatelessWidget {
     Key? key,
     required this.atividade,
   }) : super(key: key);
-  // const WorkLoadPage({super.key});
-  //vai receber uma argumento da classe atividade que contenha os atributos de horas, descrição e feedback
   static const pageName = "/viewActivitiesDetails";
 
   @override

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:projeto_salvaguarda_admin/services/banUser/errors/ban_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/banUser/service/ban_user_service.dart';
-import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
 
 part 'ban_store.g.dart';
 

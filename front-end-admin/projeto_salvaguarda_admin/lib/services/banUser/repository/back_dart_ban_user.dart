@@ -1,7 +1,7 @@
 import 'package:projeto_salvaguarda_admin/services/banUser/errors/ban_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/banUser/repository/ban_repository.dart';
 import 'package:projeto_salvaguarda_admin/services/banUser/requests/ban_http_request.dart';
-import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
 
 class BackDartBanUser implements BanUserRepository {
   @override

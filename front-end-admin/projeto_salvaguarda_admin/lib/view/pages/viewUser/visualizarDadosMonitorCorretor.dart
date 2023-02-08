@@ -1,40 +1,31 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:projeto_salvaguarda_admin/model/activity.dart';
-import 'package:projeto_salvaguarda_admin/model/pendency.dart';
-import 'package:projeto_salvaguarda_admin/services/banUser/errors/ban_errors.dart';
-import 'package:projeto_salvaguarda_admin/services/getPendencies/get_pendencies_from_api.dart';
-import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
-import 'package:projeto_salvaguarda_admin/services/getWorkload/get_workload_admin_permission.dart';
-import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
-import 'package:projeto_salvaguarda_admin/model/user.dart';
+import 'package:projeto_salvaguarda_admin/services/getPendencies/errors/pendencies_api_errors.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
+import 'package:projeto_salvaguarda_admin/services/getWorkload/errors/workload_api_errors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
-import 'package:projeto_salvaguarda_admin/view/components/pop-up/alert_dialog.dart';
-import 'package:projeto_salvaguarda_admin/view/pages/home/home_page.dart';
+import 'package:projeto_salvaguarda_admin/view/components/snackbar.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/components/buttonDataUser.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/components/dataUser.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_ban/ban_store.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_disable/disable_store.dart';
+import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_pendencies/pendency_api_store.dart';
+import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_workloads/workload_api_store.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/widget/ban_usuario_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/widget/disable_usuario_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/atividades.dart';
 
 BanUserController _bancontroller = BanUserController();
 DisableUserController _disablecontroller = DisableUserController();
+PendecyApiController _pendecyApiController = PendecyApiController();
+WorkloadApiController _workloadApiController = WorkloadApiController();
 
 class VisualizarDadosMoniCorret extends StatefulWidget {
-  // final SalvaGuardaVolunteers user;
   final SalvaGuardaVolunteers user;
-  // final List<PendenciesModel> userPendency;
-  // final List<Activity> userActivity;
-
   const VisualizarDadosMoniCorret({
     Key? key,
     required this.user,
-    // required this.userPendency,
-    // required this.userActivity,
   }) : super(key: key);
 
   @override
@@ -43,26 +34,9 @@ class VisualizarDadosMoniCorret extends StatefulWidget {
 }
 
 class _VisualizarDadosMoniCorretState extends State<VisualizarDadosMoniCorret> {
-  List<PendenciesModel> _allPendenciesUser = [];
-  List<WorkloadModel> _allWorkloadUser = [];
   @override
   void initState() {
     super.initState();
-
-    // fetchPendenciesModel().then((value) {
-    //   _allPendenciesUser =
-    //       value.where((e) => e.pendenciesIdUser == widget.user.id).toList();
-    //   setState(() {});
-    // });
-    fetchOneUserPendenciesModel(
-        jsonEncode({'pendencies_id_user': widget.user.id})).then((value) {
-      _allPendenciesUser = value;
-      setState(() {});
-    });
-    fetchUserWorkloadModel(widget.user.id.toString()).then((value) {
-      _allWorkloadUser = value;
-      setState(() {});
-    });
   }
 
   @override
@@ -106,26 +80,53 @@ class _VisualizarDadosMoniCorretState extends State<VisualizarDadosMoniCorret> {
                 ),
                 DataUser(info: "${widget.user.hoursWorked} Horas cumpridas"),
                 const SizedBox(
-                  height: 20,
-                ),
-                DataUser(
-                    info:
-                        "${_allPendenciesUser.where((element) => element.dtCreated.year == year).toList().length} pendência(s) neste ano"),
-                const SizedBox(
                   height: 40,
                 ),
-                ButtonDataUser(
-                  icone: Icons.volunteer_activism,
-                  texto: "visualizar atividades",
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ViewActivities(
-                                  listActivities: _allWorkloadUser,
-                                  listPendencies: _allPendenciesUser,
-                                )));
-                  },
+                Observer(
+                  builder: (context) => ButtonDataUser(
+                    icone: Icons.volunteer_activism,
+                    texto: "visualizar atividades",
+                    isLoading: _workloadApiController.isLoading,
+                    // isLoading2: _workloadApiController.isLoading,
+                    onPressed: _workloadApiController.isLoading
+                        ? () {}
+                        : () async {
+                            try {
+                              await _pendecyApiController
+                                  .tryFetchOnePendency(jsonEncode(
+                                      {'pendencies_id_user': widget.user.id}))
+                                  .then(
+                                (value) async {
+                                  value ??= [];
+                                  try {
+                                    await _workloadApiController
+                                        .tryFetchWorkloads(
+                                            widget.user.id.toString())
+                                        .then(
+                                      (valueWorkload) {
+                                        valueWorkload ??= [];
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ViewActivities(
+                                              listActivities: valueWorkload!,
+                                              listPendencies: value!,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  } on CantFetchWorkloadException catch (e) {
+                                    showSnackBar(context, e.message());
+                                  }
+                                },
+                              );
+                            } on CantFetchPendenciesException catch (e) {
+                              showSnackBar(context, e.message());
+                            }
+                          },
+                  ),
                 ),
                 const SizedBox(
                   height: 20,

@@ -1,5 +1,5 @@
 import 'package:projeto_salvaguarda_admin/services/disableUser/repository/back_dart_disable_user.dart';
-import 'package:projeto_salvaguarda_admin/services/getUsers/getUsersFromAPI.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
 
 abstract class DisableUserRepository {
   factory DisableUserRepository() {
