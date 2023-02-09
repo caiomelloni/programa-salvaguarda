@@ -122,7 +122,7 @@ class _SortablePageState extends State<SortablePage> {
         return DataRow(
           cells: getCells(cells),
           onSelectChanged: (value) {
-            (user.role == 'Tutor') //não ta indo pra onde eu quero
+            (user.role.toLowerCase() == 'tutor') //não ta indo pra onde eu quero
                 ? Navigator.push(
                     context,
                     MaterialPageRoute(

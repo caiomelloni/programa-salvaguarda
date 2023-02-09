@@ -8,6 +8,7 @@ import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/components/snackbar.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/components/buttonDataUser.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/components/dataUser.dart';
+import 'package:projeto_salvaguarda_admin/view/pages/viewUser/pendencies/pendencies.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_ban/ban_store.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_disable/disable_store.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_pendencies/pendency_api_store.dart';
@@ -85,41 +86,61 @@ class _VisualizarDadosMoniCorretState extends State<VisualizarDadosMoniCorret> {
                 Observer(
                   builder: (context) => ButtonDataUser(
                     icone: Icons.volunteer_activism,
-                    texto: "visualizar atividades",
+                    texto: "Visualizar Atividades",
                     isLoading: _workloadApiController.isLoading,
-                    // isLoading2: _workloadApiController.isLoading,
                     onPressed: _workloadApiController.isLoading
                         ? () {}
                         : () async {
                             try {
-                              await _pendecyApiController
-                                  .tryFetchOnePendency(jsonEncode(
-                                      {'pendencies_id_user': widget.user.id}))
+                              await _workloadApiController
+                                  .tryFetchWorkloads(widget.user.id.toString())
                                   .then(
-                                (value) async {
+                                (valueWorkload) {
+                                  valueWorkload ??= [];
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ViewActivities(
+                                        listActivities: valueWorkload!,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            } on CantFetchWorkloadException catch (e) {
+                              showSnackBar(context, e.message());
+                            }
+                          },
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Observer(
+                  builder: (context) => ButtonDataUser(
+                    icone: Icons.report_off,
+                    texto: "Visualizar Pendências",
+                    isLoading: _pendecyApiController.isLoading,
+                    onPressed: _pendecyApiController.isLoading
+                        ? () {}
+                        : () async {
+                            try {
+                              await _pendecyApiController
+                                  .tryFetchOnePendency(
+                                jsonEncode(
+                                    {'pendencies_id_user': widget.user.id}),
+                              )
+                                  .then(
+                                (value) {
                                   value ??= [];
-                                  try {
-                                    await _workloadApiController
-                                        .tryFetchWorkloads(
-                                            widget.user.id.toString())
-                                        .then(
-                                      (valueWorkload) {
-                                        valueWorkload ??= [];
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ViewActivities(
-                                              listActivities: valueWorkload!,
-                                              listPendencies: value!,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  } on CantFetchWorkloadException catch (e) {
-                                    showSnackBar(context, e.message());
-                                  }
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ViewPendencies(
+                                        listPendencies: value!,
+                                      ),
+                                    ),
+                                  );
                                 },
                               );
                             } on CantFetchPendenciesException catch (e) {

@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/pendencies_model.dart';
-import 'package:projeto_salvaguarda_admin/services/getWorkload/workload_model.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
 import 'package:projeto_salvaguarda_admin/view/components/page_padding_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/components/pop-up/alert_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/components/safe_area_widget.dart';
-import 'package:projeto_salvaguarda_admin/view/pages/viewUser/work_load/carga_horaria.dart';
 
-class ViewActivities extends StatelessWidget {
-  final List<WorkloadModel> listActivities;
+class ViewPendencies extends StatelessWidget {
+  final List<PendenciesModel> listPendencies;
 
-  const ViewActivities({
+  const ViewPendencies({
     Key? key,
-    required this.listActivities,
+    required this.listPendencies,
   }) : super(key: key);
-  static const pageName = "/viewActivities";
+  static const pageName = "/viewPendencies";
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +33,10 @@ class ViewActivities extends StatelessWidget {
               children: [
                 const SizedBox(height: 20),
                 const Text(
-                  "O membro registrou as seguintes atividades",
+                  "O membro possui as sequintes pendências neste ano",
                   textAlign: TextAlign.center,
                   style: TextStyle(color: AppColors.lightPurple, fontSize: 25),
                 ),
-                const SizedBox(height: 10),
                 SingleChildScrollView(
                   child: Expanded(
                     child: Container(
@@ -49,17 +46,26 @@ class ViewActivities extends StatelessWidget {
                       child: SizedBox(
                         height: 300.0,
                         child: ListView.builder(
-                          itemCount: listActivities.length,
+                          itemCount: listPendencies.length,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => WorkLoadPage(
-                                            atividade: listActivities[index],
-                                          )),
-                                );
+                                if (DateTime.now().year ==
+                                    listPendencies[index].dtCreated.year) {
+                                  showAlertDialog(
+                                      context: context,
+                                      title: "Mês pendente",
+                                      icone1: const Icon(Icons.close),
+                                      icone2: const Icon(Icons.check),
+                                      body: const Text(
+                                        "O usuário não preencheu a carga horária deste mês. Deseja dar um prazo de mais 3 dias para o preenchimento desse mês a partir de hoje?",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      twoicons: true,
+                                      onPressed1: () => Navigator.pop(context),
+                                      onPressed2: () =>
+                                          {}); // Falta aqui *************************************************
+                                }
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -93,11 +99,15 @@ class ViewActivities extends StatelessWidget {
                                                         Radius.circular(10.0)),
                                               ),
                                               child: Text(
-                                                '${listActivities[index].month}/${listActivities[index].year}',
+                                                DateFormat('dd/MM/yyyy')
+                                                    .format(
+                                                        listPendencies[index]
+                                                            .dtCreated)
+                                                    .toString(),
                                                 textAlign: TextAlign.center,
                                                 style: const TextStyle(
                                                     color: Color.fromARGB(
-                                                        156, 239, 82, 14),
+                                                        255, 255, 17, 0),
                                                     fontSize: 20),
                                                 maxLines: 1,
                                               ),
