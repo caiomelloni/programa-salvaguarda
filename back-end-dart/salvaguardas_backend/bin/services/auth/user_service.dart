@@ -75,4 +75,9 @@ class UserService implements IUserService {
   Future<UserModel?> disableUser(UserModel user) async {
     return await _userDao.disableUser(user.id!, user.isActive!);
   }
+
+  @override
+  Future<UserModel?> updateAbleCertificate(UserModel user) async {
+    return await _userDao.updateAbleCertificate(user.id!);
+  }
 }

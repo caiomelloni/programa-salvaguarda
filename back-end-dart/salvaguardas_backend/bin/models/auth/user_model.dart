@@ -15,6 +15,7 @@ class UserModel {
   DateTime? dtCreated;
   DateTime? dtUpdated;
   String? password;
+  bool? ableCertificate;
 
   UserModel({
     this.id,
@@ -30,6 +31,7 @@ class UserModel {
     this.dtCreated,
     this.dtUpdated,
     this.password,
+    this.ableCertificate,
   });
 
   UserModel.create({
@@ -108,7 +110,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, name: $name, email: $email, role: $role, university: $university, course: $course, hoursWorked: $hoursWorked, isActive: $isActive, isBanned: $isBanned, dtCreated: $dtCreated, dtUpdated: $dtUpdated)';
+    return 'UserModel(id: $id, name: $name, email: $email, role: $role, university: $university, course: $course, hoursWorked: $hoursWorked, isActive: $isActive, isBanned: $isBanned, dtCreated: $dtCreated, dtUpdated: $dtUpdated, ableCertificate: $ableCertificate)';
   }
 
   UserModel copyWith({
@@ -125,6 +127,7 @@ class UserModel {
     DateTime? dtCreated,
     DateTime? dtUpdated,
     String? password,
+    bool? ableCertificate,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -140,6 +143,7 @@ class UserModel {
       dtCreated: dtCreated ?? this.dtCreated,
       dtUpdated: dtUpdated ?? this.dtUpdated,
       password: password ?? this.password,
+      ableCertificate: ableCertificate ?? this.ableCertificate,
     );
   }
 }
