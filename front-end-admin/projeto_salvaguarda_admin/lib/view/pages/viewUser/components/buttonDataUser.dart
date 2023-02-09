@@ -6,24 +6,17 @@ class ButtonDataUser extends StatelessWidget {
   final String texto;
   final VoidCallback onPressed;
   final bool? isLoading;
-  // final bool? isLoading2;
   const ButtonDataUser({
     required this.icone,
     required this.texto,
     required this.onPressed,
     this.isLoading,
-    // this.isLoading2,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     bool isLoadingButton = isLoading ?? false;
-    // if (isLoading2 != null) {
-    //   isLoadingButton = (isLoading!) && (isLoading2!);
-    // } else {
-    //   isLoadingButton = isLoading ?? false;
-    // }
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color.fromRGBO(191, 127, 225, 100),
