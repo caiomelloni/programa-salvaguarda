@@ -12,4 +12,6 @@ abstract class IUserService {
   Future<UserModel?> updateUserWorkload(int id, int workload);
   Future<UserModel?> banUser(UserModel user);
   Future<UserModel?> disableUser(UserModel user);
+  Future<UserModel?> updateAbleCertificate(UserModel user);
+  Future<void> updateAbleAllCertificate();
 }

@@ -6,6 +6,7 @@ abstract class IAdminService {
   Future<List<AdminModel>> findAll();
   Future<AdminModel?> findOne(int id);
   Future<AdminModel> save(AdminModel user);
+
   ///returns throws auth exception if the credentials are wrong
   Future<AdminModel?> authenticate(AuthTo authTo);
 }

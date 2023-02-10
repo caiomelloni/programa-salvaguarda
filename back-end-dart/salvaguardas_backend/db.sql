@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `dart`.`users` (
   `hours_worked` INT NULL DEFAULT 0,
   `is_active` TINYINT NULL DEFAULT 1,
   `is_banned` TINYINT NULL DEFAULT 0,
+  `able_certificate` TINYINT NULL DEFAULT 0,
   `dt_create` datetime DEFAULT CURRENT_TIMESTAMP,
   `dt_update` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))

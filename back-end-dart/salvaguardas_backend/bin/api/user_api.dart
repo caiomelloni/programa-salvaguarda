@@ -89,28 +89,6 @@ class UserApi extends Api {
       }
     });
 
-    // router.post("/user/banUser", (Request req) async {
-    //   //verifica se é admin
-    //   RequestContext context = RequestContext.fromRequest(req.headers);
-    //   if (!context.isAdmin) return Response.forbidden("Not Authorized");
-    //   late UserModel user;
-
-    //   //verifica se o formato do body é correto
-    //   try {
-    //     var r = await req.readAsString();
-    //     print(r);
-    //     user = UserModel.fromUserStateRequest(JsonParser.fromJson(r));
-    //   } on Exception {
-    //     return Response.badRequest();
-    //   }
-
-    //   UserModel? updatedBanUser = await _userService.banUser(user);
-
-    //   return updatedBanUser == null
-    //       ? Response.badRequest()
-    //       : Response.ok(updatedBanUser.toJson());
-    // });
-
     router.patch("/user/banUser", (Request req) async {
       //verifica se é admin
       RequestContext context = RequestContext.fromRequest(req.headers);
@@ -129,27 +107,6 @@ class UserApi extends Api {
       }
     });
 
-    // router.post("/user/disableUser", (Request req) async {
-    //   //verifica se é admin
-    //   RequestContext context = RequestContext.fromRequest(req.headers);
-    //   if (!context.isAdmin) return Response.forbidden("Not Authorized");
-    //   late UserModel user;
-
-    //   //verifica se o formato do body é correto
-    //   try {
-    //     var r = await req.readAsString();
-    //     print(r);
-    //     user = UserModel.fromUserStateRequest(JsonParser.fromJson(r));
-    //   } on Exception {
-    //     return Response.badRequest();
-    //   }
-
-    //   UserModel? updatedBanUser = await _userService.disableUser(user);
-
-    //   return updatedBanUser == null
-    //       ? Response.badRequest()
-    //       : Response.ok(updatedBanUser.toJson());
-    // });
     router.patch("/user/disableUser", (Request req) async {
       //verifica se é admin
       RequestContext context = RequestContext.fromRequest(req.headers);
@@ -163,6 +120,34 @@ class UserApi extends Api {
         );
         user = await _userService.disableUser(user!);
         return Response.ok(user!.toJson());
+      } catch (e) {
+        return Response.badRequest();
+      }
+    });
+
+    router.patch("/user/admin/certificate", (Request req) async {
+      //verifica se é admin
+      RequestContext context = RequestContext.fromRequest(req.headers);
+      if (!context.isAdmin) return Response.forbidden("Not Authorized");
+
+      try {
+        var body = JsonParser.fromJson(await req.readAsString());
+        var user = await _userService.findOne(body['id']);
+
+        var updatedUser = await _userService.updateAbleCertificate(user!);
+        return Response.ok(updatedUser!.toJson());
+      } catch (e) {
+        return Response.badRequest();
+      }
+    });
+
+    router.patch("/user/admin/all/certificate", (Request req) async {
+      try {
+        RequestContext context = RequestContext.fromRequest(req.headers);
+        if (!context.isAdmin) return Response.forbidden("Not Authorized");
+        await _userService.updateAbleAllCertificate();
+
+        return Response.ok("Certificados habilitados para todo os voluntarios");
       } catch (e) {
         return Response.badRequest();
       }

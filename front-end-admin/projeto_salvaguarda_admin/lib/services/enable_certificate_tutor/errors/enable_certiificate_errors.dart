@@ -14,3 +14,15 @@ class CantEnableException implements EnableCertificateErros, Exception {
     return "Ocorreu um erro ao habilitar o cerficado para este usuário este usuário";
   }
 }
+
+class CantEnableAllException implements EnableCertificateErros, Exception {
+  @override
+  String errorTitle() {
+    return "Erro!";
+  }
+
+  @override
+  String message() {
+    return "Ocorreu um erro ao habilitar o cerficado para Todos os colaboradores";
+  }
+}
