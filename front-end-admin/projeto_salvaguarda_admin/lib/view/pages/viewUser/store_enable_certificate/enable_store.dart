@@ -24,4 +24,16 @@ abstract class _EnableCertificateController with Store {
       isLoading = false;
     }
   }
+
+  @action
+  Future<void> tryEnableAllCertificateUser() async {
+    isLoading = true;
+    try {
+      await EnableCertificateService.service.requestEnableAllCertificate();
+    } on CantEnableAllException {
+      rethrow;
+    } finally {
+      isLoading = false;
+    }
+  }
 }

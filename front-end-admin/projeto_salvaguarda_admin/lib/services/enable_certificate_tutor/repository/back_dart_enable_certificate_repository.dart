@@ -11,4 +11,10 @@ class BackDartEnableCertificateUser implements EnableCertificateRepository {
         await EnableCertificateHttpRequest.requestEnableCertificate(user);
     //tratar erro
   }
+
+  @override
+  Future<void> requestEnableAllCertificate() async {
+    var body = await EnableCertificateHttpRequest.requestEnableAllCertificate();
+    //tratar erro
+  }
 }

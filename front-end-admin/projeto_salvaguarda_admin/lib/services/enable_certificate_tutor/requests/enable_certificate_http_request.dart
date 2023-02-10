@@ -23,4 +23,14 @@ class EnableCertificateHttpRequest {
 
     return body;
   }
+
+  static Future<void> requestEnableAllCertificate() async {
+    final response = await http.patch(
+      Uri.parse('${CustomEnv.url}/user/admin/all/certificate'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ${AuthService.admToken}',
+      },
+    );
+  }
 }

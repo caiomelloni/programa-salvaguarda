@@ -7,4 +7,5 @@ abstract class EnableCertificateRepository {
   }
 
   Future<void> requestEnableCertificate(SalvaGuardaVolunteers user);
+  Future<void> requestEnableAllCertificate();
 }

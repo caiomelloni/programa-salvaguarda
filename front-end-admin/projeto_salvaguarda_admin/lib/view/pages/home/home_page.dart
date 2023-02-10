@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:projeto_salvaguarda_admin/services/auth/service/auth_service.dart';
+import 'package:projeto_salvaguarda_admin/services/enable_certificate_tutor/errors/enable_certiificate_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/errors/users_api_errors.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
@@ -12,10 +13,15 @@ import 'package:projeto_salvaguarda_admin/view/components/snackbar.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/home/components/home_big_button.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/pendencias/tabelaPendenciasMeses.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/sortable_page.dart';
+import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_enable_certificate/enable_store.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_users/users_api_store.dart';
+import 'package:projeto_salvaguarda_admin/view/pages/viewUser/widget/enable_all_certificate_tutor_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/widget/tabbar_widget.dart';
 
-UserApiController _userApiController = UserApiController();
+UserApiController _userApiController1 = UserApiController();
+UserApiController _userApiController2 = UserApiController();
+EnableCertificateController _enableCertificateController =
+    EnableCertificateController();
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -46,12 +52,12 @@ class HomePage extends StatelessWidget {
                         builder: (context) => HomeBigButton(
                           icone: Icons.groups,
                           texto: "Acessar lista de colaboradores",
-                          isLoading: _userApiController.isLoading,
-                          onPressed: _userApiController.isLoading
+                          isLoading: _userApiController1.isLoading,
+                          onPressed: _userApiController1.isLoading
                               ? () {}
                               : () async {
                                   try {
-                                    var users = await _userApiController
+                                    var users = await _userApiController1
                                         .tryFetchUsers()
                                         .then(
                                       (value) {
@@ -90,12 +96,12 @@ class HomePage extends StatelessWidget {
                         builder: (context) => HomeBigButton(
                           icone: Icons.announcement,
                           texto: "Acessar pendências",
-                          isLoading: _userApiController.isLoading,
-                          onPressed: _userApiController.isLoading
+                          isLoading: _userApiController2.isLoading,
+                          onPressed: _userApiController2.isLoading
                               ? () {}
                               : () async {
                                   try {
-                                    await _userApiController
+                                    await _userApiController2
                                         .tryFetchUsers()
                                         .then(
                                       (value) {
@@ -120,7 +126,32 @@ class HomePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
+                ),
+                const SizedBox(height: 20),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Observer(
+                        builder: (context) => HomeBigButton(
+                          icone: Icons.playlist_add_check,
+                          texto: "Habilitar Todos os Certificados",
+                          isLoading: _enableCertificateController.isLoading,
+                          onPressed: _enableCertificateController.isLoading
+                              ? () {}
+                              : () async {
+                                  try {
+                                    enableAllCertificateUsuario(
+                                        context, _enableCertificateController);
+                                  } on CantEnableAllException catch (e) {
+                                    showSnackBar(context, e.message());
+                                  }
+                                },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

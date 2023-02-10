@@ -35,6 +35,16 @@ mixin _$EnableCertificateController on _EnableCertificateController, Store {
         .run(() => super.tryEnableCertificateUser(user));
   }
 
+  late final _$tryEnableAllCertificateUserAsyncAction = AsyncAction(
+      '_EnableCertificateController.tryEnableAllCertificateUser',
+      context: context);
+
+  @override
+  Future<void> tryEnableAllCertificateUser() {
+    return _$tryEnableAllCertificateUserAsyncAction
+        .run(() => super.tryEnableAllCertificateUser());
+  }
+
   @override
   String toString() {
     return '''

@@ -4,16 +4,16 @@ import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_voluntee
 import 'package:projeto_salvaguarda_admin/view/components/pop-up/alert_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_enable_certificate/enable_store.dart';
 
-void enableCertificateUsuario(BuildContext context,
-    EnableCertificateController _controller, SalvaGuardaVolunteers user) {
+void enableAllCertificateUsuario(
+    BuildContext context, EnableCertificateController _controller) {
   showAlertDialog(
     context: context,
     title:
-        "Você tem certeza que deseja habilitar o certificado para este usuário?",
+        "Você tem certeza que deseja habilitar o certificado para TODOS os usuários?",
     icone1: const Icon(Icons.close),
     icone2: const Icon(Icons.check),
     body: const Text(
-      "Esta ação irá liberar a requisição do certificado de participação do projeto para este usuário",
+      "Esta ação irá liberar a requisição do certificado de participação do programa para TODOS os usuários. Está é uma ação permanente, tenha certeza antes de confirmar",
       textAlign: TextAlign.center,
     ),
     twoicons: true,
@@ -22,18 +22,16 @@ void enableCertificateUsuario(BuildContext context,
       Navigator.pop(context);
 
       try {
-        await _controller.tryEnableCertificateUser(user);
+        await _controller.tryEnableAllCertificateUser();
         showAlertDialog(
           context: context,
-          title: "Usuário habilitado!",
+          title: "Certificados habilitados!",
           body: const Text(
-            "O usuário está habilitado a requisitar o certificado de participação no programa SalvaGuarda",
+            "TODOS os usuário estão habilitados para requisitar o certificado de participação no programa SalvaGuarda",
             textAlign: TextAlign.center,
           ),
           icone1: const Icon(Icons.check),
           icone2: const Icon(Icons.check),
-          // onPressed1: () => Navigator.pushReplacement(
-          //     context, MaterialPageRoute(builder: (context) => HomePage())),
           onPressed1: () => Navigator.pop(context),
         );
       } on CantEnableException catch (e) {
