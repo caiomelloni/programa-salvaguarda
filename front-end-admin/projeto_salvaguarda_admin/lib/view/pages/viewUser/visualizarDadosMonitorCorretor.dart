@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:projeto_salvaguarda_admin/services/banUser/errors/ban_errors.dart';
+import 'package:projeto_salvaguarda_admin/services/disableUser/errors/disable_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/errors/pendencies_api_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
 import 'package:projeto_salvaguarda_admin/services/getWorkload/errors/workload_api_errors.dart';
@@ -159,8 +161,14 @@ class _VisualizarDadosMoniCorretState extends State<VisualizarDadosMoniCorret> {
                     isLoading: _disablecontroller.isLoading,
                     onPressed: _disablecontroller.isLoading
                         ? () {}
-                        : () => disableUsuario(
-                            context, _disablecontroller, widget.user),
+                        : () {
+                            try {
+                              disableUsuario(
+                                  context, _disablecontroller, widget.user);
+                            } on CantDisableException catch (e) {
+                              showSnackBar(context, e.message());
+                            }
+                          },
                   ),
                 ),
                 const SizedBox(
@@ -173,8 +181,13 @@ class _VisualizarDadosMoniCorretState extends State<VisualizarDadosMoniCorret> {
                     isLoading: _bancontroller.isLoading,
                     onPressed: _bancontroller.isLoading
                         ? () {}
-                        : () =>
-                            banUsuario(context, _bancontroller, widget.user),
+                        : () {
+                            try {
+                              banUsuario(context, _bancontroller, widget.user);
+                            } on CantBanUser catch (e) {
+                              showSnackBar(context, e.message());
+                            }
+                          },
                   ),
                 ),
                 const SizedBox(

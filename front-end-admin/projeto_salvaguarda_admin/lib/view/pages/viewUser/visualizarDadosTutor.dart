@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter/material.dart';
+import 'package:projeto_salvaguarda_admin/services/banUser/errors/ban_errors.dart';
+import 'package:projeto_salvaguarda_admin/services/disableUser/errors/disable_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/enable_certificate_tutor/errors/enable_certiificate_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/errors/pendencies_api_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
@@ -185,8 +187,14 @@ class _VisualizarDadosTutorState extends State<VisualizarDadosTutor> {
                     isLoading: _disablecontroller.isLoading,
                     onPressed: _disablecontroller.isLoading
                         ? () {}
-                        : () => disableUsuario(
-                            context, _disablecontroller, widget.user),
+                        : () {
+                            try {
+                              disableUsuario(
+                                  context, _disablecontroller, widget.user);
+                            } on CantDisableException catch (e) {
+                              showSnackBar(context, e.message());
+                            }
+                          },
                   ),
                 ),
                 const SizedBox(
@@ -199,8 +207,13 @@ class _VisualizarDadosTutorState extends State<VisualizarDadosTutor> {
                     isLoading: _bancontroller.isLoading,
                     onPressed: _bancontroller.isLoading
                         ? () {}
-                        : () =>
-                            banUsuario(context, _bancontroller, widget.user),
+                        : () {
+                            try {
+                              banUsuario(context, _bancontroller, widget.user);
+                            } on CantBanUser catch (e) {
+                              showSnackBar(context, e.message());
+                            }
+                          },
                   ),
                 ),
                 const SizedBox(
