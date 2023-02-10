@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_salvaguarda_admin/services/enable_certificate_tutor/errors/enable_certiificate_errors.dart';
+import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
 import 'package:projeto_salvaguarda_admin/view/components/pop-up/alert_dialog.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/viewUser/store_enable_certificate/enable_store.dart';
 
-void enableCertificateUsuario(
-    BuildContext context, EnableCertificateController _controller) {
+void enableCertificateUsuario(BuildContext context,
+    EnableCertificateController _controller, SalvaGuardaVolunteers user) {
   showAlertDialog(
     context: context,
     title:
@@ -21,7 +22,7 @@ void enableCertificateUsuario(
       Navigator.pop(context);
 
       try {
-        await _controller.tryEnableCertificateUser();
+        await _controller.tryEnableCertificateUser(user);
         showAlertDialog(
           context: context,
           title: "Usuário habilitado!",

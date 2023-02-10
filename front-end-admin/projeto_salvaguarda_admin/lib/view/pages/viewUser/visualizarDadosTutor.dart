@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter/material.dart';
+import 'package:projeto_salvaguarda_admin/services/enable_certificate_tutor/errors/enable_certiificate_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/errors/pendencies_api_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/getUsers/salvaGuarda_volunteers_model.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
@@ -95,8 +96,14 @@ class _VisualizarDadosTutorState extends State<VisualizarDadosTutor> {
                     isLoading: _enableCertificateController.isLoading,
                     onPressed: _enableCertificateController.isLoading
                         ? () {}
-                        : () => enableCertificateUsuario(
-                            context, _enableCertificateController),
+                        : () {
+                            try {
+                              enableCertificateUsuario(context,
+                                  _enableCertificateController, widget.user);
+                            } on CantEnableException catch (e) {
+                              showSnackBar(context, e.message());
+                            }
+                          },
                   ),
                 ),
                 const SizedBox(

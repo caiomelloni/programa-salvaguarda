@@ -30,9 +30,9 @@ mixin _$EnableCertificateController on _EnableCertificateController, Store {
       context: context);
 
   @override
-  Future<void> tryEnableCertificateUser() {
+  Future<void> tryEnableCertificateUser(SalvaGuardaVolunteers user) {
     return _$tryEnableCertificateUserAsyncAction
-        .run(() => super.tryEnableCertificateUser());
+        .run(() => super.tryEnableCertificateUser(user));
   }
 
   @override
