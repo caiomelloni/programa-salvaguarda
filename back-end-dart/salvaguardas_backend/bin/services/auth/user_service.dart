@@ -80,4 +80,9 @@ class UserService implements IUserService {
   Future<UserModel?> updateAbleCertificate(UserModel user) async {
     return await _userDao.updateAbleCertificate(user.id!);
   }
+
+  @override
+  Future<void> updateAbleAllCertificate() async {
+    return await _userDao.updateAbleAllCertificate();
+  }
 }

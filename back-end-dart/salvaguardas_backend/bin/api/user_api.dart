@@ -141,6 +141,18 @@ class UserApi extends Api {
       }
     });
 
+    router.patch("/user/admin/all/certificate", (Request req) async {
+      try {
+        RequestContext context = RequestContext.fromRequest(req.headers);
+        if (!context.isAdmin) return Response.forbidden("Not Authorized");
+        await _userService.updateAbleAllCertificate();
+
+        return Response.ok("Certificados habilitados para todo os voluntarios");
+      } catch (e) {
+        return Response.badRequest();
+      }
+    });
+
     return router;
   }
 }

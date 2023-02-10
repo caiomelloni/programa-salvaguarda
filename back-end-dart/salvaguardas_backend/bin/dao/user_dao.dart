@@ -137,4 +137,9 @@ class UserDAO extends DAO<UserModel> {
 
     return findOne(id);
   }
+
+  Future<void> updateAbleAllCertificate() async {
+    var sql = "UPDATE users SET able_certificate = 1 WHERE id > 0";
+    await dbConfig.execQuery(sql);
+  }
 }
