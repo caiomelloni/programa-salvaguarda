@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:projeto_salvaguarda_admin/services/enableRegisterPendentWorload/service/enable_late_pendendy_service.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/errors/pendencies_api_errors.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/pendencies_model.dart';
 import 'package:projeto_salvaguarda_admin/services/getPendencies/service/pendencies_api_service.dart';
@@ -28,6 +29,19 @@ abstract class _PendecyApiController with Store {
     isLoading = true;
     try {
       return await PendenciesApiService.service.requestGetAllPendencies();
+    } on CantFetchPendenciesException {
+      rethrow;
+    } finally {
+      isLoading = false;
+    }
+  }
+
+  @action
+  Future<PendenciesModel?> tryUpdateRegisterPendency(int id) async {
+    isLoading = true;
+    try {
+      return await EnableUserRegisterLatePendencyService.service
+          .requestEnableRegisterLatePendencyUser(id);
     } on CantFetchPendenciesException {
       rethrow;
     } finally {

@@ -44,6 +44,16 @@ mixin _$PendecyApiController on _PendecyApiController, Store {
         .run(() => super.tryFetchPendencies());
   }
 
+  late final _$tryUpdateRegisterPendencyAsyncAction = AsyncAction(
+      '_PendecyApiController.tryUpdateRegisterPendency',
+      context: context);
+
+  @override
+  Future<PendenciesModel?> tryUpdateRegisterPendency(int id) {
+    return _$tryUpdateRegisterPendencyAsyncAction
+        .run(() => super.tryUpdateRegisterPendency(id));
+  }
+
   @override
   String toString() {
     return '''
