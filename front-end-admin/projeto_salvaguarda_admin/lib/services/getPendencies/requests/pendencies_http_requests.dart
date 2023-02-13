@@ -10,7 +10,7 @@ class PendencyHttpRequests {
       Uri.parse('${CustomEnv.url}/pendencies/admin'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer ${AuthService.admToken}',
+        'Authorization': 'Bearer ${AuthService.instance.currentUser!.token}',
       },
     );
 
@@ -25,7 +25,8 @@ class PendencyHttpRequests {
         await http.post(Uri.parse('${CustomEnv.url}/pendencies/admin/pendency'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
-              'Authorization': 'Bearer ${AuthService.admToken}',
+              'Authorization':
+                  'Bearer ${AuthService.instance.currentUser!.token}',
             },
             body: body);
 

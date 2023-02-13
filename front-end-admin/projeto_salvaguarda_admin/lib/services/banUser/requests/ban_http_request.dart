@@ -18,7 +18,7 @@ class BanHttpRequest {
     var res = await http.patch(Uri.parse("${CustomEnv.url}/user/banUser"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer ${AuthService.admToken}',
+          'Authorization': 'Bearer ${AuthService.instance.currentUser!.token}',
         },
         body: req.toJson());
     var body = JsonParser.fromJson(res.body);
