@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 import 'package:projeto_salvaguarda_admin/view/components/app_bar_profile.dart';
@@ -8,6 +9,7 @@ import 'package:projeto_salvaguarda_admin/view/components/safe_area_widget.dart'
 import 'package:projeto_salvaguarda_admin/view/components/snackbar.dart';
 import 'package:projeto_salvaguarda_admin/view/components/text_form_field_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/edit_adm_profile/store/edit_profile_store.dart';
+import 'package:projeto_salvaguarda_admin/view/pages/signup/store/utils/card_formater.dart';
 
 final _controller = EditProfileController();
 
@@ -48,6 +50,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   labelText: "telefone",
                   primaryColor: AppColors.lightPurple,
                   controller: _controller.telefoneController,
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(
+                      RegExp('[, .]'),
+                    ),
+                    CardFormatter(
+                      sample: '(xx)xxxxx-xxxx',
+                      separator: ['(', ')', '-'],
+                    )
+                  ],
                 ),
                 TextFormFieldWidget(
                   labelText: "entrada",

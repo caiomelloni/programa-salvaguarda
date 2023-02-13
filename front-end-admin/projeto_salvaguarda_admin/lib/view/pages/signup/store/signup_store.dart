@@ -58,17 +58,24 @@ abstract class _SignUpController with Store {
       isLoading = false;
       return signedUp;
     }
+    if (senha != senhaConfirmada) {
+      showSnackBar(context, "senhas não são iguais");
+      signedUp = false;
+      isLoading = false;
+      return signedUp;
+    }
+    if (senha!.length < 6) {
+      showSnackBar(context, "Senha possui menos do que 6 caracteres");
+      signedUp = false;
+      isLoading = false;
+      return signedUp;
+    }
     try {
       await AuthService.service.signUp(
           nome!, sobrenome!, email!, telefone!, senha!, senhaConfirmada);
       signedUp = true;
     } on AuthException catch (e) {
       showSnackBar(context, e.message());
-    }
-
-    if (senha != senhaConfirmada) {
-      signedUp = false;
-      showSnackBar(context, "senhas não são iguais");
     }
 
     isLoading = false;

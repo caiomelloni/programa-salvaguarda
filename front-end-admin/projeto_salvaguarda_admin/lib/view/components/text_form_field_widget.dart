@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/src/services/text_formatter.dart';
 import 'package:projeto_salvaguarda_admin/theme/app_colors.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
@@ -9,6 +10,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final void Function(String value)? onChanged;
   final bool? enabled;
   final bool hide;
+  final List<TextInputFormatter>? inputFormatters;
   const TextFormFieldWidget({
     Key? key,
     this.labelText,
@@ -18,6 +20,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.onChanged,
     this.hide = false,
     this.enabled,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -45,6 +48,7 @@ class TextFormFieldWidget extends StatelessWidget {
       style: TextStyle(fontSize: 20, color: primaryColor),
       cursorColor: primaryColor,
       onChanged: (value) => onChanged?.call(value),
+      inputFormatters: inputFormatters,
     );
   }
 }
