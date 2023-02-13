@@ -17,28 +17,18 @@ class PendenciesApi extends Api {
   }) {
     Router router = Router();
 
-    router.post("/pendencies", (Request req) async {
-      late PendenciesModel pendencies;
+    router.patch("/pendencies/update", (Request req) async {
+      //verifica se é admin
+      RequestContext context = RequestContext.fromRequest(req.headers);
+      if (!context.isAdmin) return Response.forbidden("Not Authorized");
 
-      //verifica se o formato do body é correto
       try {
-        pendencies = PendenciesModel.fromJson(await req.readAsString());
-      } on Exception {
+        var body = JsonParser.fromJson(await req.readAsString());
+        var result = await _pendenciesService.updatePendency(body['id']);
+        return Response.ok(result!.toJson());
+      } catch (e) {
         return Response.badRequest();
       }
-      RequestContext context = RequestContext(req.context);
-
-      //verificar se o user tenta atualizar um pendencies com o id dele
-      if (pendencies.pendenciesIdUser != context.userID) {
-        return Response.forbidden('You cant update a pendency that isnt yours');
-      }
-
-      PendenciesModel? updatePendencie =
-          await _pendenciesService.save(pendencies);
-
-      return updatePendencie == null
-          ? Response.badRequest()
-          : Response.ok(updatePendencie.toJson());
     });
 
     ///get all pendencies registers from a user

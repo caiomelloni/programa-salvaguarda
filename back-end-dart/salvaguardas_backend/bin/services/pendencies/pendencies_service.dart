@@ -31,12 +31,17 @@ class PendenciesService implements IpendenciesService {
     if (pendencySearch == null) {
       return await _pendenciesDAO.create(pendency);
     } else {
-      return await _pendenciesDAO.update(pendency);
+      return pendencySearch;
     }
   }
 
   @override
   Future<List<PendenciesModel>>? findOneByUserIdService(int idUser) {
     return _pendenciesDAO.findOneByUserId(idUser);
+  }
+
+  @override
+  Future<PendenciesModel?> updatePendency(int id) async {
+    return await _pendenciesDAO.updateOnePendncy(id);
   }
 }

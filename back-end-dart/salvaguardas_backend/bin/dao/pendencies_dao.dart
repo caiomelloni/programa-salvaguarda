@@ -10,6 +10,12 @@ class PendenciesDao extends DAO<PendenciesModel> {
     throw UnimplementedError();
   }
 
+  @override
+  Future<PendenciesModel> update(PendenciesModel value) {
+    // TODO: implement update
+    throw UnimplementedError();
+  }
+
   //return one pendency based on the id
   @override
   Future<PendenciesModel?> findOne(int id) async {
@@ -51,22 +57,17 @@ class PendenciesDao extends DAO<PendenciesModel> {
   }
 
   //update a pendency in order to indicate it's resolved
-  @override
-  Future<PendenciesModel> update(PendenciesModel value) async {
-    var sql =
-        "update pendencies set pending = 0 where pendencies_id_user = :userId and month = :month and year = :year";
+  Future<PendenciesModel> updateOnePendncy(int id) async {
+    var sql = "update pendencies set pending = 0 where id = :id";
 
     dbConfig.execQuery(
       sql,
       {
-        "userId": value.pendenciesIdUser,
-        "month": value.month,
-        "year": value.year,
+        "id": id,
       },
     );
 
-    return (await findByDate(
-        value.month, value.year, value.pendenciesIdUser!))!;
+    return (await findById(id));
   }
 
   Future<List<PendenciesModel>> findOneByUserId(int pendencies_id_user) async {
@@ -87,6 +88,12 @@ class PendenciesDao extends DAO<PendenciesModel> {
   Future<PendenciesModel> getLastCreated() async {
     var sql = "select * from pendencies order by id desc limit 1";
     var result = await dbConfig.execQuery(sql);
+    return PendenciesModel.fromDB(result.first);
+  }
+
+  Future<PendenciesModel> findById(int id) async {
+    var sql = "select * from pendencies where id = :id";
+    var result = await dbConfig.execQuery(sql, {"id": id});
     return PendenciesModel.fromDB(result.first);
   }
 
