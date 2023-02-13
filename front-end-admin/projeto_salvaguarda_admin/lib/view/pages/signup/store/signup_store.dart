@@ -70,6 +70,10 @@ abstract class _SignUpController with Store {
       signedUp = false;
       showSnackBar(context, "senhas não são iguais");
     }
+    if (senha!.length < 6) {
+      signedUp = false;
+      showSnackBar(context, "Senha possui menos do que 6 caracteres");
+    }
 
     isLoading = false;
 

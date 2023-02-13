@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:projeto_salvaguarda_admin/view/components/buttons/elevated_button_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/components/page_padding_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/components/safe_area_widget.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/signup/components/signup_textfield.dart';
 import 'package:projeto_salvaguarda_admin/view/pages/signup/store/signup_store.dart';
+import 'package:projeto_salvaguarda_admin/view/pages/signup/store/utils/card_formater.dart';
 
 final _controller = SignUpController();
 
@@ -41,10 +43,22 @@ class _SignUpPageState extends State<SignUpPage> {
                     onChanged: (value) => _controller.setSobrenome(value)),
                 SignUpTextField(
                     label: "Email",
+                    keyboardType: TextInputType.emailAddress,
                     onChanged: (value) => _controller.setEmail(value)),
                 SignUpTextField(
-                    label: "Telefone",
-                    onChanged: (value) => _controller.setTelefone(value)),
+                  label: "Telefone",
+                  onChanged: (value) => _controller.setTelefone(value),
+                  keyboardType: TextInputType.phone,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(
+                      RegExp('[, .]'),
+                    ),
+                    CardFormatter(
+                      sample: '(xx)xxxxx-xxxx',
+                      separator: ['(', ')', '-'],
+                    )
+                  ],
+                ),
                 SignUpTextField(
                   label: "Senha",
                   onChanged: (value) => _controller.senha = value,
