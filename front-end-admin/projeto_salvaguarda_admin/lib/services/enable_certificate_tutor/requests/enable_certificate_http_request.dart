@@ -16,7 +16,8 @@ class EnableCertificateHttpRequest {
         await http.patch(Uri.parse("${CustomEnv.url}/user/admin/certificate"),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
-              'Authorization': 'Bearer ${AuthService.admToken}',
+              'Authorization':
+                  'Bearer ${AuthService.instance.currentUser!.token}',
             },
             body: req.toJson());
     var body = JsonParser.fromJson(res.body);
@@ -29,7 +30,7 @@ class EnableCertificateHttpRequest {
       Uri.parse('${CustomEnv.url}/user/admin/all/certificate'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': 'Bearer ${AuthService.admToken}',
+        'Authorization': 'Bearer ${AuthService.instance.currentUser!.token}',
       },
     );
   }
