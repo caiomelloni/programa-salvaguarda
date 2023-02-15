@@ -29,7 +29,8 @@ void main(List<String> arguments) async {
 
   var handler = Pipeline()
       .addMiddleware(logRequests())
-      .addMiddleware(DefaultResponseProps().middleware)
+      .addMiddleware(DefaultResponseProps.jsonResponse)
+      .addMiddleware(DefaultResponseProps.cors)
       .addHandler(cascadeHandler);
 
   await CustomServer().initialize(handler);
